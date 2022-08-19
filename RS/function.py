@@ -1,0 +1,525 @@
+from curses import KEY_A1
+import json
+import pandas as pd
+import dao 
+import numpy
+from difflib import SequenceMatcher
+from math import*
+#-*- coding: utf-8 -*-
+
+# 1. Find courses studied
+def Find_Courses_Studied(email):
+    conn = dao.create_connection()
+    df_Learner = dao.select_l(conn)
+    df_Learner = df_Learner[df_Learner['email'] == email]
+    df_Learner = df_Learner.reset_index(drop=True)
+    learner_id = df_Learner['learnerID'][0]
+    
+    df_Invoice = dao.select_invoice(conn)
+
+    # df_Invoice['TotalPrice'] = df_Invoice['Quality'] * df_Invoice['ItemPrice']
+    df_loc_his = df_Invoice.copy()
+    
+    df_loc_his = df_loc_his.loc[df_loc_his.LearnerID == learner_id]  
+    lst_courses_studied = []
+    for i, r in df_loc_his.iterrows():
+        if r['CourseID'] not in lst_courses_studied:
+            lst_courses_studied.append(r['CourseID'])
+    lst_courses_studied.sort()
+    return lst_courses_studied
+
+# 2. Find Skills Job Requirement
+def Find_Skill_Weight(occupation):
+    f = open('Rule_Job.json',)
+    data = json.loads(f.read())
+    d_skill = {}
+    for i in data:
+        # if i['id'] == occupation:
+        if i['job'] == occupation:
+            d_skill = i['skill']
+    return d_skill 
+
+# 3. Find Skill User Missing
+def FindMissingSkill(df_attribute_requirement):
+    occupation = df_attribute_requirement.Occupation[0] 
+    d_skill = Find_Skill_Weight(occupation)
+    lst_weight_sort = sorted(d_skill, key = d_skill.get, reverse=True)
+    
+    skill_now_learner = []
+    for id, row in df_attribute_requirement.iterrows():
+        for tec in row.loc['technologySkill'].split(', '):
+            if tec != '' and tec not in skill_now_learner:
+                skill_now_learner.append(tec)
+    skill_now_learner.sort()
+    
+    missing_skill = lst_weight_sort
+    common_l = list(set(skill_now_learner) & set(missing_skill))
+    if len(common_l) > 0:
+        for i in common_l:
+            missing_skill.remove(i)
+    return missing_skill
+
+# 4. Find courses contains skills user missing
+def FindCourseFromMissingSkill(df, df_attribute_requirement):  
+    missing_skill = FindMissingSkill(df_attribute_requirement)
+    
+    df_Course_Filter = pd.DataFrame()
+    
+    if len(missing_skill) > 0:
+        TEMP = pd.get_dummies(missing_skill, dtype=int)
+        df_Course_Filter = df[['courseID','courseTitle','technologySkill']]
+        df_Course_Filter = df_Course_Filter.join(TEMP)
+        df_Course_Filter = df_Course_Filter.astype(str)
+
+        skill = df_Course_Filter.columns[3:].tolist()
+        
+        for id, row in df_Course_Filter.iterrows():
+            for k in range(len(skill)):
+                df_Course_Filter.at[id,skill[k]] = '0'
+
+        for id, row in df_Course_Filter.iterrows():
+            for tec in row.loc['technologySkill'].split(', '):
+                if (tec != ''):
+                    for k in range(len(skill)):
+                        if (tec.strip() != skill[k].strip()):
+                            continue
+                        else:
+                            df_Course_Filter.at[id,skill[k]] = '1'
+            
+        count_row = df_Course_Filter.shape[0]
+        for i in range(count_row):
+            skillset = ""
+            for k in range(len(skill)):
+                b = int(df_Course_Filter.at[i, skill[k]])
+                if b > 0:
+                    if skillset == "":
+                        skillset = skill[k]
+                    else:
+                        skillset = skillset + ", " + skill[k]
+            df_Course_Filter.at[i, 'Tech_Skill'] = skillset
+        
+        skills=df_Course_Filter["Tech_Skill"]
+        skills=skills.str.split(", ") 
+        for i, s in enumerate(skills):
+            if ('' not in s):
+                df_Course_Filter.at[i, 'Num_Skill'] = len(s)
+            else:
+                df_Course_Filter.at[i, 'Num_Skill'] = '0'
+        
+        df_Course_Filter.Num_Skill = df_Course_Filter.Num_Skill.apply(lambda x : int(x))
+        df_Course_Filter = df_Course_Filter.loc[df_Course_Filter['Num_Skill'] > 0] 
+
+        occupation = df_attribute_requirement.Occupation[0]
+        d_skill = Find_Skill_Weight(occupation)
+        for id, row in df_Course_Filter.iterrows():
+            sum_weight = 0
+            for tec in row.loc['Tech_Skill'].split(', '):
+                if (tec != ''):
+                    for key, value in d_skill.items():
+                        if tec == key:
+                            sum_weight += value
+                        else:
+                            continue  
+            df_Course_Filter.at[id, 'Sum_Weight'] = sum_weight
+            
+            lst_A = []
+            lst_B = []
+            for tec in row.loc['technologySkill'].split(', '):
+                if tec != '' and tec not in lst_A:
+                    lst_A.append(tec)
+            
+            for tec in row.loc['Tech_Skill'].split(', '):
+                if tec != '' and tec not in lst_B:
+                    lst_B.append(tec)
+                
+            for i in lst_B:
+                for j in lst_A:
+                    if j in i:
+                        lst_A.remove(j)
+            df_Course_Filter.at[id,'Tech_Remain'] = ", ".join(lst_A)
+        
+        for id, row in df_Course_Filter.iterrows():
+            dem = []
+            for tec in row.loc['Tech_Remain'].split(', '):
+                if tec != '' and tec not in dem:
+                    dem.append(tec)
+            df_Course_Filter.at[id, 'Num_Tech_Remain'] = len(dem)
+        
+    return df_Course_Filter
+
+#4. Take courses
+# Online
+def take_CourseOnline(df_attribute_requirement):
+    email = df_attribute_requirement.email[0]
+    
+    conn = dao.create_connection()
+    df_Course_Online = dao.select_courseOnline(conn)
+    df_Online = df_Course_Online.copy()
+    df_courses_On = pd.DataFrame()
+    df_loc_On = FindCourseFromMissingSkill(df_Course_Online, df_attribute_requirement)
+    
+    if len(df_loc_On) > 0:
+        df_loc_On = df_loc_On[['courseID','courseTitle','technologySkill','Tech_Skill','Num_Skill','Sum_Weight','Tech_Remain', 'Num_Tech_Remain']]
+        # remove the courses the learner has taken
+        lst_courses_studied = Find_Courses_Studied(email)
+        if len(lst_courses_studied) > 0:
+            for i in lst_courses_studied:
+                df_loc_On = df_loc_On.drop(df_loc_On[df_loc_On['courseID']==i].index)
+            
+        df_Online = df_Online[['courseID','outcomeLearning','URL','provider','duration','durationSecond','level','feeVND','majobSubject','rating','peopleRating','numStudent','language']]
+        df_courses_On = pd.merge(df_loc_On, df_Online, how='left', on='courseID')
+        df_courses_On.feeVND = df_courses_On.feeVND.apply(lambda x: float(x))
+    return df_courses_On
+
+# offline
+def take_CourseOffline(df_attribute_requirement):
+    email = df_attribute_requirement.email[0]
+    
+    conn = dao.create_connection()
+    df_Course_Offline = dao.select_courseOffline(conn)
+    
+    df_Offline = df_Course_Offline.copy()
+    df_courses_Off = pd.DataFrame()
+
+    df_loc_Off = FindCourseFromMissingSkill(df_Course_Offline, df_attribute_requirement)
+    
+    if len(df_loc_Off) > 0:
+        df_loc_Off = df_loc_Off[['courseID','Tech_Skill','Num_Skill','Sum_Weight','Tech_Remain','Num_Tech_Remain']]
+        
+        # remove the courses the learner has taken
+        lst_courses_studied = Find_Courses_Studied(email)
+        if len(lst_courses_studied) > 0:
+            for i in lst_courses_studied:
+                df_loc_Off = df_loc_Off.drop(df_loc_Off[df_loc_Off['courseID']==i].index)
+            
+        df_courses_Off = pd.merge(df_loc_Off, df_Offline, how='left', on='courseID')
+        df_courses_Off = df_courses_Off.fillna('')
+        
+    return df_courses_Off
+
+# 5. Find languages user know
+def Language_Learner_Know(df_attribute_requirement):
+    lst_lan_know = []
+    for id, row in df_attribute_requirement.iterrows():
+        for lan in row.loc['language'].split(', '):
+            if (lan != '' and lan not in lst_lan_know):
+                lst_lan_know.append(lan)
+    return lst_lan_know
+
+# 6. Find languages remain in courses
+def Find_Language_Remaining_LearnNotKnow(df, lst_lan_know):
+    lst_lan_know = list(lst_lan_know)
+    lst_allLan = []
+    for id, row in df.iterrows():
+        for lan in row.loc['language'].split(', '):
+            if lan != '':
+                if lan.strip() not in lst_allLan and lan.strip() not in lst_lan_know:
+                    lst_allLan.append(lan)
+    lst_allLan.sort()
+    return lst_allLan  
+
+#7.  find courses by language
+def findCourseOn_basedOn_Language(df, lst_lan):
+    df_Online = df.copy()
+    
+    TEMP = pd.get_dummies(lst_lan, dtype=int)
+    df_Filter = df[['courseID','courseTitle','language']]
+    df_Filter = df_Filter.join(TEMP)
+
+    lan_1 = df_Filter.columns[3:].tolist()
+    df_Filter = df_Filter.astype(str)
+    for id, row in df_Filter.iterrows():
+        for k in range(len(lan_1)):
+            df_Filter.at[id,lan_1[k]] = '0'
+            
+    for id, row in df_Filter.iterrows():
+        for tec in row.loc['language'].split(', '):
+            if (tec != ''):
+                for k in range(len(lan_1)):
+                    if (tec.strip() != lan_1[k].strip()):
+                        continue
+                    else:
+                        df_Filter.at[id,lan_1[k]] = '1'
+
+    df_Filter = df_Filter.astype(str)
+    count_row = df_Filter.shape[0]
+    for i in range(count_row):
+        lanset = ""
+        for k in range(len(lan_1)):
+            b = int(df_Filter.at[i, lan_1[k]])
+            if b > 0:
+                if lanset == "":
+                    lanset = lan_1[k]
+                else:
+                    lanset = lanset + ", " + lan_1[k]
+        df_Filter.at[i, 'Sum_Lan'] = lanset
+        
+    skills = df_Filter["Sum_Lan"]
+    skills = skills.str.split(", ") 
+    for i, s in enumerate(skills):
+        if ('' not in s):
+            df_Filter.at[i, 'Num_Lan'] = len(s)
+        else:
+            df_Filter.at[i, 'Num_Lan'] = '0'
+
+    df_Filter.Num_Lan = df_Filter.Num_Lan.apply(lambda x : int(x))
+    df_Filter = df_Filter.loc[df_Filter['Num_Lan'] > 0]  
+
+    df_Filter = df_Filter[['courseID', 'Sum_Lan']]
+    df_Filter = pd.merge(df_Filter, df_Online, how='left', on='courseID')
+
+    return df_Filter
+
+# 8. Find frame time where offline courses are open
+def Find_List_FrameTime(df):
+    lst_StudyTime = []
+    for id, row in df.iterrows():
+        for t in row.loc['studyTime'].split(' | '):
+            if t != '' and t not in lst_StudyTime:
+                lst_StudyTime.append(t)
+    lst_StudyTime.sort()
+    return lst_StudyTime
+
+def Find_List_FrameTime_Remain(df, t_learner):
+    lst_StudyTime = Find_List_FrameTime(df)
+    lst_StudyTime = list(set(lst_StudyTime))
+    
+    lst_t_learner = []
+    for i in t_learner.split(', '):
+        lst_t_learner.append(i)
+    lst_t_learner = list(set(lst_t_learner)) 
+
+    lst_StudyTime = list(set(lst_StudyTime) - set(lst_t_learner))
+    return lst_StudyTime
+
+#9.  find the skills that RS advises
+def LstTech(df):
+    lst_T = []
+    for id, row in df.iterrows():
+        for tec in row.loc['Tech_Skill'].split(', '):
+            if tec != '' and tec not in lst_T:
+                lst_T.append(tec)
+    return lst_T
+
+def LstTechCourse_Provider(df, occupation):
+    d_F = {}
+    d_skill = Find_Skill_Weight(occupation)
+    lst_T = LstTech(df)
+    
+    for j in lst_T:
+        for key, value in d_skill.items():
+            if j == key:
+                d_F.setdefault(key, value)
+    return d_F
+
+def LstTechCourse_NotProvider(lst, missing_skill):
+    d_not_F = missing_skill
+    for key1, value1 in lst.items():  
+        for key in missing_skill:
+            if key == key1:
+                d_not_F.remove(key1)
+    return d_not_F
+
+def lst_Skill_RS(df, missing_skill, occupation):
+    lstSkill_Provider = LstTechCourse_Provider(df, occupation)
+    lstSkill_notProvider = LstTechCourse_NotProvider(lstSkill_Provider, missing_skill)
+    return lstSkill_Provider, lstSkill_notProvider
+
+# 10. Compare Fee 
+def similar(a, b):
+    return SequenceMatcher(None, a, b).ratio()
+
+def convertfee(fee_Learner):
+    nguong_max = 0
+    fee_Learner = str(fee_Learner)
+    if similar('0', fee_Learner):
+        nguong_max = 5000000
+    elif similar('1',fee_Learner):
+        nguong_max = 15000000
+    elif similar('2',fee_Learner):
+        nguong_max = 30000000
+    elif similar('3',fee_Learner): 
+        nguong_max = 100000000 
+    return float(nguong_max)
+
+def FindFeeLess(df, feeMax):
+    flat_fee = 0
+    nguong_max = convertfee(feeMax)
+    test_fee = df.loc[(df.feeVND >= 0) | (df.feeVND <= nguong_max)]
+    if len(test_fee) > 0:
+        df = test_fee
+    else:
+        flat_fee = -1
+    return df, flat_fee
+
+#11. Recommend courses according to the top that provide the most skills
+def standardize(row):
+    new_row = abs((row - row.min())/ (row.max()-row.min()))
+    # new_row = round(new_row, 2)
+    return new_row 
+
+def Course_Weight_Top(df_RS, filter):
+    anpha = 0.5
+    df_Course_RS = pd.DataFrame()
+    
+    df_RS = df_RS.sort_values(by='Num_Skill',ascending=False)
+    if len(df_RS) > 1:
+        df_RS["Sum_Weight_Stand"] = standardize(df_RS[['Sum_Weight']])
+        df_RS["Num_Tech_Remain_Stand"] = standardize(df_RS[['Num_Tech_Remain']])
+        df_RS["Weight1"] = df_RS["Sum_Weight"] + df_RS["Num_Tech_Remain"]
+        df_RS["Weight"] = anpha * df_RS["Sum_Weight_Stand"] + (1 - anpha) * df_RS["Num_Tech_Remain_Stand"]
+
+        if filter == "online":
+            df_RS = df_RS.sort_values(['Weight','numStudent', 'rating'], ascending=[False, False, False])
+        else:
+            df_RS = df_RS.sort_values(['Weight'], ascending=[False])
+        
+        df_Course_RS = df_RS.head(10)
+    else:
+        df_Course_RS = df_RS.head(10)
+    return df_Course_RS
+
+#12. Recommend courses according learning path
+def Course_Weight(rule_On, occupation, filter):  
+    Missing_Skill = LstTechCourse_Provider(rule_On, occupation)
+    anpha = 0.5
+    
+    RS_Skill = []
+    Course_RS = []
+    Course_Update = []
+    df_RS = rule_On.copy()
+    df_Course_RS = pd.DataFrame()
+
+    maxNumSkill = df_RS["Num_Skill"].max()
+    df_RS = df_RS.sort_values(by='Num_Skill',ascending=False)
+    if len(df_RS) > 1:
+        while maxNumSkill > 0:
+            df_RS["Sum_Weight_Stand"] = standardize(df_RS[['Sum_Weight']])
+            df_RS["Num_Tech_Remain_Stand"] = standardize(df_RS[['Num_Tech_Remain']])
+            
+            df_RS["Weight1"] = df_RS["Sum_Weight"] + df_RS["Num_Tech_Remain"]
+            df_RS["Weight"] = anpha * df_RS["Sum_Weight_Stand"] + (1 - anpha) * df_RS["Num_Tech_Remain_Stand"]
+
+            rows = df_RS.loc[df_RS['Num_Skill'] == maxNumSkill]
+            
+            if filter.lower() == "online":
+                rows = rows.sort_values(['Weight', 'numStudent', 'rating'], ascending=[False, False, False])
+            else:
+                rows = rows.sort_values(['Weight'], ascending=[False])
+                
+            for index, row in rows.iterrows():
+                lst_skill = row["Tech_Skill"].split(", ")
+                kq = set(lst_skill) & set(RS_Skill)
+                
+                if len(kq) == 0:
+                    Course_RS.append(row)
+                    df_Course_RS = pd.DataFrame(Course_RS) 
+                    for l in lst_skill: 
+                        RS_Skill.append(l) 
+                    for i in RS_Skill:
+                        Missing_Skill.pop(i, None)
+                else:
+                    tech_trung = row.Tech_Skill.split(', ') 
+                    
+                    for i in RS_Skill:
+                        for j in tech_trung:
+                            if i == j:
+                                tech_trung.remove(j) 
+                        
+                    d_skill = Find_Skill_Weight(occupation)
+                    w_tech_trung = {} 
+                    for j in tech_trung:
+                        for key, value in d_skill.items():
+                            if j == key:
+                                w_tech_trung.setdefault(key, value)
+                        
+                    if len(w_tech_trung) == 0:
+                        for index1, r in df_Course_RS.iterrows(): 
+                            if r.Weight == row.Weight and r.courseID != row.courseID:
+                                if r.numStudent == row.numStudent and r.provider != row.provider:
+                                    subDataFrame = df_Course_RS.loc[df_Course_RS['courseID'] == row.courseID]
+                                    if len(subDataFrame) == 0:
+                                        Course_RS.append(row)
+                                    df_Course_RS = pd.DataFrame(Course_RS)      
+                    else:
+                        num_skill_new = len(w_tech_trung)
+                        # skill_remain = row.Num_Tech_Remain
+                        sum_weight_new = 0
+                        
+                        for key, value in w_tech_trung.items():
+                            sum_weight_new = sum_weight_new + value
+
+                        w_tech_trung = "".join([str(char) for char in w_tech_trung])
+                            
+                        row.loc['Num_Skill'] = num_skill_new
+                        row.loc['Sum_Weight'] = sum_weight_new
+                        row.loc['Tech_Skill'] = w_tech_trung
+
+                        Course_Update.append(row)
+                        df_Update = pd.DataFrame(Course_Update)  
+                        df_RS = df_RS.drop(df_RS[df_RS['courseID'] == row.courseID].index)
+                        df_RS = pd.concat([df_RS, df_Update])
+
+            df_Course_RS = pd.DataFrame(Course_RS)     
+            maxNumSkill -= 1   
+    else:
+        df_Course_RS = df_RS
+    return df_Course_RS
+
+# 13. Find offline courses based on learners' free time frames
+def FindCoursebasedStudyTime(df, t_learner):
+    learn_start = t_learner[0:2]
+    learn_start = pd.to_numeric(learn_start, downcast='integer')
+    learn_end = t_learner[6:8]
+    learn_end = pd.to_numeric(learn_end, downcast='integer')
+    
+    learn_frame = t_learner[12:]
+    lst_df1 = []
+    df2 = []
+
+    for id, row in df.iterrows():
+        for sTime in row.loc['studyTime'].split(' | '): 
+            if sTime != '':
+                sTime_start = sTime[0:2]
+                sTime_start = pd.to_numeric(sTime_start, downcast='integer') 
+        
+                sTime_end = sTime[6:8]
+                sTime_end = pd.to_numeric(sTime_end, downcast='integer')
+        
+                if learn_frame != "":
+                    if sTime_start >= learn_start and sTime_end <= learn_end and sTime[12:] == t_learner[12:]:
+                        lst_df1.append(row)
+                else:
+                    if sTime_start >= learn_start and sTime_end <= learn_end:
+                        lst_df1.append(row)                    
+    df2 = pd.DataFrame(lst_df1)
+    return df2
+
+# 14. Find an offline course at the right time frame the user chooses
+def FindCourseRightFrame(df, t_learner):
+    learn_start = t_learner[0:2]
+    learn_start = pd.to_numeric(learn_start, downcast='integer')
+    learn_end = t_learner[6:8]
+    learn_end = pd.to_numeric(learn_end, downcast='integer')
+    
+    learn_frame = t_learner[12:]
+    lst_df1 = []
+    df2 = []
+
+    for id, row in df.iterrows():
+        for sTime in row.loc['studyTime'].split(' | '): 
+            if sTime != '':
+                sTime_start = sTime[0:2]
+                sTime_start = pd.to_numeric(sTime_start, downcast='integer') 
+            
+                sTime_end = sTime[6:8]
+                sTime_end = pd.to_numeric(sTime_end, downcast='integer')
+
+                if learn_frame != "":
+                    if sTime_start >= learn_start and sTime_end <= learn_end and sTime[12:] != t_learner[12:]:
+                        lst_df1.append(row)
+                
+    df2 = pd.DataFrame(lst_df1)
+    return df2
+
+
