@@ -230,10 +230,10 @@ export default function Register() {
     <Fragment>
       {accountReducer.isLogged ? 
       (<Redirect to="/"></Redirect>) : 
-      (<div className="h-100">
-        <Row className="h-100 no-gutters">
-          <Col lg="7" md="12" className="h-100">
-            <Card className="main-card mb-3 h-100 ">
+      (<div className="">
+        <Row className="no-gutters">
+          <Col lg="7" md="12" className="">
+            <Card className="main-card mb-3 ">
               <CardBody>
                 <Col lg="9" md="10" sm="12" className="mx-auto app-login-box">
                   <div className="app-logo" />

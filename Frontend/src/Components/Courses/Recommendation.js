@@ -207,6 +207,14 @@ function RecommendationCourses({
             </ModalBody>
           </Modal>
           <CardBody>
+            {!courseArrays[0] && (
+              <Row>
+                <p style={{ textAlign: "center", width: "100%"}}>
+                  {"không có khoá học bạn có thể chọn hình thức " + 
+                        (method === MethodEnum.ONLINE ? 'Offline' : 'Online')}
+                        </p>
+              </Row>
+            )}
             <Row>
               {courseArrays[activePage - 1] &&
                 courseArrays[activePage - 1].map((item, index) => {
