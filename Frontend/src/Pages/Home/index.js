@@ -83,25 +83,25 @@ export default function HomePage() {
       setCourseArrays(splitToSubArr(coursesReducer.data, itemsCountPerPage));
     } else {
       if (method === MethodEnum.ONLINE) {
-        const onlineCourses = coursesReducer.online.Course?.length
+        const onlineCourses = coursesReducer.online.Course && coursesReducer.online.Course.length
           ? coursesReducer.online.Course
-          : coursesReducer.online.df_rule_ngoaile?.length > 1 &&
+          : coursesReducer.online.df_rule_ngoaile && coursesReducer.online.df_rule_ngoaile.length > 1 &&
             coursesReducer.online.df_rule_ngoaile[1].courses_offer.length
           ? coursesReducer.online.df_rule_ngoaile[1].courses_offer
           : [];
         setTotalItemsCount(onlineCourses.length);
         setCourseArrays(splitToSubArr(onlineCourses, itemsCountPerPage));
-        setBothException(coursesReducer?.online?.Exception || []);
+        setBothException(coursesReducer.online && coursesReducer.online.Exception || []);
       } else if (method === MethodEnum.OFFLINE) {
-        const offlineCourses = coursesReducer.offline.Course.length
+        const offlineCourses = coursesReducer.offline.Course && coursesReducer.offline.Course.length
           ? coursesReducer.offline.Course
-          : coursesReducer.offline.df_rule_ngoaile?.length > 1 &&
+          : coursesReducer.offline.df_rule_ngoaile && coursesReducer.offline.df_rule_ngoaile.length > 1 &&
             coursesReducer.offline.df_rule_ngoaile[1].courses_offer.length
           ? coursesReducer.offline.df_rule_ngoaile[1].courses_offer
           : [];
         setTotalItemsCount(offlineCourses.length);
         setCourseArrays(splitToSubArr(offlineCourses, itemsCountPerPage));
-        setBothException(coursesReducer?.offline?.Exception || []);
+        setBothException(coursesReducer.offline && coursesReducer.offline.Exception || []);
       }
     }
   }, [coursesReducer, method]);
