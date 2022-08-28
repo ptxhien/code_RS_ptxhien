@@ -28,7 +28,7 @@ export default function WizardStep4({ DTO, onClickRegister }) {
                         <p>Email: <b>{DTO.email}</b></p>
                         <p>Job Now: <b>{DTO.jobNow}</b></p>
                         <p>Degree: <b>{DTO.learnerLevel}</b></p>
-                        <p>Field Of Study: <b>{DTO.fieldOfStudy && DTO.fieldOfStudy.map(({techName}) => techName).join(', ')}</b></p>                        <p>Degree: <b>{DTO.learnerLevel}</b></p>
+                        <p>Major: <b>{DTO.fieldOfStudy}</b></p>
                         <p>Languages: <b>{DTO.language.map(({lanName}) => lanName).join(', ')}</b></p>
                         <p>Skills: <b>{DTO.technologySkill.map(({techName}) => techName).join(', ')}</b></p>
                         <p>Fee max: <b>{DTO.feeMaxText}</b></p>

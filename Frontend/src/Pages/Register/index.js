@@ -50,7 +50,7 @@ export default function Register() {
     email: "",
     password: "",
     fullname: "",
-    gender: "Male",
+    gender: "",
     city_id: "",
     city: "",
     district_id: "",
@@ -65,7 +65,6 @@ export default function Register() {
     feeMaxText: "",
     freeTime: "",
     futureSelfDevelopment: "",
-    major: "",
     fieldOfStudy: "",
     cities: [],
     districts: [],
@@ -160,11 +159,10 @@ export default function Register() {
       language: DTO.language.map(({lanName}) => lanName).join(', '),
       jobNow: DTO.jobNow,
       technologySkill: DTO.technologySkill.map(({techName}) => techName).join(', '),
-      fieldOfStudy: DTO.fieldOfStudy && DTO.fieldOfStudy.map(({techName}) => techName).join(', '),
+      fieldOfStudy: DTO.fieldOfStudy,
       feeMax: DTO.feeMax,
       freeTime: DTO.freeTime,
       futureSelfDevelopment: DTO.futureSelfDevelopment,
-      major: DTO.major
     }
     dispatch(registerAction(postdata));
   }

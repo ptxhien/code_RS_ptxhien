@@ -19,7 +19,6 @@ const LearnerModel = function (Obj) {
   this.feeMax = Obj ? Obj.feeMax : undefined;
   this.freeTime = Obj ? Obj.freeTime : undefined;
   this.futureSelfDevelopment = Obj ? Obj.futureSelfDevelopment : undefined;
-  this.major = Obj ? Obj.major : undefined;
 };
 
 

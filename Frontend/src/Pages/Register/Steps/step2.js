@@ -104,7 +104,7 @@ export default function WizardStep2({ DTO, setDTO }) {
                             What is your major?
                         </Label>
                         <Col sm={10}>
-                            <Input type="select" value={DTO.major} onChange={(e) => setDTO({ ...DTO, major: e.target.value })}>
+                            <Input type="select" value={DTO.fieldOfStudy} onChange={(e) => setDTO({ ...DTO, fieldOfStudy: e.target.value })}>
                                 <option value={""}>Please choose your major</option>
                                 {lsMajor.length && lsMajor.map(({subjectName, subjectID}, index) => (<option key={subjectID} value={subjectID}>{subjectName}</option>))}
                             </Input>
@@ -200,22 +200,6 @@ export default function WizardStep2({ DTO, setDTO }) {
                                 value={DTO.technologySkill}
                                 onChange={(value) => {
                                     setDTO({ ...DTO, technologySkill: value });
-                                }} />
-                        </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                        <Label for="exampleSelectMulti" sm={2}>
-                            Field Of Study
-                        </Label>
-                        <Col sm={10}>
-                            <Select isMulti components={makeAnimated()}
-                                closeMenuOnSelect={false}
-                                getOptionLabel={option => option.techName}
-                                getOptionValue={option => option.techName}
-                                options={lsTechnology} className="basic-multi-select" classNamePrefix="select"
-                                value={DTO.fieldOfStudy}
-                                onChange={(value) => {
-                                    setDTO({ ...DTO, fieldOfStudy: value });
                                 }} />
                         </Col>
                     </FormGroup>
