@@ -57,6 +57,7 @@ function RecommendationCourses({
   const [isOpen, setIsOpen] = useState(false);
   const [errorForm, setErrorForm] = useState("");
   const [openRating, setOpenRating] = useState(false);
+  const [openGoogleForm, setOpenGoogleForm] = useState(false);
   const [rating, setRating] = useState(0);
 
   const coursesReducer = useSelector((state) => state.coursesReducer);
@@ -96,13 +97,54 @@ function RecommendationCourses({
   }, [coursesReducer, method]);
 
   useEffect(() => {
-    setTimeout(() => setOpenRating(true), 20000);
+    setTimeout(() => setOpenGoogleForm(true), 20000);
   }, []);
 
   return (
     <Row>
       <Col md={9}>
         <Card>
+          <Modal
+            isOpen={openGoogleForm}
+            toggle={() => {
+              setOpenGoogleForm(false);
+            }}
+            centered
+            className="rating-modal"
+          >
+            <ModalHeader>ĐÁNH GIÁ VỀ HỆ THỐNG TƯ VẤN</ModalHeader>
+            <ModalBody>
+              <p>Chúng tôi rất mong nhận bạn tham gia khảo sát ở biểu mẫu trên google form để chúng tôi có thể cải tiến hệ thống tư vấn tốt hơn trong tương.
+              </p>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                color="primary"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpenGoogleForm(false);
+                }}
+                style={{ margin: "0 auto" }}
+              >
+                Từ chối khảo sát
+              </Button>
+              <Button
+                color="primary"
+                onClick={(e) => {
+                  window.open(
+                    'https://docs.google.com/forms/d/e/1FAIpQLSc_YfWh5VU5TRhu7bC0tluDmMB6xdB-YeXr5dlrGHT3KMqZYg/viewform',
+                    '_blank' // <- This is what makes it open in a new window.
+                  );
+                  e.preventDefault();
+                  setOpenGoogleForm(false);
+                }}
+                style={{ margin: "0 auto" }}
+              >
+                Tham gia khảo sát
+              </Button>
+
+            </ModalFooter>
+          </Modal>
           <Modal
             isOpen={openRating}
             toggle={() => {

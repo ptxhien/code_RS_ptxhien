@@ -94,7 +94,7 @@ export default function WizardStep2({ DTO, setDTO }) {
                         <Col sm={10}>
                             <Input type="select" value={DTO.jobNow} onChange={(e) => setDTO({ ...DTO, jobNow: e.target.value })}>
                                 <option value={""}>Not employed</option>
-                                <option value={"work"}>Work full-time</option>
+                                <option value={"work"}>Employed full-time</option>
                                 <option value={"study"}>Student full-time</option>
                             </Input>
                         </Col>

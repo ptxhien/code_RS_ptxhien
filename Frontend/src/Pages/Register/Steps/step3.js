@@ -23,16 +23,18 @@ export default function WizardStep4({ DTO, onClickRegister }) {
                 <div className="no-results">
                     <Card body className="card-shadow-primary border mb-3" outline color="primary">
                         <CardTitle>Confirm register!</CardTitle>
+                        <p>Email: <b>{DTO.email}</b></p>
+                        <p>Password: <b>{DTO.password}</b></p>
                         <p>Full Name: <b>{DTO.fullname}</b></p>
                         <p>Address: <b>{DTO.city + ', ' + DTO.district + ', ' + DTO.ward}</b></p>
-                        <p>Email: <b>{DTO.email}</b></p>
+                        <p>Gender: <b>{DTO.gender}</b></p>
                         <p>Job Now: <b>{DTO.jobNow}</b></p>
                         <p>Degree: <b>{DTO.learnerLevel}</b></p>
                         <p>Major: <b>{DTO.fieldOfStudy}</b></p>
                         <p>Languages: <b>{DTO.language.map(({lanName}) => lanName).join(', ')}</b></p>
                         <p>Skills: <b>{DTO.technologySkill.map(({techName}) => techName).join(', ')}</b></p>
                         <p>Fee max: <b>{DTO.feeMaxText}</b></p>
-                        <p>Free time: <b>{DTO.freeTime && DTO.freeTime.join(', ')}</b></p>
+                        <p>Frame time: <b>{DTO.freeTime && DTO.freeTime.join(', ')}</b></p>
                         <p>Future Self Development: <b>{DTO.futureSelfDevelopment}</b></p>
                     </Card>
                     <div className="sa-icon sa-success animate">
