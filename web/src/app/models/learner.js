@@ -14,9 +14,12 @@ const LearnerModel = function (Obj) {
   this.learnerLevel = Obj ? Obj.learnerLevel : undefined;
   this.language = Obj ? Obj.language : undefined;
   this.technologySkill = Obj ? Obj.technologySkill : undefined;
+  this.fieldOfStudy = Obj ? Obj.fieldOfStudy : undefined;
   this.jobNow = Obj ? Obj.jobNow : undefined;
   this.feeMax = Obj ? Obj.feeMax : undefined;
   this.freeTime = Obj ? Obj.freeTime : undefined;
+  this.futureSelfDevelopment = Obj ? Obj.futureSelfDevelopment : undefined;
+  this.major = Obj ? Obj.major : undefined;
 };
 
 

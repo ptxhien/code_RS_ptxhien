@@ -44,6 +44,7 @@ const sortKeys = (obj = { key1: 10, key2: 20 }, type = "ASC" || "DESC") => {
 function RecommendationCourses({
   courseArrays,
   exceptions,
+  bothException,
   activePage,
   itemsCountPerPage,
   handlePageChange,
@@ -112,6 +113,9 @@ function RecommendationCourses({
           >
             <ModalHeader>Evaluate Recommendation Systems</ModalHeader>
             <ModalBody>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSc_YfWh5VU5TRhu7bC0tluDmMB6xdB-YeXr5dlrGHT3KMqZYg/viewform" target="_blank">Google Form</a>
+              <br/>
+              <br/>
               <Rating
                 className="d-flex justify-content-between"
                 initialRating={0}
@@ -308,7 +312,7 @@ function RecommendationCourses({
                     name="learningMethod"
                     value="Offline"
                     id="offline"
-                    onClick={() => {
+                    onChange={() => {
                       setMethod(MethodEnum.OFFLINE);
                     }}
                     checked={method === MethodEnum.OFFLINE}
@@ -327,7 +331,7 @@ function RecommendationCourses({
                     name="learningMethod"
                     value="Online"
                     id="online"
-                    onClick={() => {
+                    onChange={() => {
                       setMethod(MethodEnum.ONLINE);
                     }}
                     checked={method === MethodEnum.ONLINE}
@@ -339,7 +343,18 @@ function RecommendationCourses({
               </Col>
             </Row>
           </CardBody>
-
+          {bothException && bothException[0] && bothException[0].job_offer && (
+            <CardBody>
+              <CardTitle className="text-danger">Job Offer</CardTitle>
+              <Row>
+                <Col md={12}>
+                  <div>
+                    {bothException[0].job_offer}
+                  </div>
+                </Col>
+              </Row>
+            </CardBody>
+          )}
           <CardBody>
             <CardTitle className="text-danger">Missing Skill</CardTitle>
             {/* <Row>
@@ -380,11 +395,9 @@ function RecommendationCourses({
                   Courses provided skills
                 </Label>
                 <div>
-                  {exceptions.map((item, index) => {
+                  {exceptions && exceptions.map((item, index) => {
                     return (
-                      <>
-                        <p>{item.lstSkill_Provider}</p>
-                      </>
+                        <p key={index}>{item.lstSkill_Provider}</p>
                     );
                   })}
                 </div>
@@ -397,11 +410,9 @@ function RecommendationCourses({
                   Courses unprovided skills
                 </Label>
                 <div>
-                  {exceptions.map((item, index) => {
+                  {exceptions && exceptions.map((item, index) => {
                     return (
-                      <>
-                        <p>{item.lstSkill_notProvider}</p>
-                      </>
+                        <p key={index}>{item.lstSkill_notProvider}</p>
                     );
                   })}
                 </div>

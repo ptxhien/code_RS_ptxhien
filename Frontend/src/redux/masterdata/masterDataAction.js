@@ -73,3 +73,20 @@ export const GetJobAction = () => {
     
   };
 };
+
+export const GetAllMajorAction = () => {
+  return async (dispatch) => {
+    dispatch({ type: Types.JOB_LOADING });
+    try {
+      const { data } = await http.get("/major");
+      dispatch({
+        type: Types.GET_MAJOR,
+        data,
+      });
+    } catch (err) {
+      dispatch({
+        type: Types.GET_DATA_ERROR,
+      });
+    }
+  };
+};

@@ -7,6 +7,7 @@ var initialState = {
   lsTechnology: [],
   lsFreeTime: [],
   lsJob: [],
+  lsMajor: [],
 };
 
 const masterdataReducer = (state = initialState, action) => {
@@ -40,6 +41,12 @@ const masterdataReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         lsJob: action.data,
+      };
+    case Types.GET_MAJOR:
+      return {
+        ...state,
+        isLoading: false,
+        lsMajor: action.data,
       };
     default:
       return state;

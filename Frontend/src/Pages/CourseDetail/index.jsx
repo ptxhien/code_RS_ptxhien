@@ -163,8 +163,8 @@ export default function CourseDetail() {
                 <div className="mb-5">
                   <h3 className="text-uppercase mb-4" style={{letterSpacing: '2px'}}>Tags</h3>
                   <div className="d-flex flex-wrap m-n1">
-                    {course.technologySkill.split(", ").map(skill => (
-                      <a href className="btn btn-outline-primary m-1">{skill}</a>
+                    {course.technologySkill.split(", ").map((skill, index) => (
+                      <a href="" onClick={(e) => e.preventDefault()} className="btn btn-outline-primary m-1" key={index}>{skill}</a>
                     ))}
                   </div>
                 </div>

@@ -20,3 +20,4 @@ export const GET_INVOICE = "GET_INVOICE";
 export const CREATE_INVOICE = "CREATE_INVOICE";
 export const INVOICE_LOADING = "INVOICE_LOADING";
 export const INVOICE_FAILED = "INVOICE_FAILED";
+export const GET_MAJOR = "GET_MAJOR";

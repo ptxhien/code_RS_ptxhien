@@ -24,6 +24,7 @@ import {
   GetAllLanguageAction,
   GetAllTechnologyAction,
   GetFreeTimeAction,
+  GetAllMajorAction,
 } from "../../redux/masterdata/masterDataAction";
 import { registerAction } from "../../redux/actions/account/accountAction";
 import { toastErrorText } from "../../helpers/toastify";
@@ -50,15 +51,26 @@ export default function Register() {
     password: "",
     fullname: "",
     gender: "Male",
-    address: "",
+    city_id: "",
+    city: "",
+    district_id: "",
+    district: "",
+    ward_id: "",
+    ward: "",
     learnerLevel: "",
     language: "",
     jobNow: "",
     technologySkill: "",
     feeMax: "",
+    feeMaxText: "",
     freeTime: "",
+    futureSelfDevelopment: "",
+    major: "",
+    fieldOfStudy: "",
+    cities: [],
+    districts: [],
+    wards: [],
   });
-
   const steps = [
     {
       name: "Account Information",
@@ -85,15 +97,76 @@ export default function Register() {
     { shouldGoNext: true, errors: [] },
   ]);
 
+  function removeFirst(str, type) {
+    let index = -1;
+    let searchstr = '';
+    if(type == 'city') {
+      searchstr = 'Thành phố ';
+      index = str.indexOf(searchstr);
+      if(index !== 0) {
+        searchstr = 'Tỉnh ';
+        index = str.indexOf(searchstr);
+      }
+    }
+    if(type == 'district') {
+      searchstr = 'Thành phố ';
+      index = str.indexOf(searchstr);
+      if(index !== 0) {
+        searchstr = 'Huyện ';
+        index = str.indexOf(searchstr);
+      }
+      if(index !== 0) {
+        searchstr = 'Quận ';
+        index = str.indexOf(searchstr);
+      }
+      if(index !== 0) {
+        searchstr = 'Thị xã ';
+        index = str.indexOf(searchstr);
+      }
+    }
+    if(type == 'ward') {
+      searchstr = 'Phường ';
+      index = str.indexOf(searchstr);
+      if(index !== 0) {
+        searchstr = 'Xã ';
+        index = str.indexOf(searchstr);
+      }
+      if(index !== 0) {
+        searchstr = 'Thị trấn ';
+        index = str.indexOf(searchstr);
+      }
+    }
+    if (index === 0) {
+      return str.slice(searchstr.length);
+    }
+    return str;
+  }
   useEffect(() => {
     dispatch(GetAllLanguageAction());
     dispatch(GetAllTechnologyAction());
     dispatch(GetFreeTimeAction());
+    dispatch(GetAllMajorAction());
   }, []);
 
   function onClickRegister() {
     console.log(DTO);
-    dispatch(registerAction(DTO));
+    let postdata = {
+      email: DTO.email,
+      password: DTO.password,
+      fullname: DTO.fullname,
+      gender: DTO.gender,
+      address: removeFirst(DTO.city, 'city') + ', ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.ward, 'ward'),
+      learnerLevel: DTO.learnerLevel,
+      language: DTO.language.map(({lanName}) => lanName).join(', '),
+      jobNow: DTO.jobNow,
+      technologySkill: DTO.technologySkill.map(({techName}) => techName).join(', '),
+      fieldOfStudy: DTO.fieldOfStudy && DTO.fieldOfStudy.map(({techName}) => techName).join(', '),
+      feeMax: DTO.feeMax,
+      freeTime: DTO.freeTime,
+      futureSelfDevelopment: DTO.futureSelfDevelopment,
+      major: DTO.major
+    }
+    dispatch(registerAction(postdata));
   }
   
   const checkFirstStep = () => {

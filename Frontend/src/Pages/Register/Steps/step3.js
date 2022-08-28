@@ -24,14 +24,16 @@ export default function WizardStep4({ DTO, onClickRegister }) {
                     <Card body className="card-shadow-primary border mb-3" outline color="primary">
                         <CardTitle>Confirm register!</CardTitle>
                         <p>Full Name: <b>{DTO.fullname}</b></p>
+                        <p>Address: <b>{DTO.city + ', ' + DTO.district + ', ' + DTO.ward}</b></p>
                         <p>Email: <b>{DTO.email}</b></p>
                         <p>Job Now: <b>{DTO.jobNow}</b></p>
-                        <p>Address: <b>{DTO.address}</b></p>
                         <p>Degree: <b>{DTO.learnerLevel}</b></p>
-                        <p>Languages: <b>{DTO.language}</b></p>
-                        <p>Skills: <b>{DTO.technologySkill}</b></p>
-                        <p>Fee max: <b>{DTO.feeMax}</b></p>
-                        <p>Free time: <b>{DTO.freeTime}</b></p>
+                        <p>Field Of Study: <b>{DTO.fieldOfStudy && DTO.fieldOfStudy.map(({techName}) => techName).join(', ')}</b></p>                        <p>Degree: <b>{DTO.learnerLevel}</b></p>
+                        <p>Languages: <b>{DTO.language.map(({lanName}) => lanName).join(', ')}</b></p>
+                        <p>Skills: <b>{DTO.technologySkill.map(({techName}) => techName).join(', ')}</b></p>
+                        <p>Fee max: <b>{DTO.feeMaxText}</b></p>
+                        <p>Free time: <b>{DTO.freeTime && DTO.freeTime.join(', ')}</b></p>
+                        <p>Future Self Development: <b>{DTO.futureSelfDevelopment}</b></p>
                     </Card>
                     <div className="sa-icon sa-success animate">
                         <span className="sa-line sa-tip animateSuccessTip" />
