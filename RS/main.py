@@ -36,6 +36,7 @@ def RS():
     missing_skill = function.FindMissingSkill(df_attribute_requirement)
     dict_f = {}
     
+    dict_f_ngoaile1 = []
     # 3. Dua vao model
     if len(df_attribute_requirement) > 0:
         lan_know = df_attribute_requirement.language[0].split(', ')
@@ -51,14 +52,51 @@ def RS():
             if len(df_courses_On) > 0 or len(df_courses_Off) > 0:
                 dict_f = buildRule.recommendation(df_courses_On, df_courses_Off, missing_skill, lan_know, location, occupation, Form_require, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
             else:
+    
+                # dict_f = {"message": "Don't Course provide for Occupation",
+                #             "status": 406, 
+                #             "lst_Occupation": lst_job_sim}
                 lst_job_sim = knowledgeDomain.job_related(occupation)
                 del lst_job_sim[0:1]
-                dict_f = {"message": "Don't Course provide for Occupation",
-                            "status": 406, 
-                            "lst_Occupation": lst_job_sim}
+                str_lst_job_sim = ", ".join(lst_job_sim)
+                dict_f_ngoaile1.append({"Job_offer": str_lst_job_sim})
+                dict_f = {
+                    'courses_offline': {
+                        "status": 400, 
+                        "message": "no courses",
+                        "Course": [], 
+                        "Exception": dict_f_ngoaile1,
+                        "Ngoai_Le":{
+                        "Course_Offer": [],
+                        "ExceptionDetail": []}},
+                    'courses_online': {
+                        "status": 400, 
+                        "message": "no courses",
+                        "Course": [], 
+                        "Exception": dict_f_ngoaile1,
+                        "Ngoai_Le":{
+                        "Course_Offer": [],
+                        "ExceptionDetail": []}}}
         else:
-            dict_f = {"message": "enough skills",
-                    "status": 203}
+                dict_f = {
+                    'courses_offline': {
+                        "status": 203, 
+                        "message": "enough skills",
+                        # "Job_offer":[],
+                        "Course": [], 
+                        "Exception": [],
+                        "Ngoai_Le":{
+                        "Course_Offer": [],
+                        "ExceptionDetail": []}},
+                    'courses_online': {
+                        "status": 203, 
+                        "message": "enough skills",
+                        # "Job_offer":[],
+                        "Course": [], 
+                        "Exception": [],
+                        "Ngoai_Le":{
+                        "Course_Offer": [],
+                        "ExceptionDetail": []}}}
     else:
         dict_f = {"message": "This user doesn't exist",
                     "status": 407}

@@ -114,7 +114,7 @@ function RecommendationCourses({
           >
             <ModalHeader>ĐÁNH GIÁ VỀ HỆ THỐNG TƯ VẤN</ModalHeader>
             <ModalBody>
-              <p>Chúng tôi rất mong nhận bạn tham gia khảo sát ở biểu mẫu trên google form để chúng tôi có thể cải tiến hệ thống tư vấn tốt hơn trong tương.
+              <p>Chúng tôi rất mong bạn tham gia khảo sát này, từ đó chúng tôi có thể cải tiến hệ thống tư vấn tốt hơn trong tương lai.
               </p>
             </ModalBody>
             <ModalFooter>

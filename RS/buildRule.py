@@ -106,7 +106,7 @@ def BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, conditi
         if (flat_language == -1 and flat_level == -1) or (flat_language == 0 and flat_level == -1): 
             ExceptionType = "Lan, Level"
             dict_f_ngoaile.append({"ExceptionType": ExceptionType, 
-                                    "job_offer": str_lst_job_sim})
+                                    "Job_offer": str_lst_job_sim})
             
             dict_f = {  "status": 401, 
                         "message": "Lan, Level",
@@ -194,7 +194,7 @@ def BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, conditi
         
     else:
         result = df_On
-        dict_f_ngoaile.append({"job_offer": str_lst_job_sim})
+        dict_f_ngoaile.append({"Job_offer": str_lst_job_sim})
         
         dict_f = {"status": 403, 
                             "message": "FAIL",
@@ -283,7 +283,7 @@ def Off_Lan(result, missing_skill, lan_know, occupation, feeMax, condition_durat
     if flat_location == 1 or (flat_location == 1 and flat_course_freetime == 2) or (flat_location == 1 and flat_course_freetime == 1): 
         ExceptionType = "Location"
         dict_f_ngoaile.append({"ExceptionType": ExceptionType, 
-                            "job_offer": str_lst_job_sim})
+                            "Job_offer": str_lst_job_sim})
         
         dict_f_Offline = {"status": 404, 
                             "message": "Location",
@@ -314,7 +314,7 @@ def Off_Lan(result, missing_skill, lan_know, occupation, feeMax, condition_durat
         if flat_location == 0 and flat_course_freetime == 2:   
             ExceptionType = "Fulltime"
             dict_f_ngoaile.append({"ExceptionType": ExceptionType, 
-                                    "job_offer": str_lst_job_sim})
+                                    "Job_offer": str_lst_job_sim})
         
         lstSkill_Provider, lstSkill_notProvider = function.lst_Skill_RS(result, missing_skill, occupation)
         str_new_lstSkill_Provider = convertlst_toString(lstSkill_Provider)
@@ -394,7 +394,7 @@ def Off_NotLan(result, missing_skill, lan_no_know, occupation, feeMax, condition
     if flat_location == 1 or (flat_location == 1 and flat_course_freetime == 2) or (flat_location == 1 and flat_course_freetime == 1): 
         ExceptionType = "Location"
         dict_f_ngoaile.append({"ExceptionType": ExceptionType, 
-                                "job_offer": str_lst_job_sim})
+                                "Job_offer": str_lst_job_sim})
         
         dict_f_Offline = {"status": 405, 
                         "message": "Location",
@@ -426,7 +426,7 @@ def Off_NotLan(result, missing_skill, lan_no_know, occupation, feeMax, condition
         if flat_location == 0 and flat_course_freetime == 2:   
             ExceptionType = "Fulltime"
             dict_f_ngoaile.append({"ExceptionType": ExceptionType, 
-                                    "job_offer": str_lst_job_sim})
+                                    "Job_offer": str_lst_job_sim})
     
         lstSkill_Provider, lstSkill_notProvider = function.lst_Skill_RS(result, missing_skill, occupation)
         str_new_lstSkill_Provider = convertlst_toString(lstSkill_Provider)
@@ -547,7 +547,7 @@ def BuildRule_Offline(df_Off, missing_skill, lan_know, location, occupation, Lea
         if (flat_language == -1 and flat_level == -1) or (flat_language == 0 and flat_level == -1): 
             ExceptionType = "Lan, Level"
             dict_f_ngoaile.append({"ExceptionType": ExceptionType, 
-                                    "job_offer": str_lst_job_sim})
+                                    "Job_offer": str_lst_job_sim})
             
             dict_f_Offline = { "status": 401, 
                             "message": "Lan, Level",
@@ -568,7 +568,7 @@ def BuildRule_Offline(df_Off, missing_skill, lan_know, location, occupation, Lea
     
     else:
         result = df_Off
-        dict_f_ngoaile.append({"job_offer": str_lst_job_sim})
+        dict_f_ngoaile.append({"Job_offer": str_lst_job_sim})
         
         dict_f_Offline = {"status": 403, 
                             "message": "FAIL",
@@ -625,8 +625,15 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, location, occupation,
         print("Choose Online")
         df_rule, dict_onl = BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, condition_duration, typeFilter)
         dict_f_ngoaile = {'courses_online': dict_onl,
-                        'courses_offline': {}}
-    
+                            'courses_offline': {
+                            "status": 400, 
+                            "message": "no courses",
+                            "Course": [], 
+                            "Exception": [],
+                            "Ngoai_Le":{
+                                    "Course_Offer": [],
+                                    "ExceptionDetail": [] }}
+                        }
         if len(df_rule) == 0:
             result_Offline, kq_On = KiemTraOfflineNgoaiLe(df_Off, missing_skill, lan_know, location, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
             dict_f_ngoaile = {'courses_online': dict_onl
@@ -637,8 +644,15 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, location, occupation,
     else:
         print("Choose Offline")
         df_rule , dict_off = BuildRule_Offline(df_Off, missing_skill, lan_know, location, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
-        dict_f_ngoaile = {'courses_online': {},
-                            'courses_offline': dict_off}
+        dict_f_ngoaile = {'courses_online': {
+                            "status": 400, 
+                            "message": "no courses",
+                            "Course": [], 
+                                "Exception": [],
+                                "Ngoai_Le":{
+                                    "Course_Offer": [],
+                                    "ExceptionDetail": []}}, 
+                        'courses_offline': dict_off}
     
         if len(df_rule) == 0:
             result_Offline, kq_Off = KiemTraOnlineNgoaiLe(df_On, missing_skill, lan_know, occupation, feeMax, condition_duration, typeFilter)

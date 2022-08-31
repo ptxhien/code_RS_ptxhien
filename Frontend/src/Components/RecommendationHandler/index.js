@@ -53,7 +53,7 @@ function RecommendationHandler() {
         <Row form>
           <Col md={3}>
             <FormGroup>
-              <Label for="exampleName">Vị trí nghề nghiệp</Label>
+              <Label for="exampleName">Position Job</Label>
               <Select
                 components={makeAnimated()}
                 closeMenuOnSelect={false}
@@ -71,14 +71,14 @@ function RecommendationHandler() {
 
           <Col md={3}>
             <FormGroup>
-              <Label for="exampleName">Hình thức học</Label>
+              <Label for="exampleName">Form of study</Label>
               <Input
                 type="select"
                 onChange={(e) => {
                   recommendationInfo.current.form = e.target.value;
                 }}
               >
-                <option value={""}>Chọn hình thức học</option>
+                <option value={""}>Choose Form of Study</option>
                 <option value={"online"}>Online</option>
                 <option value={"offline"}>Offline</option>
               </Input>
@@ -87,14 +87,14 @@ function RecommendationHandler() {
 
           <Col md={2}>
             <FormGroup>
-              <Label for="exampleName">Thời gian học</Label>
+              <Label for="exampleName">The maximum study time</Label>
               <Input
                 type="select"
                 onChange={(e) => {
                   recommendationInfo.current.month = e.target.value;
                 }}
               >
-                <option value={"00"}>Chọn tháng</option>
+                <option value={"00"}>Choose month</option>
                 <option value={"01"}>1 Month</option>
                 <option value={"02"}>2 Months</option>
                 <option value={"03"}>3 Months</option>
@@ -113,7 +113,7 @@ function RecommendationHandler() {
 
           <Col md={2}>
             <FormGroup>
-              <Label for="exampleName">Hình thức tư vấn</Label>
+              <Label for="exampleName">Form of recommendation systems</Label>
               <Input
                 type="select"
                 onChange={(e) => {
