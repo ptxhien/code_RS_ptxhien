@@ -55,10 +55,16 @@ export default function HomePage() {
   const { coursesReducer } = useSelector((state) => state);
   
   const [courseArrays, setCourseArrays] = useState([]);
+  const [courseOnlineArrays, setCourseOnlineArrays] = useState([]);
+  const [courseOfflineArrays, setCourseOfflineArrays] = useState([]);
+
   const [exception, setException] = useState([]);
   const [bothException, setBothException] = useState([]);
-  const history = useHistory();
+  const [bothStatus, setBothStatus] = useState(0);
+  const [bothMessage, setBothMessage] = useState("");
+  const [bothNgoaiLe, setBothNgoaiLe] = useState({});
 
+  const history = useHistory();
   const itemsCountPerPage = 8;
   const [activePage, setActivePage] = useState(1);
   const [totalItemsCount, setTotalItemsCount] = useState(1);
@@ -85,23 +91,33 @@ export default function HomePage() {
       if (method === MethodEnum.ONLINE) {
         const onlineCourses = coursesReducer.online.Course && coursesReducer.online.Course.length
           ? coursesReducer.online.Course
-          : coursesReducer.online.df_rule_ngoaile && coursesReducer.online.df_rule_ngoaile.length > 1 &&
-            coursesReducer.online.df_rule_ngoaile[1].courses_offer.length
-          ? coursesReducer.online.df_rule_ngoaile[1].courses_offer
+          : coursesReducer.online.Ngoai_Le && coursesReducer.online.Ngoai_Le.Course_Offer &&
+            coursesReducer.online.Ngoai_Le.Course_Offer.length
+          ? coursesReducer.online.Ngoai_Le.Course_Offer
           : [];
         setTotalItemsCount(onlineCourses.length);
         setCourseArrays(splitToSubArr(onlineCourses, itemsCountPerPage));
+        setException(coursesReducer.online && coursesReducer.online.Exception || {}); 
         setBothException(coursesReducer.online && coursesReducer.online.Exception || []);
+        setBothStatus(coursesReducer.online && coursesReducer.online.status || 0);
+        setBothMessage(coursesReducer.online && coursesReducer.online.message || "");
+        setCourseOnlineArrays(onlineCourses || []);
+        setBothNgoaiLe(coursesReducer.online && coursesReducer.online.Ngoai_Le || {});
       } else if (method === MethodEnum.OFFLINE) {
         const offlineCourses = coursesReducer.offline.Course && coursesReducer.offline.Course.length
           ? coursesReducer.offline.Course
-          : coursesReducer.offline.df_rule_ngoaile && coursesReducer.offline.df_rule_ngoaile.length > 1 &&
-            coursesReducer.offline.df_rule_ngoaile[1].courses_offer.length
-          ? coursesReducer.offline.df_rule_ngoaile[1].courses_offer
+          : coursesReducer.offline.Ngoai_Le && coursesReducer.offline.Ngoai_Le.Course_Offer &&
+            coursesReducer.offline.Ngoai_Le.Course_Offer.length
+          ? coursesReducer.offline.Ngoai_Le.Course_Offer
           : [];
         setTotalItemsCount(offlineCourses.length);
         setCourseArrays(splitToSubArr(offlineCourses, itemsCountPerPage));
+        setException(coursesReducer.offline && coursesReducer.offline.Exception || {}); 
         setBothException(coursesReducer.offline && coursesReducer.offline.Exception || []);
+        setBothStatus(coursesReducer.offline && coursesReducer.offline.status || 0);
+        setBothMessage(coursesReducer.offline && coursesReducer.offline.message || "");
+        setCourseOfflineArrays(offlineCourses || []);
+        setBothNgoaiLe(coursesReducer.offline && coursesReducer.offline.Ngoai_Le || {});
       }
     }
   }, [coursesReducer, method]);
@@ -132,13 +148,18 @@ export default function HomePage() {
                 <RecommendationCourses
                   activePage={activePage}
                   courseArrays={courseArrays}
+                  courseOnlineArrays={courseOnlineArrays}
+                  courseOfflineArrays={courseOfflineArrays}
                   exceptions={exception}
                   bothException={bothException}
+                  bothMessage={bothMessage}
+                  bothStatus={bothStatus}
                   handlePageChange={handlePageChange}
                   itemsCountPerPage={itemsCountPerPage}
                   totalItemsCount={totalItemsCount}
                   setMethod={setMethod}
                   method={method}
+                  bothNgoaiLe={bothNgoaiLe}
                 />
               ) : (
                 <DefaultCourses

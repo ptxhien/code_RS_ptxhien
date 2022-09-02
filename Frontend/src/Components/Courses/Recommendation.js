@@ -43,6 +43,8 @@ const sortKeys = (obj = { key1: 10, key2: 20 }, type = "ASC" || "DESC") => {
 
 function RecommendationCourses({
   courseArrays,
+  courseOnlineArrays,
+  courseOfflineArrays,
   exceptions,
   bothException,
   activePage,
@@ -51,6 +53,9 @@ function RecommendationCourses({
   totalItemsCount,
   setMethod,
   method,
+  bothStatus,
+  bothMessage,
+  bothNgoaiLe
 }) {
   const [providedSkills, setProvidedSkills] = useState([]);
   const [missingSkills, setMissingSkills] = useState([]);
@@ -77,17 +82,17 @@ function RecommendationCourses({
     if (coursesReducer.isRecommended) {
       if (method === MethodEnum.ONLINE) {
         setProvidedSkills(
-          sortKeys(coursesReducer.online.lstSkill_Provider || {}, "DESC")
+          sortKeys(coursesReducer.online && coursesReducer.online.lstSkill_Provider || {}, "DESC")
         );
         setMissingSkills(
-          sortKeys(coursesReducer.online.lstSkill_notProvider || {}, "DESC")
+          sortKeys(coursesReducer.online && coursesReducer.online.lstSkill_notProvider || {}, "DESC")
         );
       } else if (method === MethodEnum.OFFLINE) {
         setProvidedSkills(
-          sortKeys(coursesReducer.offline.lstSkill_Provider || {}, "DESC")
+          sortKeys(coursesReducer.offline && coursesReducer.offline.lstSkill_Provider || {}, "DESC")
         );
         setMissingSkills(
-          sortKeys(coursesReducer.offline.lstSkill_notProvider || {}, "DESC")
+          sortKeys(coursesReducer.offline && coursesReducer.offline.lstSkill_notProvider || {}, "DESC")
         );
       }
     } else {
@@ -99,6 +104,143 @@ function RecommendationCourses({
   useEffect(() => {
     setTimeout(() => setOpenGoogleForm(true), 20000);
   }, []);
+
+  function coursesProvidedKkills() {
+    let lstSkill_Provider = exceptions.find(el => !!el.lstSkill_Provider);
+    let lstSkill_Provider_text = lstSkill_Provider && lstSkill_Provider.lstSkill_Provider || "";
+    if (!lstSkill_Provider_text) {
+      lstSkill_Provider = exceptions.find(el => !!el.lstSkill_Provider_ngoaile);
+      lstSkill_Provider_text = lstSkill_Provider && lstSkill_Provider.lstSkill_Provider_ngoaile || "";
+    }
+    if (!lstSkill_Provider_text) {
+      lstSkill_Provider = bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => !!el.lstSkill_Provider_ngoaile);
+      lstSkill_Provider_text = lstSkill_Provider && lstSkill_Provider.lstSkill_Provider_ngoaile || "";
+    }
+    return lstSkill_Provider_text;
+  }
+
+  function lstSkillNotProvider() {
+    let lstSkill_notProvider = exceptions.find(el => !!el.lstSkill_notProvider);
+    let text = lstSkill_notProvider && lstSkill_notProvider.lstSkill_notProvider || "";
+    if (!text) {
+      lstSkill_notProvider = exceptions.find(el => !!el.lstSkill_notProvider_ngoaile);
+      text = lstSkill_notProvider && lstSkill_notProvider.lstSkill_notProvider_ngoaile || "";
+    }
+    if (!text) {
+      lstSkill_notProvider = bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => !!el.lstSkill_notProvider_ngoaile);
+      text = lstSkill_notProvider && lstSkill_notProvider.lstSkill_notProvider_ngoaile || "";
+    }
+    return text;
+  }
+
+  function showStatusMessage() {
+    if (bothStatus == 203 && bothMessage == 'enough skills') {
+      return <Row>
+          <p style={{width: "100%"}}>
+            {"Bạn đã đủ kỹ năng mà nghề nghiệp yêu cầu, bạn có thể ứng tuyển cho vị trí đó."}
+          </p>
+        </Row>;
+    } else if (bothStatus == 201 && bothMessage == 'frameRemain_Fulltime') {
+      let fee = bothException.find(el => el.ExceptionType == 'Fee');
+      let duration = bothException.find(el => el.ExceptionType == 'Duration');
+      let frameRemain = bothException.find(el => el.ExceptionType == 'Frame_Remain');
+      return <Row>
+            <p style={{width: "100%"}}>
+              {"Chúng tôi đề xuất đến bạn những khoá học phù hợp với nghề nghiệp, hình thức học, ngôn ngữ bạn biết." + 
+                "Nhưng có sự chênh lệch so với vài tiêu chí như chi phí, thời gian và khung thời gian."
+              }
+              <ul>
+                <li>{"tổng lộ trình học: " + (fee && fee.Output)}</li>
+                <li>{"tổng thơi gian lộ trình học: " + (duration && duration.Output)}</li>
+                <li>{"các khoá học này ở các khung thời gian: " + (frameRemain && frameRemain.frame_remain)}</li>
+              </ul>
+            </p>
+          </Row>;
+    } else if (bothStatus == 202 && bothMessage == 'frameRemain_Fulltime') {
+      let lan = bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => el.ExceptionType == 'Lan');
+      let fee = bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => el.ExceptionType == 'Fee');
+      let duration = bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => el.ExceptionType == 'Duration');
+      let frameRemain = bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => el.ExceptionType == 'Frame_Remain');
+      return <Row>
+            <p style={{width: "100%"}}>
+              {"Chúng tôi đề xuất đến bạn những khoá học phù hợp với nghề nghiệp, hình thức học." + 
+                "Nhưng có sự chênh lệch so với vài tiêu chí như chi phí, ngôn ngữ và khung thời gian."
+              }
+              <ul>
+                <li>{"Ngôn ngữ các khoá học này là: " + (lan && lan.lan_remain)}</li>
+                <li>{"tổng lộ trình học: " + (fee && fee.Output)}</li>
+                <li>{"tổng thơi gian lộ trình học: " + (duration && duration.Output)}</li>
+                <li>{"các khoá học này ở các khung thời gian: " + (frameRemain && frameRemain.frame_remain)}</li>
+              </ul>
+            </p>
+          </Row>;
+    } else if (bothStatus == 400 && bothMessage == 'no courses') {
+        return <Row>
+              <p style={{width: "100%"}}>
+                {"Hệ thống đang cập nhật các khoá học liên quan đến skills nghề nghiệp yêu cầu."
+                }<br/><br/>
+                {"Bạn có thể tham khảo 5 job liên quan đến ghề nghiệp bạn đang định hướng, các job bao gồm: "} <br/>
+                {bothException && bothException[0] && bothException[0].Job_offer || ""}
+              </p>
+            </Row>;
+    } else if (bothStatus == 200 && bothMessage == 'PASS' && bothException && bothException.some( el => !!el.Balance)) {
+        let fee = bothException.find(el => el.ExceptionType == 'Fee');
+        let duration = bothException.find(el => el.ExceptionType == 'Duration');
+        return <Row>
+              <p style={{width: "100%"}}>
+                {"Chúng tôi đề xuất đến bạn những khoá học phù hợp với nghề nghiệp, hình thức học, ngôn ngũ bạn biết."
+                }<br/><br/>
+                {"Nhưng có sự chênh lệch so với vài tiêu chí như chi phí, thời gian và khung thời gian."} <br/>
+                <ul>
+                  <li>{"Tổng lộ trình học: " + (fee && fee.Output || "")}</li>
+                  <li>{"Tổng thời gian lộ trình học: " + (duration && duration.Output || "")}</li>
+                </ul>
+              </p>
+            </Row>;
+    } else if (bothStatus == 402 && bothMessage == 'Lan' && courseArrays[0]) {
+      let lan = bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => el.ExceptionType == 'Lan');
+      return <Row>
+            <p style={{width: "100%"}}>
+              {"Chúng tôi đề xuất đến bạn những khoá học phù hợp với nghề nghiệp, hình thức học, thời gian học và chi phí."
+              }<br/><br/>
+              {"Nhưng có sự chênh lệch so với vài tiêu chí như ngôn ngữ học."} <br/>
+              <ul>
+                <li>{"Ngôn ngữ các khoá học này là: " + (lan && lan.lan_remain)}</li>
+              </ul>
+            </p>
+          </Row>;
+    } else if (method === MethodEnum.ONLINE && courseOnlineArrays && !courseOnlineArrays[0] && courseOfflineArrays
+                && courseOfflineArrays[0]) {
+        return <Row>
+              <p style={{width: "100%"}}>
+                {"Không có khoá học Online phù hợp với tiêu chí của bạn."
+                }<br/><br/>
+                {"Bạn có thể tham khảo 5 job liên quan đến nghề nghiệp bạn đang đinh hướng, các job bao gồm: "
+                  + (bothException && bothException[0] && bothException[0].Job_offer || "")}
+              </p>
+            </Row>;
+    } else if (method === MethodEnum.OFFLINE && courseOfflineArrays && !courseOfflineArrays[0] && courseOnlineArrays
+                && courseOnlineArrays[0]) {
+        return <Row>
+              <p style={{width: "100%"}}>
+                {"Không có khoá học Offline phù hợp với tiêu chí của bạn."
+                }<br/><br/>
+                {"Bạn có thể tham khảo 5 job liên quan đến nghề nghiệp bạn đang định hướng, các job bao gồm: "
+                  + (bothException && bothException[0] && bothException[0].Job_offer || "")}
+              </p>
+            </Row>;
+    } else if (!courseOfflineArrays[0] && !courseOnlineArrays[0]) {
+        return <Row>
+              <p style={{width: "100%"}}>
+                {"Không có khoá học " + (method === MethodEnum.ONLINE ? "Online" : "Offline") + " phù hợp với tiêu chí của bạn."
+                }<br/><br/>
+                {"Bạn có thể tham khảo 5 job liên quan đến nghề nghiệp bạn đang đinh hướng, các job bao gồm: "
+                  + (bothException && bothException[0] && bothException[0].Job_offer || "")}
+              </p>
+            </Row>;
+    }
+    return "";
+  }
 
   return (
     <Row>
@@ -249,14 +391,7 @@ function RecommendationCourses({
             </ModalBody>
           </Modal>
           <CardBody>
-            {!courseArrays[0] && (
-              <Row>
-                <p style={{ textAlign: "center", width: "100%"}}>
-                  {"không có khoá học bạn có thể chọn hình thức " + 
-                        (method === MethodEnum.ONLINE ? 'Offline' : 'Online')}
-                        </p>
-              </Row>
-            )}
+            {showStatusMessage() }
             <Row>
               {courseArrays[activePage - 1] &&
                 courseArrays[activePage - 1].map((item, index) => {
@@ -393,18 +528,6 @@ function RecommendationCourses({
               </Col>
             </Row>
           </CardBody>
-          {bothException && bothException[0] && bothException[0].job_offer && (
-            <CardBody>
-              <CardTitle className="text-danger">Job Offer</CardTitle>
-              <Row>
-                <Col md={12}>
-                  <div>
-                    {bothException[0].job_offer}
-                  </div>
-                </Col>
-              </Row>
-            </CardBody>
-          )}
           <CardBody>
             <CardTitle className="text-danger">Missing Skill</CardTitle>
             {/* <Row>
@@ -445,11 +568,7 @@ function RecommendationCourses({
                   Courses provided skills
                 </Label>
                 <div>
-                  {exceptions && exceptions.map((item, index) => {
-                    return (
-                        <p key={index}>{item.lstSkill_Provider}</p>
-                    );
-                  })}
+                  {coursesProvidedKkills()}
                 </div>
               </Col>
 
@@ -460,11 +579,7 @@ function RecommendationCourses({
                   Courses unprovided skills
                 </Label>
                 <div>
-                  {exceptions && exceptions.map((item, index) => {
-                    return (
-                        <p key={index}>{item.lstSkill_notProvider}</p>
-                    );
-                  })}
+                  {lstSkillNotProvider()}
                 </div>
               </Col>
 
