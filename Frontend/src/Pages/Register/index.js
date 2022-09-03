@@ -84,7 +84,7 @@ export default function Register() {
       errors: [],
     },
     {
-      name: "Finish Wizard",
+      name: "Finish Register",
       component: <Step3 DTO={DTO} onClickRegister={onClickRegister} />,
       shouldGoNext: true,
     },
@@ -194,10 +194,10 @@ export default function Register() {
     const errors = [];
     
     if(!DTO.language) {
-      errors.push("Please choose at least one language u know");
+      errors.push("Please choose at least one language you know");
     }
     if (!DTO.technologySkill) {
-      errors.push("Please choose at least one technology skill u know");
+      errors.push("Please choose at least one technology skill you know");
     }
 
     if (errors.length) {

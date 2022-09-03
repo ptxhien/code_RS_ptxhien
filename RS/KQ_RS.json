@@ -1,21 +1,177 @@
 {
-    "courses_offline": {
-        "status": 203, 
-        "Course": [], 
-        "message": "enough skills", 
-        "Exception": [], 
+    "courses_online": {
+        "status": 200,
+        "message": "PASS",
+        "Course": [
+            {
+                "courseID": "COURSE_224",
+                "courseTitle": "Data Science Fundamentals with Python and SQL Specialization 1",
+                "Tech_Skill": "NumPy, Python, R, SQL",
+                "studyTime": "",
+                "studyForm": "",
+                "technologySkill": "R, GitHub, NumPy, SQL, IBM Watson Studio, API, Jupyter, R Studio, Python, Pandas, Ipython, Probability, Statistics, Data Visualization, Statistical Hypothesis Testing, Cloud Databases",
+                "outcomeLearning": "Working knowledge of Data Science Tools such as Jupyter Notebooks, R Studio, GitHub, Watson Studio. Python programming basics including data structures, logic, working with files, invoking APIs, and libraries such as Pandas and Numpy. Statistical Analysis techniques including Descriptive Statistics, Data Visualization, Probability Distribution, Hypothesis Testing and Regression. Relational Database fundamentals including SQL query language, Select statements, sorting & filtering, database functions, accessing multiple tables",
+                "provider": "Udemy",
+                "duration": "18:00:00",
+                "feeVND": "20616200.0",
+                "URL": "https://www.coursera.org/specializations/data-science-fundamentals-python-sql",
+                "language": "Arabic, French, Portuguese, Italian, German, Russian, Spanish, Vietnamese, English",
+                "rating": "4.6",
+                "peopleRating": "583",
+                "location": "",
+                "level": "Beginner",
+                "is_online": "true"
+            },
+            {
+                "courseID": "COURSE_180",
+                "courseTitle": "Data Science Fundamentals with Python and SQL Specialization",
+                "Tech_Skill": "NumPy, Python, R, SQL",
+                "studyTime": "",
+                "studyForm": "",
+                "technologySkill": "R, GitHub, NumPy, SQL, IBM Watson Studio, API, Jupyter, R Studio, Python, Pandas, Ipython, Probability, Statistics, Data Visualization, Statistical Hypothesis Testing, Cloud Databases",
+                "outcomeLearning": "Working knowledge of Data Science Tools such as Jupyter Notebooks, R Studio, GitHub, Watson Studio. Python programming basics including data structures, logic, working with files, invoking APIs, and libraries such as Pandas and Numpy. Statistical Analysis techniques including Descriptive Statistics, Data Visualization, Probability Distribution, Hypothesis Testing and Regression. Relational Database fundamentals including SQL query language, Select statements, sorting & filtering, database functions, accessing multiple tables",
+                "provider": "Coursera",
+                "duration": "2 months",
+                "feeVND": "20616200.0",
+                "URL": "https://www.coursera.org/specializations/data-science-fundamentals-python-sql",
+                "language": "English, Arabic, French, Portuguese, Italian, Vietnamese, German, Russian, Spanish",
+                "rating": "4.6",
+                "peopleRating": "583",
+                "location": "",
+                "level": "Beginner",
+                "is_online": "true"
+            },
+            {
+                "courseID": "COURSE_197",
+                "courseTitle": "Data Visualization with Tableau Specialization",
+                "Tech_Skill": "SAS, Tableau",
+                "studyTime": "",
+                "studyForm": "",
+                "technologySkill": "Tableau, SAS, Storyboarding, Data Visualization",
+                "outcomeLearning": "Examine, navigate, and learn to use the various features of Tableau. Assess the quality of the data and perform exploratory analysis. Create and design visualizations and dashboards for your intended audience. Combine the data to and follow the best practices to present your story.",
+                "provider": "Coursera",
+                "duration": "18:00:00",
+                "feeVND": "0.0",
+                "URL": "https://www.coursera.org/specializations/data-visualization",
+                "language": "English, Arabic, French, Portuguese, Italian, Vietnamese, German, Russian, Spanish",
+                "rating": "4.5",
+                "peopleRating": "5567",
+                "location": "",
+                "level": "Beginner",
+                "is_online": "true"
+            },
+            {
+                "courseID": "COURSE_136",
+                "courseTitle": "Programming for the Web with JavaScript",
+                "Tech_Skill": "MongoDB",
+                "studyTime": "",
+                "studyForm": "",
+                "technologySkill": "Node.js, Bootstrap, JavaScript, jQuery, DOM, React, CSS, MongoDB, D3.js, NoSQL, HTML, Json, RESTful API, API, SQL",
+                "outcomeLearning": "JavaScript is the programming language of the World Wide Web.\nAs a professional web software developer, you will not only need to know how to program in this simple yet powerful language, but you will need to understand the fundamentals of how data is exchanged on the World Wide Web (WWW) and what tools and frameworks are available to you for creating robust, interactive web applications.\nThis course, part of the CS Essentials for Software Development Professional Certificate program, provides an introduction to modern web development using JavaScript. In addition to exploring the basics of web page creation using HTML and CSS, you will learn advanced web page layout and responsive design tools such as Bootstrap. You will also learn how browsers represent a web page data using the Document Object Model (DOM) and how to develop dynamic, interactive web pages using JavaScript in the browser. Beyond fundamental JavaScript syntax and advanced language features such as callbacks, events, and asynchronous programming, you will work with jQuery, which provides functionality for simplified DOM manipulation and event handling.\nThis course will also introduce you to modern web frameworks and component-based libraries such as React.js for efficiently developing modular web page components, and D3.js for creating data-driven documents. We will also teach you how to represent and exchange data using JavaScript Object Notation (JSON), and how to access RESTful APIs on the web.\nServer-side JavaScript is becoming more prevalent in the industry, with web frameworks such as Node.js and Express making it simple to create and deploy complex, data-driven web applications. This course will prepare you to use such frameworks and show you how to integrate them with NoSQL databases such as MongoDB.",
+                "provider": "Edx",
+                "duration": "08:00:00",
+                "feeVND": "0.0",
+                "URL": "https://www.edx.org/course/programming-for-the-web-with-javascript",
+                "language": "English",
+                "rating": "4.6",
+                "peopleRating": "9794",
+                "location": "",
+                "level": "ALL Levels",
+                "is_online": "true"
+            },
+            {
+                "courseID": "COURSE_223",
+                "courseTitle": "IBM Data Analyst Professional Certificate 1",
+                "Tech_Skill": "Amazon Web Services (AWS)",
+                "studyTime": "",
+                "studyForm": "",
+                "technologySkill": "Microsoft Excel, Matplotlib, NumPy, SQL, Cognos, Amazon Web Services (AWS), Python, API, Pandas, Jupyter, Data Visualization, Pivot Table, Dashboard, Pandas, APIs",
+                "outcomeLearning": "Demonstrate proficiency in using spreadsheets and utilizing Excel to perform a variety of data analysis tasks like data wrangling and data mining. Create various charts and plots in Excel & work with IBM Cognos Analytics to build dashboards. Visualize data using Python libraries like Matplotlib. Develop working knowledge of Python language for analyzing data using Python libraries like Pandas and Numpy, and invoke APIs and Web Services. Describe data ecosystem and Compose queries to access data in cloud databases using SQL and Python from Jupyter Notebooks",
+                "provider": "Udemy",
+                "duration": "09:00:00",
+                "feeVND": "0.0",
+                "URL": "https://www.coursera.org/professional-certificates/ibm-data-analyst",
+                "language": "English, Arabic, French, Portuguese, Italian, Vietnamese, German, Russian, Spanish",
+                "rating": "4.7",
+                "peopleRating": "4832",
+                "location": "",
+                "level": "Beginner",
+                "is_online": "true"
+            },
+            {
+                "courseID": "COURSE_177",
+                "courseTitle": "IBM Data Analyst Professional Certificate",
+                "Tech_Skill": "Amazon Web Services (AWS)",
+                "studyTime": "",
+                "studyForm": "",
+                "technologySkill": "Microsoft Excel, Matplotlib, NumPy, SQL, Cognos, Amazon Web Services (AWS), Python, API, Pandas, Jupyter, Data Visualization, Pivot Table, Dashboard, Pandas, APIs",
+                "outcomeLearning": "Demonstrate proficiency in using spreadsheets and utilizing Excel to perform a variety of data analysis tasks like data wrangling and data mining. Create various charts and plots in Excel & work with IBM Cognos Analytics to build dashboards. Visualize data using Python libraries like Matplotlib. Develop working knowledge of Python language for analyzing data using Python libraries like Pandas and Numpy, and invoke APIs and Web Services. Describe data ecosystem and Compose queries to access data in cloud databases using SQL and Python from Jupyter Notebooks",
+                "provider": "Coursera",
+                "duration": "09:00:00",
+                "feeVND": "414166.0",
+                "URL": "https://www.coursera.org/professional-certificates/ibm-data-analyst",
+                "language": "English, Arabic, French, Portuguese, Italian, Vietnamese, German, Russian, Spanish",
+                "rating": "4.7",
+                "peopleRating": "4832",
+                "location": "",
+                "level": "Beginner",
+                "is_online": "true"
+            },
+            {
+                "courseID": "COURSE_201",
+                "courseTitle": "MATLAB Programming for Engineers and Scientists Specialization",
+                "Tech_Skill": "MatLab",
+                "studyTime": "",
+                "studyForm": "",
+                "technologySkill": "OOP, MatLab",
+                "outcomeLearning": "Computer programming in general and the MATLAB language in particular. Advanced MATLAB features such as the App Designer, Live Scripts and Object-Oriented Programming. Program efficiency and an introduction to algorithm complexity. Image processing, data visualization and an introduction to machine learning.",
+                "provider": "Coursera",
+                "duration": "06:00:00",
+                "feeVND": "0.0",
+                "URL": "https://www.coursera.org/specializations/matlab-programming-engineers-scientists",
+                "language": "English, Arabic, French, Portuguese, Greek, Italian, Vietnamese, German, Russian, Spanish",
+                "rating": "4.8",
+                "peopleRating": "2923",
+                "location": "",
+                "level": "Beginner",
+                "is_online": "true"
+            }
+        ],
+        "Exception": [
+            {
+                "lstSkill_Provider": "NumPy, Python, R, SQL, SAS, Tableau, MongoDB, Amazon Web Services (AWS), MatLab",
+                "lstSkill_notProvider": "Alteryx, Microsoft Outlook, Microsoft PowerPoint, Weka, Microsoft Word, Apache Accumulo, Apache Cassandra, Data Lake, Amazon DynamoDB, Apache Hbase, Apache Hadoop"
+            },
+            {
+                "ExceptionType": "Fee",
+                "Input": "5000000.0",
+                "Output": "41646570.0",
+                "Balance": "36646568.0"
+            },
+            {
+                "ExceptionType": "Duration",
+                "Input": "3 days, 0:00:00",
+                "Output": "63 days, 20:00:00",
+                "Balance": "60 days, 20:00:00"
+            }
+        ],
         "Ngoai_Le": {
-            "Course_Offer": [], 
+            "Course_Offer": [],
             "ExceptionDetail": []
         }
-    }, 
-    "courses_online": {
-        "status": 203, 
-        "Course": [], 
-        "message": "enough skills", 
-        "Exception": [], 
+    },
+    "courses_offline": {
+        "status": 404,
+        "message": "Location",
+        "Course": [],
+        "Exception": [
+            {
+                "ExceptionType": "Location",
+                "Job_offer": "Senior Data Scientist, Junior Project Manager, Data Manager, Lead Data Scientist, Mobile Tester"
+            }
+        ],
         "Ngoai_Le": {
-            "Course_Offer": [], 
+            "Course_Offer": [],
             "ExceptionDetail": []
         }
     }
