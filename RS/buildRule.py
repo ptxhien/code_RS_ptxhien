@@ -127,8 +127,8 @@ def BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, conditi
             str_new_lstSkill_notProvider_ngoaile = ", ".join(lstSkill_notProvider_ngoaile)
             
             #--------------------
-            dict_f_ngoaile.append({"lstSkill_Provider": str_new_lstSkill_Provider_ngoaile,
-                                "lstSkill_notProvider": str_new_lstSkill_notProvider_ngoaile })
+            dict_f_ngoaile.append({"lstSkill_Provider_ngoaile": str_new_lstSkill_Provider_ngoaile,
+                                "lstSkill_notProvider_ngoaile": str_new_lstSkill_notProvider_ngoaile })
             
             # Fee and Duration for the learning route
             if typeFilter.lower() != "top": 
