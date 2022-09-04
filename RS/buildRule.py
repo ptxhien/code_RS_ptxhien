@@ -127,8 +127,8 @@ def BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, conditi
             str_new_lstSkill_notProvider_ngoaile = ", ".join(lstSkill_notProvider_ngoaile)
             
             #--------------------
-            dict_f_ngoaile.append({"lstSkill_Provider": str_new_lstSkill_Provider_ngoaile,
-                                "lstSkill_notProvider": str_new_lstSkill_notProvider_ngoaile })
+            dict_f_ngoaile.append({"lstSkill_Provider_ngoaile": str_new_lstSkill_Provider_ngoaile,
+                                "lstSkill_notProvider_ngoaile": str_new_lstSkill_notProvider_ngoaile })
             
             # Fee and Duration for the learning route
             if typeFilter.lower() != "top": 
@@ -592,12 +592,19 @@ def KiemTraOfflineNgoaiLe(df_Off, missing_skill, lan_know, location, occupation,
 def recommendation(df_On, df_Off, missing_skill, lan_know, location, occupation, Form_require, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter):
     dict_f_Offline = {}
     dict_f_ngoaile = []
+    dict_f_ngoaile1 = []
     dict_f_online = {}
     dict_f = {}
     
     df_rule = pd.DataFrame()
     result_offline = pd.DataFrame()
     result_online = pd.DataFrame()
+    
+    #-----------------
+    lst_job_sim = knowledgeDomain.job_related(occupation)
+    del lst_job_sim[0:1]
+    str_lst_job_sim = ", ".join(lst_job_sim)
+    #-----------------
     
     if not Form_require:
         print("Don't choose form")
@@ -624,12 +631,15 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, location, occupation,
     elif Form_require.startswith('Online'):
         print("Choose Online")
         df_rule, dict_onl = BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, condition_duration, typeFilter)
+        #----
+        dict_f_ngoaile1.append({"job_offer": str_lst_job_sim})
+        #----
         dict_f_ngoaile = {'courses_online': dict_onl,
                             'courses_offline': {
                             "status": 400, 
                             "message": "no courses",
                             "Course": [], 
-                            "Exception": [],
+                            "Exception": dict_f_ngoaile1,
                             "Ngoai_Le":{
                                     "Course_Offer": [],
                                     "ExceptionDetail": [] }}
@@ -644,11 +654,14 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, location, occupation,
     else:
         print("Choose Offline")
         df_rule , dict_off = BuildRule_Offline(df_Off, missing_skill, lan_know, location, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
+        #----
+        dict_f_ngoaile1.append({"job_offer": str_lst_job_sim})
+        #----
         dict_f_ngoaile = {'courses_online': {
                             "status": 400, 
                             "message": "no courses",
                             "Course": [], 
-                                "Exception": [],
+                                "Exception": dict_f_ngoaile1,
                                 "Ngoai_Le":{
                                     "Course_Offer": [],
                                     "ExceptionDetail": []}}, 

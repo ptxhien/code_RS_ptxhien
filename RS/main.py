@@ -36,9 +36,11 @@ def RS():
     missing_skill = function.FindMissingSkill(df_attribute_requirement)
     dict_f = {}
     
-    dict_f_ngoaile1 = []
+    
     # 3. Dua vao model
     if len(df_attribute_requirement) > 0:
+        dict_f_ngoaile1 = []
+        
         lan_know = df_attribute_requirement.language[0].split(', ')
         feeMax = df_attribute_requirement.feeMax[0]
         Learner_Job_Now = df_attribute_requirement.jobNow[0]

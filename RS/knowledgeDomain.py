@@ -69,7 +69,7 @@ def Xet_FrameStudy_JobNow(df, Job_Now, lst_frametime):
     flat_course_freetime = 0 
     lst_t_learner = []
     
-    for i in lst_frametime.split(', '):
+    for i in lst_frametime.split('|'):
         lst_t_learner.append(i)
 
     if Job_Now.startswith('Work') | Job_Now.startswith('Study'):

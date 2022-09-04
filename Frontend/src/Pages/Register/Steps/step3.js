@@ -24,7 +24,7 @@ export default function WizardStep4({ DTO, onClickRegister }) {
                     <Card body className="card-shadow-primary border mb-3" outline color="primary">
                         <CardTitle>Confirm register!</CardTitle>
                         <p>Email: <b>{DTO.email}</b></p>
-                        <p>Password: <b>{DTO.password}</b></p>
+                        {/* <p>Password: <b>{DTO.password}</b></p> */}
                         <p>Full Name: <b>{DTO.fullname}</b></p>
                         <p>Address: <b>{DTO.city + ', ' + DTO.district + ', ' + DTO.ward}</b></p>
                         <p>Gender: <b>{DTO.gender}</b></p>

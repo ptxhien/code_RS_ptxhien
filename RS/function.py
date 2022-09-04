@@ -436,7 +436,7 @@ def Course_Weight(rule_On, occupation, filter):
                     if len(w_tech_trung) == 0:
                         for index1, r in df_Course_RS.iterrows(): 
                             if r.Weight == row.Weight and r.courseID != row.courseID:
-                                if r.numStudent == row.numStudent and r.provider != row.provider:
+                                if r.provider != row.provider:
                                     subDataFrame = df_Course_RS.loc[df_Course_RS['courseID'] == row.courseID]
                                     if len(subDataFrame) == 0:
                                         Course_RS.append(row)
@@ -478,7 +478,7 @@ def FindCoursebasedStudyTime(df, t_learner):
     df2 = []
 
     for id, row in df.iterrows():
-        for sTime in row.loc['studyTime'].split(' | '): 
+        for sTime in row.loc['studyTime'].split('|'): 
             if sTime != '':
                 sTime_start = sTime[0:2]
                 sTime_start = pd.to_numeric(sTime_start, downcast='integer') 
