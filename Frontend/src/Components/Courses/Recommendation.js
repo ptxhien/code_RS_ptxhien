@@ -256,7 +256,7 @@ function RecommendationCourses({
           >
             <ModalHeader>ĐÁNH GIÁ VỀ HỆ THỐNG TƯ VẤN</ModalHeader>
             <ModalBody>
-              <p>Chúng tôi rất mong bạn tham gia khảo sát này, từ đó chúng tôi có thể cải tiến hệ thống tư vấn tốt hơn trong tương lai.
+              <p>Chúng tôi rất mong bạn tham gia khảo sát, từ đó chúng tôi có thể cải tiến hệ thống tư vấn tốt hơn trong tương lai.
               </p>
             </ModalBody>
             <ModalFooter>

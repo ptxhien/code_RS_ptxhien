@@ -95,7 +95,7 @@ export default function WizardStep2({ DTO, setDTO }) {
                             <Input type="select" value={DTO.jobNow} onChange={(e) => setDTO({ ...DTO, jobNow: e.target.value })}>
                                 <option value={""}>Not employed</option>
                                 <option value={"Work"}>Employed full-time</option>
-                                <option value={"Study"}>Student full-time</option>
+                                <option value={"Study"}>Student, full-time</option>
                             </Input>
                         </Col>
                     </FormGroup>

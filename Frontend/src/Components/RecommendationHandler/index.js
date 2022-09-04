@@ -19,7 +19,7 @@ function RecommendationHandler() {
   const recommendationInfo = useRef({
     occupation: "",
     form: "",
-    month: "12",
+    month: "00",
     typeFilter: "progress",
   });
 
