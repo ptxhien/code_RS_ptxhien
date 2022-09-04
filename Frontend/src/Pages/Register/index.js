@@ -162,7 +162,7 @@ export default function Register() {
       technologySkill: DTO.technologySkill.map(({techName}) => techName).join(', '),
       fieldOfStudy: DTO.fieldOfStudy,
       feeMax: DTO.feeMax,
-      freeTime: DTO.freeTime.join('|'),
+      freeTime: DTO.freeTime && DTO.freeTime.join('|') || '',
       futureSelfDevelopment: DTO.futureSelfDevelopment,
       address1: DTO.address1,
     }

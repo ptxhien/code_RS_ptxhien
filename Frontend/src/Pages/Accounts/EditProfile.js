@@ -103,10 +103,11 @@ export default function EditProfile() {
   useEffect(() => {
     if (auth.address && DTO.cities) {
       let address = auth.address.split(', ');
-
-      let cityIndex = DTO.cities.findIndex(el => el.province_name.indexOf(address[0]) !== -1);
-      if (cityIndex !== -1) {
-        getDistricts(DTO.cities[cityIndex].province_id, {city_id: cityIndex, city: DTO.cities[cityIndex].province_name, district_text: address[1], ward_text: address[2]});
+      if (address[0]) {
+        let cityIndex = DTO.cities.findIndex(el => el.province_name.indexOf(address[0]) !== -1);
+        if (cityIndex !== -1) {
+          getDistricts(DTO.cities[cityIndex].province_id, {city_id: cityIndex, city: DTO.cities[cityIndex].province_name, district_text: address[1], ward_text: address[2]});
+        }
       }
     }
   }, [DTO.cities]);
@@ -200,6 +201,9 @@ export default function EditProfile() {
   }
 
   function onClickUpdate() {
+    if(checkSecondStep() == false) {
+      return;
+    }
     let postdata = {
       learnerID: auth.learnerID,
       address: removeFirst(DTO.city, 'city') + ', ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.ward, 'ward'),
@@ -218,6 +222,22 @@ export default function EditProfile() {
     });
   }
 
+  const checkSecondStep = () => {
+    const errors = [];
+    console.log(language);
+    if(!(language && language.length > 0)) {
+      errors.push("Please choose at least one language you know");
+    }
+    if (!(techSkill && techSkill.length > 0)) {
+      errors.push("Please choose at least one technology skill you know");
+    }
+
+    errors.forEach((err) => {
+      toastErrorText(err);
+    });
+
+    return errors.length == 0;
+  }
   return (
     <>
       <ThemeOptions />
@@ -226,7 +246,7 @@ export default function EditProfile() {
       {/* < div className="app-main"> */}
       {/* <AppSidebar /> */}
       {/* <div className="app-main__outer"> */}
-      <div className="app-main__inner">
+      <div className="app-main__inner card-body">
         <div className="form-wizard-content">
             <Form>
                 <FormGroup row>

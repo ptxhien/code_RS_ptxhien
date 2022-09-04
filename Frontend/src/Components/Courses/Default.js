@@ -87,7 +87,7 @@ function DefaultCourses({ courseArrays, activePage, itemsCountPerPage, handlePag
                               color="primary"
                             >
                               <i className="pe-7s-cash btn-icon-wrapper"></i>
-                              {item.feeVND == 0 ? "Free" : item.feeVND + " VNĐ"}
+                              {item.feeVND == 0 ? "Free" : new Intl.NumberFormat('it-IT').format(item.feeVND) + " VNĐ"}
                             </Button>
                             <Link
                               to={`course/${item.courseID}`}

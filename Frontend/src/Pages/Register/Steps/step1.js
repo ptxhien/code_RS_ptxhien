@@ -49,7 +49,7 @@ export default function WizardStep1({ DTO, setDTO }) {
                         <div className="mt-4 d-flex align-items-center">
                             <h5 className="mb-0">
                                 Already have an account?{" "}
-                                <a href="https://colorlib.com/" onClick={(e) => e.preventDefault()} className="text-primary">
+                                <a href="/#/login" className="text-primary">
                                     Sign in
                                 </a>
                             </h5>

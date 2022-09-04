@@ -66,8 +66,11 @@ AuthController.prototype.login = async (req, res, next) => {
 // [POST] /auth/update
 AuthController.prototype.update = async (req, res, next) => {
   try {
-    const result = await LearnerModel.update(req.body);
-    const oldUser = await LearnerModel.findOne("*", `learnerID='${req.body.learnerID}'`);
+    var userDecoded = jwt.verify(req.get('auth'), process.env.PRIVATE_KEY);
+    var params = req.body;
+    params.learnerID = userDecoded.id;
+    const result = await LearnerModel.update(params);
+    const oldUser = await LearnerModel.findOne("*", `learnerID='${params.learnerID}'`);
 
     res.status(200).json({user: oldUser, message: "successfully updated" });
   } catch (err) {

@@ -357,7 +357,7 @@ export default function RecommendationPage() {
                                         <i className="pe-7s-cash btn-icon-wrapper"></i>
                                         {item.feeVND == 0
                                           ? "Free"
-                                          : item.feeVND + " VNĐ"}
+                                          : new Intl.NumberFormat('it-IT').format(item.feeVND) + " VNĐ"}
                                       </Button>
                                       <a
                                         href="#"

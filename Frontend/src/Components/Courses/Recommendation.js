@@ -142,6 +142,7 @@ function RecommendationCourses({
         </Row>;
     } else if (bothStatus == 201 && bothMessage == 'frameRemain_Fulltime') {
       let fee = bothException.find(el => el.ExceptionType == 'Fee');
+      fee = fee && (new Intl.NumberFormat('it-IT').format(fee.Output) + " VNĐ") || '';
       let duration = bothException.find(el => el.ExceptionType == 'Duration');
       let frameRemain = bothException.find(el => el.ExceptionType == 'Frame_Remain');
       return <Row>
@@ -150,7 +151,7 @@ function RecommendationCourses({
                 "Nhưng có sự chênh lệch so với vài tiêu chí như chi phí, thời gian và khung thời gian."
               }
               <ul>
-                <li>{"tổng lộ trình học: " + (fee && fee.Output)}</li>
+                <li>{"tổng lộ trình học: " + fee}</li>
                 <li>{"tổng thơi gian lộ trình học: " + (duration && duration.Output)}</li>
                 <li>{"các khoá học này ở các khung thời gian: " + (frameRemain && frameRemain.frame_remain)}</li>
               </ul>
@@ -159,6 +160,8 @@ function RecommendationCourses({
     } else if (bothStatus == 202 && bothMessage == 'frameRemain_Fulltime') {
       let lan = bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => el.ExceptionType == 'Lan');
       let fee = bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => el.ExceptionType == 'Fee');
+      fee = fee && (new Intl.NumberFormat('it-IT').format(fee.Output) + " VNĐ") || '';
+
       let duration = bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => el.ExceptionType == 'Duration');
       let frameRemain = bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => el.ExceptionType == 'Frame_Remain');
       return <Row>
@@ -168,7 +171,7 @@ function RecommendationCourses({
               }
               <ul>
                 <li>{"Ngôn ngữ các khoá học này là: " + (lan && lan.lan_remain)}</li>
-                <li>{"tổng lộ trình học: " + (fee && fee.Output)}</li>
+                <li>{"tổng lộ trình học: " + fee}</li>
                 <li>{"tổng thơi gian lộ trình học: " + (duration && duration.Output)}</li>
                 <li>{"các khoá học này ở các khung thời gian: " + (frameRemain && frameRemain.frame_remain)}</li>
               </ul>
@@ -185,6 +188,8 @@ function RecommendationCourses({
             </Row>;
     } else if (bothStatus == 200 && bothMessage == 'PASS' && bothException && bothException.some( el => !!el.Balance)) {
         let fee = bothException.find(el => el.ExceptionType == 'Fee');
+        fee = fee && (new Intl.NumberFormat('it-IT').format(fee.Output) + " VNĐ") || '';
+
         let duration = bothException.find(el => el.ExceptionType == 'Duration');
         return <Row>
               <p style={{width: "100%"}}>
@@ -192,7 +197,7 @@ function RecommendationCourses({
                 }<br/><br/>
                 {"Nhưng có sự chênh lệch so với vài tiêu chí như chi phí, thời gian và khung thời gian."} <br/>
                 <ul>
-                  <li>{"Tổng lộ trình học: " + (fee && fee.Output || "")}</li>
+                  <li>{"Tổng lộ trình học: " + fee}</li>
                   <li>{"Tổng thời gian lộ trình học: " + (duration && duration.Output || "")}</li>
                 </ul>
               </p>
@@ -457,7 +462,7 @@ function RecommendationCourses({
                               color="primary"
                             >
                               <i className="pe-7s-cash btn-icon-wrapper"></i>
-                              {item.feeVND == 0 ? "Free" : item.feeVND + " VNĐ"}
+                              {item.feeVND == 0 ? "Free" : new Intl.NumberFormat('it-IT').format(item.feeVND) + " VNĐ"}
                             </Button>
                             <Link
                               to={`course/${item.courseID}`}
