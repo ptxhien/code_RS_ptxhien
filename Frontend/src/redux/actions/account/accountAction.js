@@ -93,3 +93,29 @@ export const registerAction = (args) => {
     }
   };
 };
+
+export const updateAction = (args) => {
+  return async (dispatch) => {
+    dispatch({
+      type: Types.LOADING,
+      payload: {},
+    });
+    try {
+      const { user, message } = await http.post(API_ROUTE.URL_AUTH_UPDATE, args);
+      dispatch({
+        type: Types.AUTH_UPDATE,
+        payload: {
+          user,
+          message
+        }
+      })
+    } catch (error) {
+      dispatch({
+        type: Types.LOGIN_FAILURE,
+        payload: {
+          message: error.message,
+        },
+      });
+    }
+  };
+};

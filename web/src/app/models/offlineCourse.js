@@ -100,4 +100,14 @@ OfflineCourseModel.prototype.count = async function (conditions = "1=1" || ["1=1
 };
 
 
+OfflineCourseModel.studyTimes = async function (fileds = "*" || ["*"], conditions = "1=1" || ["1=1"]) {
+  const [result] = await db.get("offlineCourse", fileds, conditions);
+  if (result) {
+    return result;
+  } else {
+    return null;
+  }
+};
+
+
 module.exports = OfflineCourseModel;

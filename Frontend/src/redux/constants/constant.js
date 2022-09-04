@@ -8,6 +8,7 @@ export const MESSAGE = {
 export const API_ROUTE = {
   URL_LOGIN: "/auth/login",
   URL_REGISTER: "/auth/register",
+  URL_AUTH_UPDATE: "/auth/update",
   URL_GET_LANGUAGE: "MasterData/GetAllLanguage",
   URL_GET_TECHNOLOGY: "MasterData/GetAllTechnology",
   URL_GET_FREE_TIME: "MasterData/GetFreeTime",

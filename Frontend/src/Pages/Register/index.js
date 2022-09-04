@@ -66,6 +66,7 @@ export default function Register() {
     freeTime: "",
     futureSelfDevelopment: "",
     fieldOfStudy: "",
+    address1: '',
     cities: [],
     districts: [],
     wards: [],
@@ -161,8 +162,9 @@ export default function Register() {
       technologySkill: DTO.technologySkill.map(({techName}) => techName).join(', '),
       fieldOfStudy: DTO.fieldOfStudy,
       feeMax: DTO.feeMax,
-      freeTime: DTO.freeTime,
+      freeTime: DTO.freeTime.join('|'),
       futureSelfDevelopment: DTO.futureSelfDevelopment,
+      address1: DTO.address1,
     }
     dispatch(registerAction(postdata));
   }

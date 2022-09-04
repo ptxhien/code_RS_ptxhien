@@ -10,6 +10,7 @@ const LearnerModel = function (Obj) {
   this.fullname = Obj ? Obj.fullname : undefined;
   // this.phone = Obj ? Obj.phone : "";
   this.address = Obj ? Obj.address : undefined;
+  this.address1 = Obj ? Obj.address1 : undefined;
   this.gender = Obj ? Obj.gender : undefined;
   this.learnerLevel = Obj ? Obj.learnerLevel : undefined;
   this.language = Obj ? Obj.language : undefined;
@@ -74,10 +75,18 @@ LearnerModel.findOne =  async function (fileds = "*" || ["*"], conditions = "1=1
   return new LearnerModel(result);
 };
 
-LearnerModel.prototype.update = async function () {};
+LearnerModel.prototype.update = async function (obj) {};
 
 
-LearnerModel.update = async function (obj) {};
+LearnerModel.update = async function (obj) {
+  try {
+    const [res1] = await db.update("learner", obj, `learnerID='${obj.learnerID}'`);
+    return res1;
+  } catch (err) {
+    console.error(err.message);
+    throw new Error("fail to create new record!!");
+  }
+};
 
 
 LearnerModel.prototype.hash = function () {

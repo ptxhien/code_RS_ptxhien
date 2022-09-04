@@ -1,14 +1,23 @@
+const OfflineCourseModel = require("../../models/offlineCourse");
 const FreetimeController = function () {};
 
-FreetimeController.prototype.get = function (req, res, next) {
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
+
+FreetimeController.prototype.get = async (req, res, next) => {
+  const studyTimes = await OfflineCourseModel.studyTimes('studyTime');
+  let result = [];
+  for (let i = 0; i < studyTimes.length; i++) {
+    if (studyTimes[i].studyTime) {
+      var times = studyTimes[i].studyTime.split('|');
+      for(var j = 0; j < times.length; j++) {
+        result.push(times[j]);
+      }
+    }
+  }
   res.status(200).json({
-    data: [
-      "08:00-17:00 (2, 4, 6)",
-      "08:00-17:00 (7 days)",
-      "08:30-11:30 (7)",
-      "18:00-21:00 (2, 4, 6)",
-      "18:00-21:00 (3, 5)",
-    ],
+    data: result.filter(onlyUnique),
   });
 };
 

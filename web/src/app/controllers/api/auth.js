@@ -27,7 +27,8 @@ AuthController.prototype.register = async (req, res, next) => {
       process.env.PRIVATE_KEY || "privatekey"
     );
     delete newLearner.password;
-    res.status(200).header("authToken", authToken).json({ authToken, user: newLearner });
+    const learner = await LearnerModel.findOne("*", `learnerID='${newLearner.learnerID}'`);
+    res.status(200).header("authToken", authToken).json({ authToken, user: learner });
   } catch (err) {
     res.status(500).json({ message: "failed to register!" });
   }
@@ -59,6 +60,18 @@ AuthController.prototype.login = async (req, res, next) => {
       .status(500)
       .json({ message: "Opps! there was a problem. Try again later :(" });
     return;
+  }
+};
+
+// [POST] /auth/update
+AuthController.prototype.update = async (req, res, next) => {
+  try {
+    const result = await LearnerModel.update(req.body);
+    const oldUser = await LearnerModel.findOne("*", `learnerID='${req.body.learnerID}'`);
+
+    res.status(200).json({user: oldUser, message: "successfully updated" });
+  } catch (err) {
+    res.status(500).json({ message: "failed to update!" });
   }
 };
 

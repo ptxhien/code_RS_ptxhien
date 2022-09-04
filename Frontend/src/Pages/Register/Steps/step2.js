@@ -170,6 +170,15 @@ export default function WizardStep2({ DTO, setDTO }) {
                             </Input>
                         </Col>
                     </FormGroup>
+
+                    <FormGroup row>
+                        <Label sm={2}>
+                            Số nhà, đường
+                        </Label>
+                        <Col sm={10}>
+                            <Input type="text" value={DTO.address1} onChange={(e) => setDTO({...DTO, address1: e.target.value})} placeholder="ví dụ: 38, đường số 6" />
+                        </Col>
+                    </FormGroup>
                     <FormGroup row>
                         <Label for="exampleSelectMulti" sm={2}>
                             What languages do you know?

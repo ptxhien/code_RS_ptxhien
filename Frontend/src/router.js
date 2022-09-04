@@ -5,6 +5,7 @@ import HomePage from "./Pages/Home";
 import Dashboard from "./Pages/Dashboards";
 import History from "./Pages/History";
 import CourseDetail from "./Pages/CourseDetail";
+import EditProfile from "./Pages/Accounts/EditProfile";
 
 const routes = [
   {
@@ -34,6 +35,12 @@ const routes = [
     path: "/dashboard",
     exact: true,
     main: () => <History></History>,
+    auth: false,
+  },
+  {
+    path: "/update-profile",
+    exact: true,
+    main: () => <EditProfile></EditProfile>,
     auth: false,
   },
 ];

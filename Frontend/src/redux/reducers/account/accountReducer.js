@@ -51,6 +51,18 @@ const account = (state = initialState, action) => {
         error: "",
       };
     }
+    case Types.AUTH_UPDATE: {
+      const { user } = action.payload;
+      const authToken = localStorage.getItem("authToken");
+      localStorage.setItem("user", JSON.stringify(user));
+      return {
+        user,
+        authToken,
+        isLogged: true,
+        isLoading: false,
+        error: ""
+      };
+    }
     case Types.RETRIEVE: {
       const { user, authToken } = action.payload;
       return {
