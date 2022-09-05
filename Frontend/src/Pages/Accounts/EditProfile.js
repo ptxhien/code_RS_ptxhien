@@ -206,7 +206,7 @@ export default function EditProfile() {
     let postdata = {
       learnerID: auth.learnerID,
       // address: removeFirst(DTO.city, 'city') + ', ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.ward, 'ward'),
-      address: removeFirst(DTO.ward, 'ward') + ', ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.city, 'city'),
+      address: 'Phường ' + removeFirst(DTO.ward, 'ward') + ', Quận' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.city, 'city'),
       address1: DTO.address1,
       learnerLevel: DTO.learnerLevel,
       language: language.map(({lanName}) => lanName).join(', '),
