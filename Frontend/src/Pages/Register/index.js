@@ -155,7 +155,9 @@ export default function Register() {
       password: DTO.password,
       fullname: DTO.fullname,
       gender: DTO.gender,
-      address: removeFirst(DTO.city, 'city') + ', ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.ward, 'ward'),
+      // address: removeFirst(DTO.city, 'city') + ', ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.ward, 'ward'),
+      address: removeFirst(DTO.ward, 'ward') + ', ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.city, 'city'),
+      address1: DTO.address1,
       learnerLevel: DTO.learnerLevel,
       language: DTO.language.map(({lanName}) => lanName).join(', '),
       jobNow: DTO.jobNow,
@@ -164,7 +166,7 @@ export default function Register() {
       feeMax: DTO.feeMax,
       freeTime: DTO.freeTime && DTO.freeTime.join('|') || '',
       futureSelfDevelopment: DTO.futureSelfDevelopment,
-      address1: DTO.address1,
+      // address1: DTO.address1,
     }
     dispatch(registerAction(postdata));
   }

@@ -15,7 +15,6 @@ const {route} = require('./app/routes');
 const customMiddlewares = require('./utilities/middlewares/');
 
 
-
 //init app
 const app = express();
 
@@ -40,7 +39,6 @@ app.use(cors());
 
 // custom middlewares
 app.use(customMiddlewares);
-
 
 
 //configure view engine
