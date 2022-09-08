@@ -5,6 +5,10 @@ import dao
 import numpy
 from difflib import SequenceMatcher
 from math import*
+import http.client, urllib.parse
+import json
+from math import cos, asin, sqrt
+import numpy as np
 #-*- coding: utf-8 -*-
 
 # 1. Find courses studied
@@ -467,59 +471,66 @@ def Course_Weight(rule_On, occupation, filter):
     return df_Course_RS
 
 # 13. Find offline courses based on learners' free time frames
-def FindCoursebasedStudyTime(df, t_learner):
-    learn_start = t_learner[0:2]
-    learn_start = pd.to_numeric(learn_start, downcast='integer')
-    learn_end = t_learner[6:8]
-    learn_end = pd.to_numeric(learn_end, downcast='integer')
-    
-    learn_frame = t_learner[12:]
-    lst_df1 = []
-    df2 = []
 
+def get_frame_days(t):
+    lst_day = []
+    f_time = t[:11]
+    if t.find('7 days') != -1:
+        lst_day = ['2','3','4','5','6','7']
+    else:
+        f = t[12:]
+        f = f[1:]
+        f = f[:-1]
+        lst_day = f.split(' - ')
+    return f_time, lst_day
+
+def FindCoursebasedStudyTime(df, t_learner):
+    lst_df1 = []
+    dem = 0
+    dem_khong = 0
+    # -----
+    f_time, lst_day = get_frame_days(t_learner)
+    learn_h_start = f_time[0:2]
+    learn_h_start = pd.to_numeric(learn_h_start, downcast='integer')
+    learn_s_start = f_time[3:5]
+    learn_s_start = pd.to_numeric(learn_s_start, downcast='integer')
+    learn_h_end = f_time[6:8]
+    learn_h_end = pd.to_numeric(learn_h_end, downcast='integer')
+    learn_s_end = f_time[9:11]
+    learn_s_end = pd.to_numeric(learn_s_end, downcast='integer')
+    learn_frame = t_learner[12:]
+    # -----
+    
     for id, row in df.iterrows():
         for sTime in row.loc['studyTime'].split('|'): 
             if sTime != '':
-                sTime_start = sTime[0:2]
-                sTime_start = pd.to_numeric(sTime_start, downcast='integer') 
-        
-                sTime_end = sTime[6:8]
-                sTime_end = pd.to_numeric(sTime_end, downcast='integer')
-        
-                if learn_frame != "":
-                    if sTime_start >= learn_start and sTime_end <= learn_end and sTime[12:] == t_learner[12:]:
+                sTime_h_start = sTime[0:2]
+                sTime_h_start = pd.to_numeric(sTime_h_start, downcast='integer') 
+                sTime_s_start = sTime[3:5]
+                sTime_s_start = pd.to_numeric(sTime_s_start, downcast='integer') 
+                sTime_h_end = sTime[6:8]
+                sTime_h_end = pd.to_numeric(sTime_h_end, downcast='integer')
+                sTime_s_end = sTime[9:11]
+                sTime_s_end = pd.to_numeric(sTime_s_end, downcast='integer')
+                f_time_c, lst_day_c = get_frame_days(sTime)
+
+                # kiểm tra thời gian
+                if (sTime_h_start >= learn_h_start and sTime_h_end <= learn_h_end) and (sTime_s_start >= learn_s_start and sTime_s_end <= learn_s_end):    
+                    if learn_frame != "":
+                        if sTime[12:] == t_learner[12:]: 
+                            lst_df1.append(row)
+                        else:
+                            common_s =  set (lst_day_c) & set(lst_day)
+                            for i in common_s:
+                                lst_day_c.remove(i)
+                            dem_khong = len(lst_day_c)
+                            if dem <= len(set(lst_day)) and dem_khong == 0:
+                                lst_df1.append(row)
+                        
+                    else:
                         lst_df1.append(row)
-                else:
-                    if sTime_start >= learn_start and sTime_end <= learn_end:
-                        lst_df1.append(row)                    
-    df2 = pd.DataFrame(lst_df1)
-    return df2
-
-# 14. Find an offline course at the right time frame the user chooses
-def FindCourseRightFrame(df, t_learner):
-    learn_start = t_learner[0:2]
-    learn_start = pd.to_numeric(learn_start, downcast='integer')
-    learn_end = t_learner[6:8]
-    learn_end = pd.to_numeric(learn_end, downcast='integer')
-    
-    learn_frame = t_learner[12:]
-    lst_df1 = []
-    df2 = []
-
-    for id, row in df.iterrows():
-        for sTime in row.loc['studyTime'].split(' | '): 
-            if sTime != '':
-                sTime_start = sTime[0:2]
-                sTime_start = pd.to_numeric(sTime_start, downcast='integer') 
-            
-                sTime_end = sTime[6:8]
-                sTime_end = pd.to_numeric(sTime_end, downcast='integer')
-
-                if learn_frame != "":
-                    if sTime_start >= learn_start and sTime_end <= learn_end and sTime[12:] != t_learner[12:]:
-                        lst_df1.append(row)
-                
-    df2 = pd.DataFrame(lst_df1)
-    return df2
+                        
+    df_lst_df1 = pd.DataFrame(lst_df1)
+    return df_lst_df1
 
 

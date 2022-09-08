@@ -80,6 +80,7 @@ def BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, conditi
                             "peopleRating":str(r[18]),
                             "location": "",
                             "level":str(r[14]),
+                            'distance':"",
                             "is_online": "true"})
             
         kq_result_ngoaile = []
@@ -100,6 +101,7 @@ def BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, conditi
                                     "peopleRating":str(r[18]),
                                     "location": "",
                                     "level":str(r[14]),
+                                    'distance':"",
                                     "is_online": "true"})
 
         # TH1: dont courses language and level
@@ -207,19 +209,12 @@ def BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, conditi
     return result, dict_f
                                 
 # build  offline
-def Test_Location_FreeTime_JobNow(result, location, Learner_Job_Now, Learner_FreeTime):
+def Test_Location_FreeTime_JobNow(result, lat1, lon1, Learner_Job_Now, Learner_FreeTime):
     flat_course_freetime = 0
-    flat_location = 0
     
     # 2. Location
-    if location != "":
-        rules_Off_location, flat_location = knowledgeDomain.Xet_Location(result, location)
-        if len(rules_Off_location) > 0 or flat_location != 1:
-            result = rules_Off_location 
-        else:
-            flat_location = 1
-            result = rules_Off_location 
-
+    result = knowledgeDomain.Xet_Location(result, lat1, lon1)
+    
     # 3. Frame time and Job now
     if len(result) > 0:  
         if Learner_FreeTime == "": 
@@ -228,13 +223,13 @@ def Test_Location_FreeTime_JobNow(result, location, Learner_Job_Now, Learner_Fre
             if len(df) > 0:
                 result = df
             
-        if Learner_FreeTime != "":
+        else:
             t_learner = Learner_FreeTime
             df, flat_course_freetime = knowledgeDomain.Xet_FrameStudy_JobNow(result, Learner_Job_Now, t_learner)
             if len(df) > 0:
                 result = df
     
-    return result, flat_location, flat_course_freetime
+    return result, flat_course_freetime
 
 def Test_Weight_Duration_Fee(result, occupation, condition_duration, feeMax, typeFilter):
     dict_f_ngoaile = []
@@ -265,7 +260,7 @@ def Test_Weight_Duration_Fee(result, occupation, condition_duration, feeMax, typ
 
     return result, dict_f_ngoaile
 
-def Off_Lan(result, missing_skill, lan_know, occupation, feeMax, condition_duration, location, Learner_Job_Now, Learner_FreeTime, typeFilter): 
+def Off_Lan(result, missing_skill, lan_know, occupation, feeMax, condition_duration, lat1, lon1, Learner_Job_Now, Learner_FreeTime, typeFilter): 
     dict_f_Offline = {}
     dict_f_ngoaile = [] 
     kq_result = []
@@ -276,70 +271,25 @@ def Off_Lan(result, missing_skill, lan_know, occupation, feeMax, condition_durat
     del lst_job_sim[0:1]
     str_lst_job_sim = ", ".join(lst_job_sim)
     
-    result1, flat_location, flat_course_freetime = Test_Location_FreeTime_JobNow(result, location, Learner_Job_Now, Learner_FreeTime)
-    result = result1
-    
-    # 2.1: there is no matching course for location
-    if flat_location == 1 or (flat_location == 1 and flat_course_freetime == 2) or (flat_location == 1 and flat_course_freetime == 1): 
-        ExceptionType = "Location"
-        dict_f_ngoaile.append({"ExceptionType": ExceptionType, 
-                            "Job_offer": str_lst_job_sim})
+    result, flat_course_freetime = Test_Location_FreeTime_JobNow(result, lat1, lon1, Learner_Job_Now, Learner_FreeTime)
+
+    #Courses available in a different timeframe
+    if flat_course_freetime == 1:  
+        freetime_remain = function.Find_List_FrameTime_Remain(result, Learner_FreeTime)
+        str_freetime_remain = ", ".join(freetime_remain)
         
-        dict_f_Offline = {"status": 404, 
-                            "message": "Location",
-                            "Course": [], 
-                            "Exception": dict_f_ngoaile,
-                            "Ngoai_Le":{
-                                "Course_Offer": [],
-                                "ExceptionDetail": []
-                }}
-    
-    else:
-        #2.2: Courses available in a different timeframe
-        if flat_location == 0 and flat_course_freetime == 1:  
-            freetime_remain = function.Find_List_FrameTime_Remain(result, Learner_FreeTime)
-            str_freetime_remain = ", ".join(freetime_remain)
-            
-            df2 = function.FindCourseRightFrame(result, Learner_FreeTime)
-            if len(df2) > 0:
-                # freetime_remain = function.Find_List_FrameTime_Remain(df2, Learner_FreeTime)
-                df2 = function.Find_List_FrameTime_Remain(df2, Learner_FreeTime)
-                result = df2
-                
-            ExceptionType = "Frame_Remain"
-            dict_f_ngoaile.append({ "ExceptionType": ExceptionType, 
+        ExceptionType = "Frame_Remain"
+        dict_f_ngoaile.append({ "ExceptionType": ExceptionType, 
                                     "frame_remain": str_freetime_remain })  
-        
-        #2.3: no part-time courses
-        if flat_location == 0 and flat_course_freetime == 2:   
-            ExceptionType = "Fulltime"
-            dict_f_ngoaile.append({"ExceptionType": ExceptionType, 
-                                    "Job_offer": str_lst_job_sim})
-        
-        lstSkill_Provider, lstSkill_notProvider = function.lst_Skill_RS(result, missing_skill, occupation)
-        str_new_lstSkill_Provider = convertlst_toString(lstSkill_Provider)
-        str_new_lstSkill_notProvider = ", ".join(lstSkill_notProvider)
-    
-        if len(result) > 0:
-            for i, r in result.iterrows():
-                # kq_result.append({"courseID":str(r[0]),
-                #                 "courseTitle": str(r[6]),
-                #                 "Tech_Skill": str(r[1]),
-                #                 "studyTime": str(r[16]),
-                #                 "studyForm": str(r[12]),
-                #                 "technologySkill": str(r[17]),
-                #                 "outcomeLearning": str(r[8]),
-                #                 "provider": str(r[11]),
-                #                 "duration": str(r[13]),
-                #                 "feeVND": str(r[15]),
-                #                 "URL": str(r[7]),
-                #                 "language": str(r[19]),
-                #                 "rating": "",
-                #                 "peopleRating": "",
-                #                 "location": str(r[10]),
-                #                 "level": str(r[18]),
-                #                 "is_online": "false"})
-                kq_result.append({"courseID":str(r[0]),
+
+    # result    
+    lstSkill_Provider, lstSkill_notProvider = function.lst_Skill_RS(result, missing_skill, occupation)
+    str_new_lstSkill_Provider = convertlst_toString(lstSkill_Provider)
+    str_new_lstSkill_notProvider = ", ".join(lstSkill_notProvider)
+
+    if len(result) > 0:
+        for i, r in result.iterrows():
+            kq_result.append({"courseID":str(r[0]),
                                 "courseTitle": str(r[7]),
                                 "Tech_Skill": str(r[2]),
                                 "studyTime": str(r[17]),
@@ -355,29 +305,27 @@ def Off_Lan(result, missing_skill, lan_know, occupation, feeMax, condition_durat
                                 "peopleRating": "",
                                 "location": str(r[11]),
                                 "level": str(r[19]),
+                                "distance": str(r[30]),
                                 "is_online": "false"})
     
-
-            result1, dict_f_ngoaile_W = Test_Weight_Duration_Fee(result, occupation, condition_duration, feeMax, typeFilter)
-            if len(result1) > 0:
-                result = result1
-                for i in dict_f_ngoaile_W:
-                    dict_f_ngoaile.append(i)
+        result, dict_f_ngoaile_W = Test_Weight_Duration_Fee(result, occupation, condition_duration, feeMax, typeFilter)
+        if len(result) > 0:
+            for i in dict_f_ngoaile_W:
+                dict_f_ngoaile.append(i)
             
-            dict_f_ngoaile.append({"lstSkill_Provider_ngoaile": str_new_lstSkill_Provider,
+        dict_f_ngoaile.append({"lstSkill_Provider_ngoaile": str_new_lstSkill_Provider,
                                 "lstSkill_notProvider_ngoaile": str_new_lstSkill_notProvider})
             
-        dict_f_Offline = {"status": 201,  
+    dict_f_Offline = {"status": 201,  
                                 "message": "frameRemain_Fulltime", 
                                 "Course": kq_result, 
                                 "Exception": dict_f_ngoaile,
                                 "Ngoai_Le":{ "Course_Offer": [], 
-                                            "ExceptionDetail": []}}
-            
+                                            "ExceptionDetail": []}}    
     return result, dict_f_Offline
 
 # def Off_NotLan(result, lan_no_know, occupation, feeMax, condition_duration, location, Learner_Job_Now, Learner_FreeTime, typeFilter):
-def Off_NotLan(result, missing_skill, lan_no_know, occupation, feeMax, condition_duration, location, Learner_Job_Now, Learner_FreeTime, typeFilter):
+def Off_NotLan(result, missing_skill, lan_no_know, occupation, feeMax, condition_duration, lat1, lon1, Learner_Job_Now, Learner_FreeTime, typeFilter):
     dict_f_Offline = {}
     dict_f_ngoaile = [] 
     kq_result = []
@@ -387,71 +335,25 @@ def Off_NotLan(result, missing_skill, lan_no_know, occupation, feeMax, condition
     del lst_job_sim[0:1]
     str_lst_job_sim = ", ".join(lst_job_sim)
     
-    result1, flat_location, flat_course_freetime = Test_Location_FreeTime_JobNow(result, location, Learner_Job_Now, Learner_FreeTime)
-    result = result1
-    
-    #2.1: no course matches location
-    if flat_location == 1 or (flat_location == 1 and flat_course_freetime == 2) or (flat_location == 1 and flat_course_freetime == 1): 
-        ExceptionType = "Location"
-        dict_f_ngoaile.append({"ExceptionType": ExceptionType, 
-                                "Job_offer": str_lst_job_sim})
-        
-        dict_f_Offline = {"status": 405, 
-                        "message": "Location",
-                        "Course": [], 
-                        "Exception": dict_f_ngoaile,
-                        "Ngoai_Le":{
-                            "Course_Offer": [],
-                            "ExceptionDetail": []
-                    }}
-        
-    else:
-        # ------------------------------------------------
-        # 2.2: Part-time course available but in a different time frame
-        if flat_location == 0 and flat_course_freetime == 1:  
-            freetime_remain = function.Find_List_FrameTime_Remain(result, Learner_FreeTime)
-            str_freetime_remain = ", ".join(freetime_remain)
+    result, flat_course_freetime = Test_Location_FreeTime_JobNow(result, lat1, lon1, Learner_Job_Now, Learner_FreeTime)
 
-            # get the time frame that coincides with the user's time frame
-            df2 = function.FindCourseRightFrame(result, Learner_FreeTime)
-            if len(df2) > 0:
-                freetime_remain = function.Find_List_FrameTime_Remain(df2, Learner_FreeTime)
-                result = df2
+    # Part-time course available but in a different time frame
+    if flat_course_freetime == 1:  
+        freetime_remain = function.Find_List_FrameTime_Remain(result, Learner_FreeTime)
+        str_freetime_remain = ", ".join(freetime_remain)
                 
-            ExceptionType = "Frame_Remain"
-            dict_f_ngoaile.append({ "ExceptionType": ExceptionType, 
+        ExceptionType = "Frame_Remain"
+        dict_f_ngoaile.append({ "ExceptionType": ExceptionType, 
                                     "frame_remain": str_freetime_remain }) 
             
-        #2.3: no part-time courses only full-time
-        if flat_location == 0 and flat_course_freetime == 2:   
-            ExceptionType = "Fulltime"
-            dict_f_ngoaile.append({"ExceptionType": ExceptionType, 
-                                    "Job_offer": str_lst_job_sim})
     
-        lstSkill_Provider, lstSkill_notProvider = function.lst_Skill_RS(result, missing_skill, occupation)
-        str_new_lstSkill_Provider = convertlst_toString(lstSkill_Provider)
-        str_new_lstSkill_notProvider = ", ".join(lstSkill_notProvider)
-        
-        if len(result) > 0:
-            for i, r in result.iterrows():
-                # kq_result.append({"courseID":str(r[0]),
-                #             "courseTitle": str(r[6]),
-                #             "Tech_Skill": str(r[1]),
-                #             "studyTime": str(r[16]),
-                #             "studyForm": str(r[12]),
-                #             "technologySkill": str(r[17]),
-                #             "outcomeLearning": str(r[8]),
-                #             "provider": str(r[11]),
-                #             "duration": str(r[13]),
-                #             "feeVND": str(r[15]),
-                #             "URL": str(r[7]),
-                #             "language": str(r[19]),
-                #             "rating": "",
-                #             "peopleRating": "",
-                #             "location": str(r[10]),
-                #             "level": str(r[18]),
-                #             "is_online": "false"})
-                kq_result.append({"courseID":str(r[0]),
+    lstSkill_Provider, lstSkill_notProvider = function.lst_Skill_RS(result, missing_skill, occupation)
+    str_new_lstSkill_Provider = convertlst_toString(lstSkill_Provider)
+    str_new_lstSkill_notProvider = ", ".join(lstSkill_notProvider)
+
+    if len(result) > 0:
+        for i, r in result.iterrows():
+            kq_result.append({"courseID":str(r[0]),
                                 "courseTitle": str(r[7]),
                                 "Tech_Skill": str(r[2]),
                                 "studyTime": str(r[17]),
@@ -467,23 +369,23 @@ def Off_NotLan(result, missing_skill, lan_no_know, occupation, feeMax, condition
                                 "peopleRating": "",
                                 "location": str(r[11]),
                                 "level": str(r[19]),
+                                "distance": str(r[30]),
                                 "is_online": "false"})
     
                 
-            str_lan_no_know = ", ".join(lan_no_know)
-            dict_f_ngoaile.append({"ExceptionType": 'Lan', 
+        str_lan_no_know = ", ".join(lan_no_know)
+        dict_f_ngoaile.append({"ExceptionType": 'Lan', 
                                     "lan_remain": str_lan_no_know}) 
 
-            result1, dict_f_ngoaile_W = Test_Weight_Duration_Fee(result, occupation, condition_duration, feeMax, typeFilter)
-            if len(result1) > 0:
-                result = result1
-                for i in dict_f_ngoaile_W:
-                    dict_f_ngoaile.append(i)
+        result, dict_f_ngoaile_W = Test_Weight_Duration_Fee(result, occupation, condition_duration, feeMax, typeFilter)
+        if len(result) > 0:
+            for i in dict_f_ngoaile_W:
+                dict_f_ngoaile.append(i)
 
-            dict_f_ngoaile.append({ "lstSkill_Provider_ngoaile":str_new_lstSkill_Provider, 
+        dict_f_ngoaile.append({ "lstSkill_Provider_ngoaile":str_new_lstSkill_Provider, 
                                     "lstSkill_notProvider_ngoaile" :str_new_lstSkill_notProvider})    
             
-        dict_f_Offline = {"status": 202,  
+    dict_f_Offline = {"status": 202,  
                         "message": "frameRemain_Fulltime", 
                         "Course": [], 
                         "Exception": [],
@@ -492,7 +394,7 @@ def Off_NotLan(result, missing_skill, lan_no_know, occupation, feeMax, condition
         
     return result, dict_f_Offline
 
-def BuildRule_Offline(df_Off, missing_skill, lan_know, location, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter):
+def BuildRule_Offline(df_Off, missing_skill, lan_know, lat1, lon1, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter):
     flat_level = 0
     flat_language = 0
     dict_f_Offline = {}
@@ -560,11 +462,11 @@ def BuildRule_Offline(df_Off, missing_skill, lan_know, location, occupation, Lea
         # TH2: COURSE IS NOT LANGUAGE RIGHT
         elif flat_language == -1 and flat_level == 0:
             if len(lan_no_know_copy) > 0:
-                result, dict_f_Offline = Off_NotLan(result, missing_skill, lan_no_know_copy, occupation, feeMax, condition_duration, location, Learner_Job_Now, Learner_FreeTime, typeFilter)
+                result, dict_f_Offline = Off_NotLan(result, missing_skill, lan_no_know_copy, occupation, feeMax, condition_duration, lat1, lon1, Learner_Job_Now, Learner_FreeTime, typeFilter)
     
         # TH3: LANGUAGE AND LEVEL FITS COURSE
         elif flat_language == 0 and flat_level == 0:
-            result, dict_f_Offline = Off_Lan(result, missing_skill, lan_know, occupation, feeMax, condition_duration, location, Learner_Job_Now, Learner_FreeTime, typeFilter)
+            result, dict_f_Offline = Off_Lan(result, missing_skill, lan_know, occupation, feeMax, condition_duration, lat1, lon1, Learner_Job_Now, Learner_FreeTime, typeFilter)
     
     else:
         result = df_Off
@@ -584,12 +486,12 @@ def KiemTraOnlineNgoaiLe(df_On, missing_skill, lan_know, occupation, feeMax, con
     result_Online, dict_f_Online = BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, condition_duration, typeFilter)
     return result_Online, dict_f_Online
 
-def KiemTraOfflineNgoaiLe(df_Off, missing_skill, lan_know, location, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter):
-    result_Offline, dict_f_Offline = BuildRule_Offline(df_Off, missing_skill, lan_know, location, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
+def KiemTraOfflineNgoaiLe(df_Off, missing_skill, lan_know, lat1, lon1, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter):
+    result_Offline, dict_f_Offline = BuildRule_Offline(df_Off, missing_skill, lan_know, lat1, lon1, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
     return result_Offline, dict_f_Offline
 
 # RECOMMENDATION SYSTEMS
-def recommendation(df_On, df_Off, missing_skill, lan_know, location, occupation, Form_require, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter):
+def recommendation(df_On, df_Off, missing_skill, lan_know, lat1, lon1, occupation, Form_require, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter):
     dict_f_Offline = {}
     dict_f_ngoaile = []
     dict_f_ngoaile1 = []
@@ -609,7 +511,7 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, location, occupation,
     if not Form_require:
         print("Don't choose form")
         result_online, dict_f_online = BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, condition_duration, typeFilter)
-        result_offline, dict_f_Offline = BuildRule_Offline(df_Off, missing_skill, lan_know, location, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
+        result_offline, dict_f_Offline = BuildRule_Offline(df_Off, missing_skill, lan_know, lat1, lon1, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
 
         if len(result_online) > 0 and len(result_offline) > 0:
             dict_f_ngoaile = {'courses_online': dict_f_online,
@@ -645,7 +547,7 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, location, occupation,
                                     "ExceptionDetail": [] }}
                         }
         if len(df_rule) == 0:
-            result_Offline, kq_On = KiemTraOfflineNgoaiLe(df_Off, missing_skill, lan_know, location, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
+            result_Offline, kq_On = KiemTraOfflineNgoaiLe(df_Off, missing_skill, lan_know, lat1, lon1, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
             dict_f_ngoaile = {'courses_online': dict_onl
                             , 'courses_offline': kq_On}
         
@@ -653,7 +555,7 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, location, occupation,
     
     else:
         print("Choose Offline")
-        df_rule , dict_off = BuildRule_Offline(df_Off, missing_skill, lan_know, location, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
+        df_rule , dict_off = BuildRule_Offline(df_Off, missing_skill, lan_know, lat1, lon1, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
         #----
         dict_f_ngoaile1.append({"job_offer": str_lst_job_sim})
         #----

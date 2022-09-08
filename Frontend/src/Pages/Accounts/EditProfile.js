@@ -39,7 +39,7 @@ export default function EditProfile() {
     ward: "",
     learnerLevel: "",
     language: "",
-    jobNow: "",
+    jobNow: "s",
     technologySkill: "",
     feeMax: "",
     feeMaxText: "",
@@ -103,10 +103,10 @@ export default function EditProfile() {
   useEffect(() => {
     if (auth.address && DTO.cities) {
       let address = auth.address.split(', ');
-      if (address[0]) {
-        let cityIndex = DTO.cities.findIndex(el => el.province_name.indexOf(address[0]) !== -1);
+      if (address[2]) {
+        let cityIndex = DTO.cities.findIndex(el => el.province_name.indexOf(address[2]) !== -1);
         if (cityIndex !== -1) {
-          getDistricts(DTO.cities[cityIndex].province_id, {city_id: cityIndex, city: DTO.cities[cityIndex].province_name, district_text: address[1], ward_text: address[2]});
+          getDistricts(DTO.cities[cityIndex].province_id, {city_id: cityIndex, city: DTO.cities[cityIndex].province_name, district_text: address[1], ward_text: address[0]});
         }
       }
     }

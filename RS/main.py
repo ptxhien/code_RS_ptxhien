@@ -32,12 +32,11 @@ def RS():
     df_courses_On = function.take_CourseOnline(df_attribute_requirement)
     df_courses_Off = function.take_CourseOffline(df_attribute_requirement)
     
-    # find missing skill
+    # # find missing skill
     missing_skill = function.FindMissingSkill(df_attribute_requirement)
     dict_f = {}
-    
-    
-    # 3. Dua vao model
+
+    # # 3. Dua vao model
     if len(df_attribute_requirement) > 0:
         dict_f_ngoaile1 = []
         
@@ -46,18 +45,16 @@ def RS():
         Learner_Job_Now = df_attribute_requirement.jobNow[0]
         Learner_FreeTime = df_attribute_requirement.freeTime[0]
         typeFilter = df_attribute_requirement.typeFilter[0]
-        location = df_attribute_requirement.address[0]
         condition_duration = df_attribute_requirement.durationSecond[0]
+        lat1 = df_attribute_requirement.latitude[0]
+        lon1 = df_attribute_requirement.longitude[0]
         Form_require = df_attribute_requirement.Form_require[0]
         
         if len(missing_skill) > 0:
             if len(df_courses_On) > 0 or len(df_courses_Off) > 0:
-                dict_f = buildRule.recommendation(df_courses_On, df_courses_Off, missing_skill, lan_know, location, occupation, Form_require, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
-            else:
+                dict_f = buildRule.recommendation(df_courses_On, df_courses_Off, missing_skill, lan_know, lat1, lon1, occupation, Form_require, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
     
-                # dict_f = {"message": "Don't Course provide for Occupation",
-                #             "status": 406, 
-                #             "lst_Occupation": lst_job_sim}
+            else:
                 lst_job_sim = knowledgeDomain.job_related(occupation)
                 del lst_job_sim[0:1]
                 str_lst_job_sim = ", ".join(lst_job_sim)
@@ -84,7 +81,6 @@ def RS():
                     'courses_offline': {
                         "status": 203, 
                         "message": "enough skills",
-                        # "Job_offer":[],
                         "Course": [], 
                         "Exception": [],
                         "Ngoai_Le":{
@@ -93,12 +89,12 @@ def RS():
                     'courses_online': {
                         "status": 203, 
                         "message": "enough skills",
-                        # "Job_offer":[],
                         "Course": [], 
                         "Exception": [],
                         "Ngoai_Le":{
                         "Course_Offer": [],
                         "ExceptionDetail": []}}}
+                
     else:
         dict_f = {"message": "This user doesn't exist",
                     "status": 407}

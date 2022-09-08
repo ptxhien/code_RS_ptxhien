@@ -20,6 +20,7 @@
                 "peopleRating": "583",
                 "location": "",
                 "level": "Beginner",
+                "distance": "",
                 "is_online": "true"
             },
             {
@@ -39,6 +40,7 @@
                 "peopleRating": "583",
                 "location": "",
                 "level": "Beginner",
+                "distance": "",
                 "is_online": "true"
             },
             {
@@ -58,6 +60,7 @@
                 "peopleRating": "5567",
                 "location": "",
                 "level": "Beginner",
+                "distance": "",
                 "is_online": "true"
             },
             {
@@ -77,6 +80,7 @@
                 "peopleRating": "9794",
                 "location": "",
                 "level": "ALL Levels",
+                "distance": "",
                 "is_online": "true"
             },
             {
@@ -96,6 +100,7 @@
                 "peopleRating": "4832",
                 "location": "",
                 "level": "Beginner",
+                "distance": "",
                 "is_online": "true"
             },
             {
@@ -115,6 +120,7 @@
                 "peopleRating": "4832",
                 "location": "",
                 "level": "Beginner",
+                "distance": "",
                 "is_online": "true"
             },
             {
@@ -134,6 +140,7 @@
                 "peopleRating": "9794",
                 "location": "",
                 "level": "ALL Levels",
+                "distance": "",
                 "is_online": "true"
             },
             {
@@ -153,6 +160,7 @@
                 "peopleRating": "9794",
                 "location": "",
                 "level": "ALL Levels",
+                "distance": "",
                 "is_online": "true"
             },
             {
@@ -172,6 +180,7 @@
                 "peopleRating": "9794",
                 "location": "",
                 "level": "ALL Levels",
+                "distance": "",
                 "is_online": "true"
             },
             {
@@ -191,6 +200,7 @@
                 "peopleRating": "6",
                 "location": "",
                 "level": "Beginner",
+                "distance": "",
                 "is_online": "true"
             },
             {
@@ -210,6 +220,7 @@
                 "peopleRating": "2923",
                 "location": "",
                 "level": "Beginner",
+                "distance": "",
                 "is_online": "true"
             }
         ],
@@ -223,6 +234,12 @@
                 "Input": "5000000.0",
                 "Output": "42914250.0",
                 "Balance": "37914248.0"
+            },
+            {
+                "ExceptionType": "Duration",
+                "Input": "3 days, 0:00:00",
+                "Output": "65 days, 11:30:00",
+                "Balance": "62 days, 11:30:00"
             }
         ],
         "Ngoai_Le": {
@@ -231,13 +248,50 @@
         }
     },
     "courses_offline": {
-        "status": 404,
-        "message": "Location",
-        "Course": [],
+        "status": 201,
+        "message": "frameRemain_Fulltime",
+        "Course": [
+            {
+                "courseID": "COURSE_268",
+                "courseTitle": "[HN] Python/Machine Learning",
+                "Tech_Skill": "NumPy, Python",
+                "studyTime": "18:00-21:00 (3 - 5)|08:30-11:30 (7)",
+                "studyForm": "Part time",
+                "technologySkill": "Python, NumPy, Pandas, Matplotlib, ScikitLearn, Git, Visual Studio Code, PyCharm, Jupyter, Google Colab",
+                "outcomeLearning": "Provides you with the most commonly used knowledge and skills and is especially useful for any Machine Learning programmer. Upon completion of this course, you will have the following knowledge and skills: Specific core knowledge of the Python programming language; The data structures provided by Python and the methods available for each of the different data structures: String, List, Dictionary, Tuple, Set.; Compile, debug and execute the program on an IDE (Visual Studio Code, Pycharm...). Install and use Python libraries: Numpy, Pandas, Matplotlib, Scikit-learn. Provides knowledge about common problem types in machine learning, popular machine learning algorithms, and ways to evaluate model performance. A series of Lab exercises associated with the lessons help learners practice and practice skills and apply the knowledge they have learned. The completed student is able to: Be skilled in handling various types of data collected from various sources and aggregated in a form usable for machine learning. Have the skills to observe, analyze and visualize data to help make effective decisions. Understand and effectively apply various machine learning algorithms and technologies to other types of labeled and unlabeled data in practice. Good knowledge of common problem types in machine learning. Understand some of the parameters related to each machine learning algorithm and know how to customize it to improve the performance of the model. Applying and implementing important algorithms of supervised learning (Supervised Learning) and unsupervised learning (Unsupervised learning). Applying and implementing important algorithms belonging to the Recommendation System group. Understanding of precision metrics such as mean square error, confusion matrix, F1 score, R-squared, precision calculation methods and applying appropriate accuracy metrics for each machine learning problem.",
+                "provider": "FPT Software Acedemy",
+                "duration": "2 months",
+                "feeVND": "13900000.0",
+                "URL": "https://fsoft-academy.edu.vn/vi/khoa-hoc/hn-pythonmachine-learning-28",
+                "language": "Vietnamese, Japanese",
+                "rating": "",
+                "peopleRating": "",
+                "location": "Tòa nhà FPT, 17 Duy Tân, Quận Cầu Giấy, Hà Nội",
+                "level": "Beginner",
+                "distance": "4.563771543841572",
+                "is_online": "false"
+            }
+        ],
         "Exception": [
             {
-                "ExceptionType": "Location",
-                "Job_offer": "Senior Data Scientist, Junior Project Manager, Data Manager, Lead Data Scientist, Mobile Tester"
+                "ExceptionType": "Frame_Remain",
+                "frame_remain": "18:00-21:00 (3 - 5)|08:30-11:30 (7)"
+            },
+            {
+                "ExceptionType": "Fee",
+                "Input": "5000000.0",
+                "Output": "13900000.0",
+                "Balance": "8900000.0"
+            },
+            {
+                "ExceptionType": "Duration",
+                "Input": "3 days, 0:00:00",
+                "Output": "60 days, 0:00:00",
+                "Balance": "57 days, 0:00:00"
+            },
+            {
+                "lstSkill_Provider_ngoaile": "NumPy, Python",
+                "lstSkill_notProvider_ngoaile": "Alteryx, Microsoft Outlook, Microsoft PowerPoint, Weka, Microsoft Word, Apache Accumulo, Apache Cassandra, Data Lake, Amazon DynamoDB, Apache Hbase, Apache Hadoop"
             }
         ],
         "Ngoai_Le": {
