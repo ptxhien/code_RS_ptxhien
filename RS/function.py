@@ -5,7 +5,6 @@ import dao
 import numpy
 from difflib import SequenceMatcher
 from math import*
-import http.client, urllib.parse
 import json
 from math import cos, asin, sqrt
 import numpy as np
@@ -514,7 +513,6 @@ def FindCoursebasedStudyTime(df, t_learner):
                 sTime_s_end = pd.to_numeric(sTime_s_end, downcast='integer')
                 f_time_c, lst_day_c = get_frame_days(sTime)
 
-                # kiểm tra thời gian
                 if (sTime_h_start >= learn_h_start and sTime_h_end <= learn_h_end) and (sTime_s_start >= learn_s_start and sTime_s_end <= learn_s_end):    
                     if learn_frame != "":
                         if sTime[12:] == t_learner[12:]: 

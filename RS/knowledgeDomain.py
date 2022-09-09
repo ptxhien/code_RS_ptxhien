@@ -8,8 +8,6 @@ import dao
 from sklearn.metrics.pairwise import pairwise_distances
 from math import cos, asin, sqrt
 import numpy as np
-import http.client, urllib.parse
-import json
 # -*- coding: utf-8 -*-
 
 # 1. Language

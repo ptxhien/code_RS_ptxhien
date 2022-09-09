@@ -1,7 +1,7 @@
 import sqlalchemy
 import pandas as pd
-import http.client, urllib.parse
-import json
+import http.client, urllib, json
+
 # -*- coding: utf-8 -*-
 
 #-------------------- CONSTANTS ----------------
@@ -59,13 +59,12 @@ def Find_lat_long_learner(df_Learner_now):
     df_Learner_now.fillna("",inplace=True)
 
     learner_address = df_Learner_now.location[0]
-    print(learner_address)
     
     if learner_address != "":
         learner_address_region = learner_address.split(', ')[-1]
         df_Learner_now['regionVN'] = learner_address_region
         
-        params = urllib.parse.urlencode({
+        params = urllib.urlencode({
             'access_key': api_key,
             'query': learner_address,
             'region': learner_address_region,
