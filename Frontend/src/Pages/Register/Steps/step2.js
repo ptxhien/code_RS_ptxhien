@@ -132,8 +132,8 @@ export default function WizardStep2({ DTO, setDTO }) {
                         <Col sm={7}>
                             <Input type="select" value={DTO.jobNow} onChange={(e) => setDTO({ ...DTO, jobNow: e.target.value })}>
                                 <option value={""}>Not employed</option>
-                                <option value={"Work"}>Employed full-time</option>
-                                <option value={"Study"}>Student, full-time</option>
+                                <option value={"work"}>Employed full-time</option>
+                                <option value={"study"}>Student, full-time</option>
                             </Input>
                         </Col>
                     </FormGroup>
@@ -291,8 +291,8 @@ export default function WizardStep2({ DTO, setDTO }) {
                               onChange={(e) => { setTimeEnd(e.target.value)}}
                             />
                         </Col>
-                        <Col sm={4}>
-                            weekday
+                        <Col sm={3}>
+                            Weekday
                             <Select isMulti components={makeAnimated()}
                                 closeMenuOnSelect={false}
                                 getOptionLabel={option => option.text}
@@ -304,16 +304,18 @@ export default function WizardStep2({ DTO, setDTO }) {
                                 }}
                             />
                         </Col>
-                        <Col sm={1}>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
+                        <Col sm={4}>
+                        </Col>
+                        <Col sm={8}>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                             <Button color="secondary" className="btn-shadow float-left btn-wide btn-pill" outline
                               onClick={addFreeTime}>
                               Add
                             </Button>
                         </Col>
-                        <Col sm={2}>
+                        <Col sm={4}>
                         </Col>
-                        <Col sm={10}>
+                        <Col sm={7}>
                             <ListGroup>
                                 {DTO.freeTime.map((el, index) => (
                                     <ListGroupItem key={index} style={{borderTop: "1px solid rgba(0, 0, 0, 0.125)"}}>

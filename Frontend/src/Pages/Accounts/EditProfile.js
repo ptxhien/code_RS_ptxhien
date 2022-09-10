@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useEffect, useRef, useState, useLayoutEff
 import { useDispatch, useSelector } from "react-redux";
 import ThemeOptions from "../../Layout/ThemeOptions";
 import AppHeader from "../../Layout/AppHeader";
-import { FormGroup, Label, CustomInput, Input, Col, Form, FormText, Button } from "reactstrap";
+import { FormGroup, Label, CustomInput, Input, Col, Form, FormText, Button, Alert, ListGroup,ListGroupItem, CloseButton} from "reactstrap";
 
 import avatar1 from "../../assets/utils/images/avatars/2.jpg";
 import course1 from "../../assets/utils/images/courses/course-1.jpg";
@@ -42,7 +42,7 @@ export default function EditProfile() {
     technologySkill: "",
     feeMax: "",
     feeMaxText: "",
-    freeTime: "",
+    freeTime: [],
     futureSelfDevelopment: "",
     fieldOfStudy: "",
     address1: "",
@@ -54,7 +54,7 @@ export default function EditProfile() {
 
   const [techSkill, settechSkill] = useState([])
   const [language, setlanguage] = useState([])
-  const [freeTime, setFreeTime] = useState([])
+  // const [freeTime, setFreeTime] = useState([])
   const [lstFeeMax, setLstFeeMax] = useState([
           'Less 5 millions VND',
           'From 5 to 15 millions VND',
@@ -116,8 +116,10 @@ export default function EditProfile() {
         }
       });
     if(auth.freeTime) {
-        let freeTimes = auth.freeTime.split('|');
-        setFreeTime(freeTimes);
+      let freeTimes = auth.freeTime.split('|');
+      setDTO((prev) => {
+        return {...prev, freeTime: freeTimes}
+      });
     }
     if (auth.language) {
       setlanguage(auth.language.split(', ').map((el) => ({lanName: el})));
@@ -125,6 +127,7 @@ export default function EditProfile() {
     if (auth.technologySkill) {
       settechSkill(auth.technologySkill.split(', ').map((el) => ({techName: el})));
     }
+    console.log(auth, 'tung')
   }, [auth]);
   useEffect(() => {
     if (auth.address && DTO.cities) {
@@ -240,7 +243,7 @@ export default function EditProfile() {
       technologySkill: techSkill.map(({techName}) => techName).join(', '),
       fieldOfStudy: DTO.fieldOfStudy,
       feeMax: DTO.feeMax,
-      freeTime: freeTime.join('|'),
+      freeTime: DTO.freeTime && DTO.freeTime.join('|') || '',
       futureSelfDevelopment: DTO.futureSelfDevelopment,
     }
     dispatch(updateAction(postdata)).then(() => {
@@ -283,7 +286,7 @@ export default function EditProfile() {
       {/* < div className="app-main"> */}
       {/* <AppSidebar /> */}
       {/* <div className="app-main__outer"> */}
-      <div className="app-main__inner card-body">
+      <div className="app-main__inner card-body main-card card">
         <div className="form-wizard-content">
             <Form>
                 <FormGroup row>
@@ -428,17 +431,60 @@ export default function EditProfile() {
                     <Label for="exampleSelectMulti" sm={4}>
                       If we are offering offline classes, what time would be best for you?
                     </Label>
-                    <Col sm={7}>
+                    <Col sm={2}>
+                        Start time
+                        <Input
+                          placeholder="time placeholder"
+                          type="time"
+                          value={timeStart}
+                          onChange={(e) => { setTimeStart(e.target.value)}}
+                        />
+                    </Col>
+                    <Col sm={2}>
+                        End time
+                        <Input
+                          placeholder="time placeholder"
+                          type="time"
+                          value={timeEnd}
+                          onChange={(e) => { setTimeEnd(e.target.value)}}
+                        />
+                    </Col>
+                    <Col sm={3}>
+                        Weekday
                         <Select isMulti components={makeAnimated()}
                             closeMenuOnSelect={false}
-                            getOptionLabel={option => option}
-                            getOptionValue={option => option}
-                            options={lsFreeTime} className="basic-multi-select" classNamePrefix="select"
-                            value={freeTime}
+                            getOptionLabel={option => option.text}
+                            getOptionValue={option => option.key}
+                            options={weekdays} className="basic-multi-select" classNamePrefix="select"
+                            value={weekday}
                             onChange={(value) => {
-                                setFreeTime(value);
+                                setWeekday(value)
                             }}
                         />
+                    </Col>
+                    <Col sm={4}>
+                    </Col>
+                    <Col sm={8}>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <Button color="secondary" className="btn-shadow float-left btn-wide btn-pill" outline
+                          onClick={addFreeTime}>
+                          Add
+                        </Button>
+                    </Col>
+                    <Col sm={4}>
+                    </Col>
+                    <Col sm={7}>
+                        <ListGroup>
+                            {DTO.freeTime.map((el, index) => (
+                                <ListGroupItem key={index} style={{borderTop: "1px solid rgba(0, 0, 0, 0.125)"}}>
+                                    {el}
+                                    <button type="button" className="close" aria-label="Close" onClick={() => onRemoveTime(index)}>
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </ListGroupItem>)
+                            )}
+                          
+                        </ListGroup>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
