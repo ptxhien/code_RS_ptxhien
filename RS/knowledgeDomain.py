@@ -6,6 +6,8 @@ import numpy
 import os 
 import dao
 from sklearn.metrics.pairwise import pairwise_distances
+from math import cos, asin, sqrt
+import numpy as np
 # -*- coding: utf-8 -*-
 
 # 1. Language
@@ -27,49 +29,32 @@ def Xet_Language(df_Onl, df_Off, filter, lst_lan):
     return df, flat_language
 
 # 2.  Location
-def Xet_Location(df, location_1):
-    flat_location = 0
-    
-    rule_off_Ward = lambda address: address.lower().split(', ')[-1]
-    df['Ward'] = df['location'].apply(rule_off_Ward)
-    rule_off_District = lambda address: address.lower().split(', ')[-2]
-    df['District'] = df['location'].apply(rule_off_District)
-    rule_off_City = lambda address: address.lower().split(', ')[-3]
-    df['City'] = df['location'].apply(rule_off_City)
+def distance(lat1, lon1, lat2, lon2):
+    R = 6371 
+    p = np.pi/180 
+    a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
+    return 2*R*asin(sqrt(a)) 
 
-    Learner_Ward = location_1.lower().split(', ')[-1]
-    Learner_District = location_1.lower().split(', ')[1]
-    Learner_City = location_1.lower().split(', ')[0]
-
-    test_city = df[df['City'] == Learner_City]
-    if len(test_city) > 0: 
-        if Learner_District != "":
-            test_dis = test_city[test_city['District'] == Learner_District]
-            if len(test_dis) > 0: 
-                df = test_dis 
-                if Learner_Ward != "":
-                    test_ward = test_dis[test_dis['Ward'] == Learner_Ward]
-                    if len(test_ward) > 0: 
-                        df = test_ward
-                    else:
-                        flat_location = 3 
-                        df = test_dis[test_dis['Ward'] != Learner_Ward]
-            else:
-                flat_location = 2 
-                df = test_city[test_city['District'] != Learner_District]
-    else:
-        flat_location = 1  
-        df = test_city
+def Xet_Location(df_C, lat1, lon1):
+    for i, c in df_C.iterrows():
+        lat2 = c['latitude']
+        lon2 = c['longitude']
+        if lat1 != "" and lon1 != "": 
+            df_C.loc[i, 'distance'] = distance(lat1, lon1, lat2, lon2)
+        else:
+            df_C.loc[i, 'distance'] = ""
         
-    return df, flat_location
+    df_C = df_C.sort_values(['distance'], ascending=[True])
+    return df_C
+
 
 # 3. Xet StudyForm and FrameTime Offline
-def Xet_FrameStudy_JobNow(df, Job_Now, lst_frametime):
+def Xet_FrameStudy_JobNow(df, Job_Now, str_lst_frametime):
     df_Off = df.copy()
     flat_course_freetime = 0 
     lst_t_learner = []
     
-    for i in lst_frametime.split('|'):
+    for i in str_lst_frametime.split('|'):
         lst_t_learner.append(i)
 
     if Job_Now.startswith('Work') | Job_Now.startswith('Study'):
@@ -83,10 +68,10 @@ def Xet_FrameStudy_JobNow(df, Job_Now, lst_frametime):
                 df = df1 
             else:
                 flat_course_freetime = 1 
-                df = df1
+                # df = df1
         else:
-            flat_course_freetime = 2 
-            df = df[df['studyForm'].astype(str).str.startswith('Part time')]
+            flat_course_freetime = 1 
+            # df = df[df['studyForm'].astype(str).str.startswith('Part time')]
     else:
         df = df_Off 
     return df, flat_course_freetime

@@ -8,7 +8,6 @@ const LearnerModel = function (Obj) {
   this.email = Obj ? Obj.email : undefined;
   this.password = Obj ? Obj.password : undefined;
   this.fullname = Obj ? Obj.fullname : undefined;
-  // this.phone = Obj ? Obj.phone : "";
   this.address = Obj ? Obj.address : undefined;
   this.address1 = Obj ? Obj.address1 : undefined;
   this.gender = Obj ? Obj.gender : undefined;

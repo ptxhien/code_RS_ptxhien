@@ -38,7 +38,7 @@ export default function EditProfile() {
     ward: "",
     learnerLevel: "",
     language: "",
-    jobNow: "",
+    jobNow: "s",
     technologySkill: "",
     feeMax: "",
     feeMaxText: "",
@@ -129,10 +129,10 @@ export default function EditProfile() {
   useEffect(() => {
     if (auth.address && DTO.cities) {
       let address = auth.address.split(', ');
-      if (address[0]) {
-        let cityIndex = DTO.cities.findIndex(el => el.province_name.indexOf(address[0]) !== -1);
+      if (address[2]) {
+        let cityIndex = DTO.cities.findIndex(el => el.province_name.indexOf(address[2]) !== -1);
         if (cityIndex !== -1) {
-          getDistricts(DTO.cities[cityIndex].province_id, {city_id: cityIndex, city: DTO.cities[cityIndex].province_name, district_text: address[1], ward_text: address[2]});
+          getDistricts(DTO.cities[cityIndex].province_id, {city_id: cityIndex, city: DTO.cities[cityIndex].province_name, district_text: address[1], ward_text: address[0]});
         }
       }
     }
@@ -161,7 +161,6 @@ export default function EditProfile() {
         }
       }
       setDTO(pre => ({ ...pre, ...params, districts: data.results}));
-      
   };
 
   const getWards = async (id, params) => {
@@ -232,7 +231,8 @@ export default function EditProfile() {
     }
     let postdata = {
       learnerID: auth.learnerID,
-      address: removeFirst(DTO.city, 'city') + ', ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.ward, 'ward'),
+      // address: removeFirst(DTO.city, 'city') + ', ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.ward, 'ward'),
+      address: 'Phường ' + removeFirst(DTO.ward, 'ward') + ', Quận' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.city, 'city'),
       address1: DTO.address1,
       learnerLevel: DTO.learnerLevel,
       language: language.map(({lanName}) => lanName).join(', '),
@@ -287,10 +287,10 @@ export default function EditProfile() {
         <div className="form-wizard-content">
             <Form>
                 <FormGroup row>
-                    <Label for="exampleEmail" sm={2}>
+                    <Label for="exampleEmail" sm={4}>
                         What do you do?
                     </Label>
-                    <Col sm={10}>
+                    <Col sm={7}>
                         <Input type="select" value={DTO.jobNow} onChange={(e) => setDTO({ ...DTO, jobNow: e.target.value })}>
                             <option value={""}>Not employed</option>
                             <option value={"work"}>Employed full-time</option>
@@ -299,23 +299,23 @@ export default function EditProfile() {
                     </Col>
                 </FormGroup>
                 <FormGroup row>
-                    <Label sm={2}>
+                    <Label sm={4}>
                         What is your major?
                     </Label>
-                    <Col sm={10}>
+                    <Col sm={7}>
                         <Input type="select" value={DTO.fieldOfStudy} onChange={(e) => setDTO({ ...DTO, fieldOfStudy: e.target.value })}>
-                            <option value={""}>Please choose your major</option>
+                            <option value={""}>Please select a major</option>
                             {lsMajor.length && lsMajor.map(({subjectName, subjectID}, index) => (<option key={subjectID} value={subjectID}>{subjectName}</option>))}
                         </Input>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
-                    <Label for="examplePassword" sm={2}>
+                    <Label for="examplePassword" sm={4}>
                         Which of the following best describes the highest level of formal education that you've completed?
                     </Label>
-                    <Col sm={10}>
+                    <Col sm={7}>
                         <Input type="select" value={DTO.learnerLevel} onChange={(e) => setDTO({ ...DTO, learnerLevel: e.target.value })}>
-                            <option value={""}>Please choose your degree</option>
+                            <option value={""}>Please select a degree</option>
                             <option value={"Secondary school"}>Secondary school</option>
                             <option value={"Some college/university study without earning a degree Associate degree (A.A., A.S., etc.)"}>Some college/university study without earning a degree Associate degree (A.A., A.S., etc.)</option>
                             <option value={"Bachelor’s degree (B.A., B.S., B.Eng., etc.)"}>Bachelor’s degree (B.A., B.S., B.Eng., etc.)</option>
@@ -327,10 +327,43 @@ export default function EditProfile() {
                     </Col>
                 </FormGroup>
                 <FormGroup row>
-                    <Label for="exampleSelect" sm={2}>
+                    <Label for="exampleSelect" sm={4}>
                         Where do you live?
                     </Label>
-                    <Col sm={3}>
+                    <Col sm={7}>
+                        <Input type="text" value={DTO.address1} onChange={(e) => setDTO({...DTO, address1: e.target.value})} placeholder="Example: 62 Trương Phước Phan" />
+                    </Col>
+                </FormGroup>
+                <FormGroup row>
+                  <Label sm={4}>
+                            {/* Select Ward, District, City */}
+                  </Label>
+                    <Col sm={2}>
+                        <Input type="select" value={DTO.ward_id} onChange={(e) => {
+                            if (e.target.value === "-1") { 
+                                setDTO({ ...DTO, ward_id: e.target.value, ward: "" })
+                            } else {
+                                setDTO({ ...DTO, ward_id: e.target.value, ward: DTO.wards[e.target.value].ward_name })
+                            }
+                        }}>
+                            <option value={-1}>Please select Ward</option>
+                            {DTO.wards.length && DTO.wards.map(({ward_id, ward_name}, index) => (<option key={ward_id} value={index}>{ward_name}</option>))}
+                        </Input>
+                    </Col>
+                    <Col sm={2}>
+                        <Input type="select" value={DTO.district_id} onChange={(e) => {
+                            if (e.target.value === "-1") { 
+                                getWards(0, { ...DTO, district_id: e.target.value, district: "" });
+                            } else {
+                                getWards(DTO.districts[e.target.value].district_id, { ...DTO, district_id: e.target.value, district: DTO.districts[e.target.value].district_name });
+                            }
+                        }}>
+                            <option value={-1}>Please select a district</option>
+                            {DTO.districts.length && DTO.districts.map(({district_id, district_name}, index) => (<option key={district_id} value={index}>{district_name}</option>))}
+                            
+                        </Input>
+                    </Col>
+                    <Col sm={2}>
                         <Input type="select" value={DTO.city_id} onChange={(e) => {
                             if (e.target.value === "-1") { 
                                 getDistricts(0, { ...DTO, city_id: e.target.value, city: "" });
@@ -339,49 +372,18 @@ export default function EditProfile() {
                                 
                             }
                         }}>
-                            <option value={-1} key={0}>Please choose City</option>
+                            <option value={-1} key={0}>Please select a city</option>
                             {DTO.cities.length && DTO.cities.map(({province_name, province_id}, index) => (<option key={province_id} value={index}>{province_name}</option>))}
                         </Input>
                     </Col>
-                    <Col sm={3}>
-                        <Input type="select" value={DTO.district_id} onChange={(e) => {
-                            if (e.target.value === "-1") { 
-                                getWards(0, { ...DTO, district_id: e.target.value, district: "" });
-                            } else {
-                                getWards(DTO.districts[e.target.value].district_id, { ...DTO, district_id: e.target.value, district: DTO.districts[e.target.value].district_name });
-                            }
-                        }}>
-                            <option value={-1}>Please choose District</option>
-                            {DTO.districts.length && DTO.districts.map(({district_id, district_name}, index) => (<option key={district_id} value={index}>{district_name}</option>))}
-                            
-                        </Input>
-                    </Col>
-                    <Col sm={3}>
-                        <Input type="select" value={DTO.ward_id} onChange={(e) => {
-                            if (e.target.value === "-1") { 
-                                setDTO({ ...DTO, ward_id: e.target.value, ward: "" })
-                            } else {
-                                setDTO({ ...DTO, ward_id: e.target.value, ward: DTO.wards[e.target.value].ward_name })
-                            }
-                        }}>
-                            <option value={-1}>Please choose Ward</option>
-                            {DTO.wards.length && DTO.wards.map(({ward_id, ward_name}, index) => (<option key={ward_id} value={index}>{ward_name}</option>))}
-                        </Input>
-                    </Col>
+                    
                 </FormGroup>
+
                 <FormGroup row>
-                    <Label for="exampleSelectMulti" sm={2}>
-                        Số nhà, đường
+                    <Label for="exampleSelectMulti" sm={4}>
+                        Which languages can you know?
                     </Label>
-                    <Col sm={10}>
-                        <Input type="text" value={DTO.address1} onChange={(e) => setDTO({...DTO, address1: e.target.value})} placeholder="ví dụ: 38, đường số 6" />
-                    </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Label for="exampleSelectMulti" sm={2}>
-                        What languages do you know?
-                    </Label>
-                    <Col sm={10}>
+                    <Col sm={7}>
                         <Select isMulti components={makeAnimated()}
                             closeMenuOnSelect={false}
                             getOptionLabel={option => option.lanName}
@@ -395,10 +397,10 @@ export default function EditProfile() {
                     </Col>
                 </FormGroup>
                 <FormGroup row>
-                    <Label for="exampleSelectMulti" sm={2}>
+                    <Label for="exampleSelectMulti" sm={4}>
                         What skills do you know?
                     </Label>
-                    <Col sm={10}>
+                    <Col sm={7}>
                         <Select isMulti components={makeAnimated()}
                             closeMenuOnSelect={false}
                             getOptionLabel={option => option.techName}
@@ -411,22 +413,22 @@ export default function EditProfile() {
                     </Col>
                 </FormGroup>
                 <FormGroup row>
-                    <Label for="examplePassword" sm={2}>
-                        How much can you spend on courses?
+                    <Label for="examplePassword" sm={4}>
+                      What is your budget for courses?
                     </Label>
-                    <Col sm={10}>
+                    <Col sm={7}>
                         <Input type="select" value={DTO.feeMax} onChange={(e) => setDTO({ ...DTO, 
                                 feeMax: e.target.value, feeMaxText: lstFeeMax[e.target.value] })}>
-                            <option value={""}>Please choose Fee</option>
+                            <option value={""}>Please select a fee</option>
                             {lstFeeMax.map((value, index) => (<option key={value} value={index}>{value}</option>))}
                         </Input>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
-                    <Label for="exampleSelectMulti" sm={2}>
-                        What time is right for you, if we have an offline courses?
+                    <Label for="exampleSelectMulti" sm={4}>
+                      If we are offering offline classes, what time would be best for you?
                     </Label>
-                    <Col sm={10}>
+                    <Col sm={7}>
                         <Select isMulti components={makeAnimated()}
                             closeMenuOnSelect={false}
                             getOptionLabel={option => option}
@@ -440,12 +442,12 @@ export default function EditProfile() {
                     </Col>
                 </FormGroup>
                 <FormGroup row>
-                    <Label for="examplePassword" sm={2}>
-                        Which of the following describes your future self-development?
+                    <Label for="examplePassword" sm={4}>
+                      Which of the following best reflects how you plan to grow as a person?
                     </Label>
-                    <Col sm={10}>
+                    <Col sm={7}>
                         <Input type="select" value={DTO.futureSelfDevelopment} onChange={(e) => setDTO({ ...DTO, futureSelfDevelopment: e.target.value })}>
-                            <option value={""}>Please choose your future self-development</option>
+                            <option value={""}>Select your future self-development</option>
                             <option value={"Data or business analyst"}>Data or business analyst</option>
                             <option value={"Data scientist or machine learning specialist"}>Data scientist or machine learning specialist</option>
                             <option value={"Database administrator"}>Database administrator</option>

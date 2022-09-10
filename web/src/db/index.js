@@ -96,14 +96,4 @@ const db = {
   },
 };
 
-// db.insert("major", {
-//   subjectID: "SUB_012",
-//   subject_name: "Blockchain Development",
-// });
-// db.get("major");
-// db.update("major", {
-//   subjectID: "SUB_012",
-//   subject_name: "Blockchain Development",
-// }, 'subjectID = "SUB_012"');
-
 module.exports = db;
