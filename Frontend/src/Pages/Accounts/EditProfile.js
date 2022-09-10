@@ -2,7 +2,6 @@ import React, { Fragment, useCallback, useEffect, useRef, useState, useLayoutEff
 import { useDispatch, useSelector } from "react-redux";
 import ThemeOptions from "../../Layout/ThemeOptions";
 import AppHeader from "../../Layout/AppHeader";
-import "../CourseDetail/style.scss";
 import { FormGroup, Label, CustomInput, Input, Col, Form, FormText, Button } from "reactstrap";
 
 import avatar1 from "../../assets/utils/images/avatars/2.jpg";
@@ -68,6 +67,33 @@ export default function EditProfile() {
 
   const [loading, setLoading] = useState(true);
 
+  const weekdays  = [{
+        key: '2',
+        text: 'Monday'
+    },{
+        key: '3',
+        text: 'Tuesday'
+    },{
+        key: '4',
+        text: 'Wednesday'
+    },{
+        key: '5',
+        text: 'Thursday'
+    },{
+        key: '6',
+        text: 'Friday'
+    },{
+        key: '7',
+        text: 'Saturday'
+    },{
+        key: '1',
+        text: 'Sunday'
+    },
+  ];
+  const [timeStart, setTimeStart] = useState("00:00")
+  const [timeEnd, setTimeEnd] = useState("23:59")
+  const [weekday, setWeekday] = useState([]);
+    
   useLayoutEffect(() => {
       const updateCities = async () => {
           const {data} = await axios.get("https://vapi.vnappmob.com/api/province/");
@@ -238,6 +264,17 @@ export default function EditProfile() {
 
     return errors.length == 0;
   }
+  const addFreeTime = () => {
+    let fullFreeTime = timeStart + '-' + timeEnd + '(' + weekday.map((el) => el.key).join('-') + ')';
+    setDTO({...DTO, freeTime: [...DTO.freeTime, fullFreeTime]});
+    setTimeStart('00:00');
+    setTimeEnd('23:59');
+    setWeekday([]);
+  }
+  const onRemoveTime = (index) => {
+    setDTO({...DTO, freeTime: DTO.freeTime.filter((el, i) => i != index)});
+  }
+
   return (
     <>
       <ThemeOptions />

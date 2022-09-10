@@ -63,7 +63,7 @@ export default function Register() {
     technologySkill: "",
     feeMax: "",
     feeMaxText: "",
-    freeTime: "",
+    freeTime: [],
     futureSelfDevelopment: "",
     fieldOfStudy: "",
     address1: '',

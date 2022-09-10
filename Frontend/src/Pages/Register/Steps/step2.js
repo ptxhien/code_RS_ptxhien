@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Combobox } from "react-widgets";
-import { FormGroup, Label, CustomInput, Input, Col, Form, FormText } from "reactstrap";
+import { FormGroup, Label, CustomInput, Input, Col, Form, FormText, Button, Alert, ListGroup,ListGroupItem, CloseButton} from "reactstrap";
 import { GetAllLanguageAction } from "../../../redux/masterdata/masterDataAction";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
@@ -16,7 +16,7 @@ export default function WizardStep2({ DTO, setDTO }) {
 
     const [techSkill, settechSkill] = useState([])
     const [language, setlanguage] = useState([])
-    const [freeTime, setfreeTime] = useState([])
+    // const [freeTime, setfreeTime] = useState([])
     const [lstFeeMax, setLstFeeMax] = useState([
             'Less 5 millions VND',
             'From 5 to 15 millions VND',
@@ -26,12 +26,39 @@ export default function WizardStep2({ DTO, setDTO }) {
     const [cities, setCities] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
+    const [timeStart, setTimeStart] = useState("00:00")
+    const [timeEnd, setTimeEnd] = useState("23:59")
+    const [weekday, setWeekday] = useState([]);
+
 
     const [address, setaddress] = useState({
         city: "",
         ward: "",
         district: ""
     });
+    const weekdays  = [{
+            key: '2',
+            text: 'Monday'
+        },{
+            key: '3',
+            text: 'Tuesday'
+        },{
+            key: '4',
+            text: 'Wednesday'
+        },{
+            key: '5',
+            text: 'Thursday'
+        },{
+            key: '6',
+            text: 'Friday'
+        },{
+            key: '7',
+            text: 'Saturday'
+        },{
+            key: '1',
+            text: 'Sunday'
+        },
+    ];
     const [isFirstTime, setIsFirstTime] = useState(true);
 
     useLayoutEffect(() => {
@@ -82,6 +109,17 @@ export default function WizardStep2({ DTO, setDTO }) {
         const {data} = await axios.get(`https://vapi.vnappmob.com/api/province/ward/${id}`);
         // setWards(data.results);
         setDTO({ ...DTO, ...params, wards: data.results });
+    }
+
+    const addFreeTime = () => {
+        let fullFreeTime = timeStart + '-' + timeEnd + '(' + weekday.map((el) => el.key).join('-') + ')';
+        setDTO({...DTO, freeTime: [...DTO.freeTime, fullFreeTime]});
+        setTimeStart('00:00');
+        setTimeEnd('23:59');
+        setWeekday([]);
+    }
+    const onRemoveTime = (index) => {
+        setDTO({...DTO, freeTime: DTO.freeTime.filter((el, i) => i != index)});
     }
     return (
         <Fragment>
@@ -228,17 +266,58 @@ export default function WizardStep2({ DTO, setDTO }) {
                         <Label for="exampleSelectMulti" sm={2}>
                             What time is right for you, if we have an offline courses?
                         </Label>
-                        <Col sm={10}>
+                        <Col sm={2}>
+                            Start time
+                            <Input
+                              placeholder="time placeholder"
+                              type="time"
+                              value={timeStart}
+                              onChange={(e) => { setTimeStart(e.target.value)}}
+                            />
+                        </Col>
+                        <Col sm={2}>
+                            End time
+                            <Input
+                              placeholder="time placeholder"
+                              type="time"
+                              value={timeEnd}
+                              onChange={(e) => { setTimeEnd(e.target.value)}}
+                            />
+                        </Col>
+                        <Col sm={4}>
+                            weekday
                             <Select isMulti components={makeAnimated()}
                                 closeMenuOnSelect={false}
-                                getOptionLabel={option => option}
-                                getOptionValue={option => option}
-                                options={lsFreeTime} className="basic-multi-select" classNamePrefix="select"
-                                value={DTO.freeTime}
+                                getOptionLabel={option => option.text}
+                                getOptionValue={option => option.key}
+                                options={weekdays} className="basic-multi-select" classNamePrefix="select"
+                                value={weekday}
                                 onChange={(value) => {
-                                    setDTO({ ...DTO, freeTime: value })
+                                    setWeekday(value)
                                 }}
                             />
+                        </Col>
+                        <Col sm={1}>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <Button color="secondary" className="btn-shadow float-left btn-wide btn-pill" outline
+                              onClick={addFreeTime}>
+                              Add
+                            </Button>
+                        </Col>
+                        <Col sm={2}>
+                        </Col>
+                        <Col sm={10}>
+                            <ListGroup>
+                                {DTO.freeTime.map((el, index) => (
+                                    <ListGroupItem key={index} style={{borderTop: "1px solid rgba(0, 0, 0, 0.125)"}}>
+                                        {el}
+                                        <button type="button" className="close" aria-label="Close" onClick={() => onRemoveTime(index)}>
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </ListGroupItem>)
+                                )}
+                              
+                            </ListGroup>
                         </Col>
                     </FormGroup>
                     <FormGroup row>
