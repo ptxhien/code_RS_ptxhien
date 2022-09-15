@@ -184,61 +184,24 @@ export default function EditProfile() {
       setDTO(pre => ({ ...pre, ...params, wards: data.results }));
   }
 
-  function removeFirst(str, type) {
-    let index = -1;
-    let searchstr = '';
-    if(type == 'city') {
-      searchstr = 'Thành phố ';
-      index = str.indexOf(searchstr);
-      if(index !== 0) {
-        searchstr = 'Tỉnh ';
-        index = str.indexOf(searchstr);
-      }
-    }
-    if(type == 'district') {
-      searchstr = 'Thành phố ';
-      index = str.indexOf(searchstr);
-      if(index !== 0) {
-        searchstr = 'Huyện ';
-        index = str.indexOf(searchstr);
-      }
-      if(index !== 0) {
-        searchstr = 'Quận ';
-        index = str.indexOf(searchstr);
-      }
-      if(index !== 0) {
-        searchstr = 'Thị xã ';
-        index = str.indexOf(searchstr);
-      }
-    }
-    if(type == 'ward') {
-      searchstr = 'Phường ';
-      index = str.indexOf(searchstr);
-      if(index !== 0) {
-        searchstr = 'Xã ';
-        index = str.indexOf(searchstr);
-      }
-      if(index !== 0) {
-        searchstr = 'Thị trấn ';
-        index = str.indexOf(searchstr);
-      }
-    }
-    if (index === 0) {
-      return str.slice(searchstr.length);
-    }
-    return str;
-  }
-
   function onClickUpdate() {
     if(checkSecondStep() == false) {
       return;
     }
+    let addressArray = [];
+    if (DTO.ward) {
+        addressArray.push(DTO.ward)
+    }
+    if (DTO.district) {
+        addressArray.push(DTO.district)
+    }
+    if (DTO.city) {
+        addressArray.push(DTO.city)
+    }
     let postdata = {
       learnerID: auth.learnerID,
-      // address: removeFirst(DTO.city, 'city') + ', ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.ward, 'ward'),
-      address: 'Phường ' + removeFirst(DTO.ward, 'ward') + ', Quận ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.city, 'city'),
-      // address: removeFirst(DTO.ward, 'ward') + ', ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.city, 'city'),
-      address1: DTO.address1,
+      address: addressArray.length ? addressArray.join(', ') : null,
+      address1: DTO.address1 ? DTO.address1 : null,
       learnerLevel: DTO.learnerLevel,
       language: language.map(({lanName}) => lanName).join(', '),
       jobNow: DTO.jobNow,
@@ -255,12 +218,28 @@ export default function EditProfile() {
 
   const checkSecondStep = () => {
     const errors = [];
-    console.log(language);
     if(!(language && language.length > 0)) {
       errors.push("Please choose at least one language you know");
     }
     if (!(techSkill && techSkill.length > 0)) {
       errors.push("Please choose at least one technology skill you know");
+    }
+
+    let count = 0;
+    if (DTO.address1) {
+        count++;
+    }
+    if (DTO.ward || (DTO.wards.length == 0 && DTO.districts.length > 0)) {
+        count++;
+    }
+    if (DTO.district) {
+        count++;
+    }
+    if (DTO.city) {
+        count++;
+    }
+    if (count > 0 && count < 4) {
+      errors.push("bạn phải nhập đầy đủ địa chỉ");
     }
 
     errors.forEach((err) => {
@@ -355,9 +334,9 @@ export default function EditProfile() {
                     <Col sm={2}>
                         <Input type="select" value={DTO.district_id} onChange={(e) => {
                             if (e.target.value === "-1") { 
-                                getWards(0, { ...DTO, district_id: e.target.value, district: "" });
+                                getWards(0, { ...DTO, district_id: e.target.value, district: "", ward_id: -1, ward: "" });
                             } else {
-                                getWards(DTO.districts[e.target.value].district_id, { ...DTO, district_id: e.target.value, district: DTO.districts[e.target.value].district_name });
+                                getWards(DTO.districts[e.target.value].district_id, { ...DTO, district_id: e.target.value, district: DTO.districts[e.target.value].district_name, ward_id: -1, ward: "" });
                             }
                         }}>
                             <option value={-1}>Please select a district</option>
@@ -368,9 +347,9 @@ export default function EditProfile() {
                     <Col sm={2}>
                         <Input type="select" value={DTO.city_id} onChange={(e) => {
                             if (e.target.value === "-1") { 
-                                getDistricts(0, { ...DTO, city_id: e.target.value, city: "" });
+                                getDistricts(0, { ...DTO, city_id: e.target.value, city: "", district_id: -1, district: "", ward_id: -1, ward: "" });
                             } else {
-                                getDistricts(DTO.cities[e.target.value].province_id, { ...DTO, city_id: e.target.value, city: DTO.cities[e.target.value].province_name });
+                                getDistricts(DTO.cities[e.target.value].province_id, { ...DTO, city_id: e.target.value, city: DTO.cities[e.target.value].province_name, district_id: -1, district: "", ward_id: -1, ward: "" });
                                 
                             }
                         }}>

@@ -58,9 +58,9 @@ export default function Register() {
     ward_id: "",
     ward: "",
     learnerLevel: "",
-    language: "",
+    language: [],
     jobNow: "",
-    technologySkill: "",
+    technologySkill: [],
     feeMax: "",
     feeMaxText: "",
     freeTime: [],
@@ -97,50 +97,6 @@ export default function Register() {
     { shouldGoNext: true, errors: [] },
   ]);
 
-  function removeFirst(str, type) {
-    let index = -1;
-    let searchstr = '';
-    if(type == 'city') {
-      searchstr = 'Thành phố ';
-      index = str.indexOf(searchstr);
-      if(index !== 0) {
-        searchstr = 'Tỉnh ';
-        index = str.indexOf(searchstr);
-      }
-    }
-    if(type == 'district') {
-      searchstr = 'Thành phố ';
-      index = str.indexOf(searchstr);
-      if(index !== 0) {
-        searchstr = 'Huyện ';
-        index = str.indexOf(searchstr);
-      }
-      if(index !== 0) {
-        searchstr = 'Quận ';
-        index = str.indexOf(searchstr);
-      }
-      if(index !== 0) {
-        searchstr = 'Thị xã ';
-        index = str.indexOf(searchstr);
-      }
-    }
-    if(type == 'ward') {
-      searchstr = 'Phường ';
-      index = str.indexOf(searchstr);
-      if(index !== 0) {
-        searchstr = 'Xã ';
-        index = str.indexOf(searchstr);
-      }
-      if(index !== 0) {
-        searchstr = 'Thị trấn ';
-        index = str.indexOf(searchstr);
-      }
-    }
-    if (index === 0) {
-      return str.slice(searchstr.length);
-    }
-    return str;
-  }
   useEffect(() => {
     dispatch(GetAllLanguageAction());
     dispatch(GetAllTechnologyAction());
@@ -149,15 +105,23 @@ export default function Register() {
   }, []);
 
   function onClickRegister() {
-    console.log(DTO);
+    let addressArray = [];
+    if (DTO.ward) {
+        addressArray.push(DTO.ward)
+    }
+    if (DTO.district) {
+        addressArray.push(DTO.district)
+    }
+    if (DTO.city) {
+        addressArray.push(DTO.city)
+    }
     let postdata = {
       email: DTO.email,
       password: DTO.password,
       fullname: DTO.fullname,
       gender: DTO.gender,
-      // address: removeFirst(DTO.city, 'city') + ', ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.ward, 'ward'),
-      address: 'Phường ' + removeFirst(DTO.ward, 'ward') + ', Quận ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.city, 'city'),
-      address1: DTO.address1,
+      address: addressArray.length ? addressArray.join(', ') : null,
+      address1: DTO.address1 ? DTO.address1 : null,
       learnerLevel: DTO.learnerLevel,
       language: DTO.language.map(({lanName}) => lanName).join(', '),
       jobNow: DTO.jobNow,
@@ -166,7 +130,6 @@ export default function Register() {
       feeMax: DTO.feeMax,
       freeTime: DTO.freeTime && DTO.freeTime.join('|') || '',
       futureSelfDevelopment: DTO.futureSelfDevelopment,
-      // address1: DTO.address1,
     }
     dispatch(registerAction(postdata));
   }
@@ -196,12 +159,28 @@ export default function Register() {
 
   const checkSecondStep = () => {
     const errors = [];
-    
-    if(!DTO.language) {
+    if(!(DTO.language && DTO.language.length > 0)) {
       errors.push("Please choose at least one language you know");
     }
-    if (!DTO.technologySkill) {
+    if (!(DTO.technologySkill && DTO.technologySkill.length > 0)) {
       errors.push("Please choose at least one technology skill you know");
+    }
+
+    let count = 0;
+    if (DTO.address1) {
+        count++;
+    }
+    if (DTO.ward || (DTO.wards.length == 0 && DTO.districts.length > 0)) {
+        count++;
+    }
+    if (DTO.district) {
+        count++;
+    }
+    if (DTO.city) {
+        count++;
+    }
+    if (count > 0 && count < 4) {
+      errors.push("bạn phải nhập đầy đủ địa chỉ");
     }
 
     if (errors.length) {

@@ -198,9 +198,9 @@ export default function WizardStep2({ DTO, setDTO }) {
                         <Col sm={2}>
                             <Input type="select" value={DTO.district_id} onChange={(e) => {
                                 if (e.target.value === "-1") { 
-                                    getWards(0, { ...DTO, district_id: e.target.value, district: "" });
+                                    getWards(0, { ...DTO, district_id: e.target.value, district: "", ward_id: -1, ward: "" });
                                 } else {
-                                    getWards(DTO.districts[e.target.value].district_id, { ...DTO, district_id: e.target.value, district: DTO.districts[e.target.value].district_name });
+                                    getWards(DTO.districts[e.target.value].district_id, { ...DTO, district_id: e.target.value, district: DTO.districts[e.target.value].district_name, ward_id: -1, ward: "" });
                                 }
                             }}>
                                 <option value={-1}>Select district</option>
@@ -211,9 +211,9 @@ export default function WizardStep2({ DTO, setDTO }) {
                         <Col sm={2}>
                             <Input type="select" value={DTO.city_id} onChange={(e) => {
                                 if (e.target.value === "-1") { 
-                                    getDistricts(0, { ...DTO, city_id: e.target.value, city: "" });
+                                    getDistricts(0, { ...DTO, city_id: e.target.value, city: "", district_id: -1, district: "", ward_id: -1, ward: "" });
                                 } else {
-                                    getDistricts(DTO.cities[e.target.value].province_id, { ...DTO, city_id: e.target.value, city: DTO.cities[e.target.value].province_name });
+                                    getDistricts(DTO.cities[e.target.value].province_id, { ...DTO, city_id: e.target.value, city: DTO.cities[e.target.value].province_name, district_id: -1, district: "", ward_id: -1, ward: "" });
                                     
                                 }
                             }}>
