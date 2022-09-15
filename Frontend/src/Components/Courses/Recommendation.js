@@ -148,12 +148,13 @@ function RecommendationCourses({
       return <Row>
             <p style={{width: "100%"}}>
               {"Chúng tôi đề xuất đến bạn những khoá học phù hợp với nghề nghiệp, hình thức học, ngôn ngữ bạn biết." + 
-                "Nhưng có sự chênh lệch so với vài tiêu chí như chi phí, thời gian và khung thời gian."
+                "Nhưng có sự chênh lệch so với vài tiêu chí như:"
               }
               <ul>
-                <li>{"tổng lộ trình học: " + fee}</li>
-                <li>{"tổng thơi gian lộ trình học: " + (duration && duration.Output)}</li>
-                <li>{"các khoá học này ở các khung thời gian: " + (frameRemain && frameRemain.frame_remain)}</li>
+                {/* <li>{"Tổng chi phí lộ trình học: " + (fee && fee.Output)}</li> */}
+                <li>{"Tổng chi phí lộ trình học: " + (fee || "") }</li>
+                <li>{"Tổng thời gian lộ trình học: " + (duration && duration.Output || "")}</li>
+                <li>{"Các khoá học này ở các khung thời gian: " + (frameRemain && frameRemain.frame_remain || "")}</li>
               </ul>
             </p>
           </Row>;
@@ -167,13 +168,13 @@ function RecommendationCourses({
       return <Row>
             <p style={{width: "100%"}}>
               {"Chúng tôi đề xuất đến bạn những khoá học phù hợp với nghề nghiệp, hình thức học." + 
-                "Nhưng có sự chênh lệch so với vài tiêu chí như chi phí, ngôn ngữ và khung thời gian."
+                "Nhưng có sự chênh lệch so với vài tiêu chí như:"
               }
               <ul>
                 <li>{"Ngôn ngữ các khoá học này là: " + (lan && lan.lan_remain)}</li>
-                <li>{"tổng lộ trình học: " + fee}</li>
-                <li>{"tổng thơi gian lộ trình học: " + (duration && duration.Output)}</li>
-                <li>{"các khoá học này ở các khung thời gian: " + (frameRemain && frameRemain.frame_remain)}</li>
+                <li>{"Tổng chi phí lộ trình học: " + (fee || "")}</li>
+                <li>{"Tổng thời gian lộ trình học: " + (duration && duration.Output || "")}</li>
+                <li>{"Các khoá học này ở các khung thời gian: " + (frameRemain && frameRemain.frame_remain || "")}</li>
               </ul>
             </p>
           </Row>;
@@ -189,15 +190,15 @@ function RecommendationCourses({
     } else if (bothStatus == 200 && bothMessage == 'PASS' && bothException && bothException.some( el => !!el.Balance)) {
         let fee = bothException.find(el => el.ExceptionType == 'Fee');
         fee = fee && (new Intl.NumberFormat('it-IT').format(fee.Output) + " VNĐ") || '';
-
         let duration = bothException.find(el => el.ExceptionType == 'Duration');
         return <Row>
               <p style={{width: "100%"}}>
                 {"Chúng tôi đề xuất đến bạn những khoá học phù hợp với nghề nghiệp, hình thức học, ngôn ngũ bạn biết."
                 }<br/><br/>
-                {"Nhưng có sự chênh lệch so với vài tiêu chí như chi phí, thời gian và khung thời gian."} <br/>
+                {"Nhưng có sự chênh lệch so với vài tiêu chí như:"} <br/>
                 <ul>
-                  <li>{"Tổng lộ trình học: " + fee}</li>
+                  {/* <li>{"Tổng chi phí lộ trình học: " + (fee && fee.Output)}</li> */}
+                  <li>{"Tổng chi phí lộ trình học: " + fee}</li>
                   <li>{"Tổng thời gian lộ trình học: " + (duration && duration.Output || "")}</li>
                 </ul>
               </p>

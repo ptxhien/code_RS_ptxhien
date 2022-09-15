@@ -55,7 +55,7 @@ export default function WizardStep2({ DTO, setDTO }) {
             key: '7',
             text: 'Saturday'
         },{
-            key: '1',
+            key: 'CN',
             text: 'Sunday'
         },
     ];
@@ -112,7 +112,7 @@ export default function WizardStep2({ DTO, setDTO }) {
     }
 
     const addFreeTime = () => {
-        let fullFreeTime = timeStart + '-' + timeEnd + '(' + weekday.map((el) => el.key).join('-') + ')';
+        let fullFreeTime = timeStart + '-' + timeEnd + ' (' + weekday.map((el) => el.key).join('-') + ')';
         setDTO({...DTO, freeTime: [...DTO.freeTime, fullFreeTime]});
         setTimeStart('00:00');
         setTimeEnd('23:59');

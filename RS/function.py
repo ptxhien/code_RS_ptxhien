@@ -277,7 +277,7 @@ def findCourseOn_basedOn_Language(df, lst_lan):
 def Find_List_FrameTime(df):
     lst_StudyTime = []
     for id, row in df.iterrows():
-        for t in row.loc['studyTime'].split(' | '):
+        for t in row.loc['studyTime'].split('|'):
             if t != '' and t not in lst_StudyTime:
                 lst_StudyTime.append(t)
     lst_StudyTime.sort()
@@ -474,13 +474,12 @@ def Course_Weight(rule_On, occupation, filter):
 def get_frame_days(t):
     lst_day = []
     f_time = t[:11]
-    if t.find('7 days') != -1:
-        lst_day = ['2','3','4','5','6','7']
-    else:
-        f = t[12:]
-        f = f[1:]
-        f = f[:-1]
-        lst_day = f.split(' - ')
+    
+    f = t[12:]
+    f = f[1:]
+    f = f[:-1]
+    lst_day = f.split(' - ')
+    
     return f_time, lst_day
 
 def FindCoursebasedStudyTime(df, t_learner):

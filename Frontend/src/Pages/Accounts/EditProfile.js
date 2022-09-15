@@ -50,6 +50,7 @@ export default function EditProfile() {
     districts: [],
     wards: [],
   });
+
   const { lsLanguage, lsFreeTime, lsTechnology, lsMajor } = useSelector((state) => state.masterdataReducer);
 
   const [techSkill, settechSkill] = useState([])
@@ -86,7 +87,7 @@ export default function EditProfile() {
         key: '7',
         text: 'Saturday'
     },{
-        key: '1',
+        key: 'CN',
         text: 'Sunday'
     },
   ];
@@ -127,13 +128,14 @@ export default function EditProfile() {
     if (auth.technologySkill) {
       settechSkill(auth.technologySkill.split(', ').map((el) => ({techName: el})));
     }
-    console.log(auth, 'tung')
+    
   }, [auth]);
   useEffect(() => {
     if (auth.address && DTO.cities) {
       let address = auth.address.split(', ');
       if (address[2]) {
         let cityIndex = DTO.cities.findIndex(el => el.province_name.indexOf(address[2]) !== -1);
+        
         if (cityIndex !== -1) {
           getDistricts(DTO.cities[cityIndex].province_id, {city_id: cityIndex, city: DTO.cities[cityIndex].province_name, district_text: address[1], ward_text: address[0]});
         }
@@ -179,7 +181,6 @@ export default function EditProfile() {
         }
       }
 
-      // setWards(data.results);
       setDTO(pre => ({ ...pre, ...params, wards: data.results }));
   }
 
@@ -235,7 +236,8 @@ export default function EditProfile() {
     let postdata = {
       learnerID: auth.learnerID,
       // address: removeFirst(DTO.city, 'city') + ', ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.ward, 'ward'),
-      address: 'Phường ' + removeFirst(DTO.ward, 'ward') + ', Quận' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.city, 'city'),
+      address: 'Phường ' + removeFirst(DTO.ward, 'ward') + ', Quận ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.city, 'city'),
+      // address: removeFirst(DTO.ward, 'ward') + ', ' + removeFirst(DTO.district, 'district') + ', ' + removeFirst(DTO.city, 'city'),
       address1: DTO.address1,
       learnerLevel: DTO.learnerLevel,
       language: language.map(({lanName}) => lanName).join(', '),
@@ -268,7 +270,7 @@ export default function EditProfile() {
     return errors.length == 0;
   }
   const addFreeTime = () => {
-    let fullFreeTime = timeStart + '-' + timeEnd + '(' + weekday.map((el) => el.key).join('-') + ')';
+    let fullFreeTime = timeStart + '-' + timeEnd + ' (' + weekday.map((el) => el.key).join('-') + ')';
     setDTO({...DTO, freeTime: [...DTO.freeTime, fullFreeTime]});
     setTimeStart('00:00');
     setTimeEnd('23:59');
@@ -283,9 +285,6 @@ export default function EditProfile() {
       <ThemeOptions />
       <AppHeader />
       <br/><br/><br/><br/>
-      {/* < div className="app-main"> */}
-      {/* <AppSidebar /> */}
-      {/* <div className="app-main__outer"> */}
       <div className="app-main__inner card-body main-card card">
         <div className="form-wizard-content">
             <Form>

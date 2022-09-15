@@ -57,7 +57,7 @@ def Xet_FrameStudy_JobNow(df, Job_Now, str_lst_frametime):
     for i in str_lst_frametime.split('|'):
         lst_t_learner.append(i)
 
-    if Job_Now.startswith('Work') | Job_Now.startswith('Study'):
+    if Job_Now.startswith('work') | Job_Now.startswith('study'):
         df = df[df['studyForm'].astype(str).str.startswith('Part time')] 
         if len(df) > 0:
             df1 = pd.DataFrame()

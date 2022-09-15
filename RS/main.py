@@ -26,7 +26,7 @@ def RS():
 
     # 2. load information relate learner
     # user profile
-    df_attribute_requirement = dao.User_Preq_Attributes(email, occupation, form, month,typeFilter)
+    df_attribute_requirement = dao.User_Preq_Attributes(email, occupation, form, month, typeFilter)
     
     # load courses
     df_courses_On = function.take_CourseOnline(df_attribute_requirement)
@@ -50,6 +50,7 @@ def RS():
         lon1 = df_attribute_requirement.longitude[0]
         Form_require = df_attribute_requirement.Form_require[0]
         
+        # print("missing_skill", missing_skill)
         if len(missing_skill) > 0:
             if len(df_courses_On) > 0 or len(df_courses_Off) > 0:
                 dict_f = buildRule.recommendation(df_courses_On, df_courses_Off, missing_skill, lan_know, lat1, lon1, occupation, Form_require, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)

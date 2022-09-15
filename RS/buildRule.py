@@ -29,8 +29,10 @@ def BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, conditi
     str_lst_job_sim = ", ".join(lst_job_sim)
     
     # LANGUAGE - LEVEL
+
     if len(df_On) > 0:
         rule_On_lan, flat_language = knowledgeDomain.Xet_Language(df_On, df_Off, "online", lan_know)
+        print("rule_On_lan", len(rule_On_lan))
         if len(rule_On_lan) > 0:
             rule_On_lan = rule_On_lan.loc[(rule_On_lan.level == 'Beginner') | (rule_On_lan.level == 'ALL Levels')]  
             if len(rule_On_lan) > 0:
@@ -44,7 +46,10 @@ def BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, conditi
                 flat_level = -1
             
         else:
+            print("df_On", len(df_On))
+            print("lan_know", lan_know)
             lan_no_know = function.Find_Language_Remaining_LearnNotKnow(df_On, lan_know) 
+            print("lan_no_know", lan_no_know)
             str_lan_no_know = ", ".join(lan_no_know)
             
             rule_On_remain, flat_language = knowledgeDomain.Xet_Language(df_On, df_Off, "online", lan_no_know) 
@@ -281,12 +286,12 @@ def Off_Lan(result, missing_skill, lan_know, occupation, feeMax, condition_durat
         ExceptionType = "Frame_Remain"
         dict_f_ngoaile.append({ "ExceptionType": ExceptionType, 
                                     "frame_remain": str_freetime_remain })  
-
     # result    
     lstSkill_Provider, lstSkill_notProvider = function.lst_Skill_RS(result, missing_skill, occupation)
     str_new_lstSkill_Provider = convertlst_toString(lstSkill_Provider)
     str_new_lstSkill_notProvider = ", ".join(lstSkill_notProvider)
-
+    print(result.info())
+    print(result)
     if len(result) > 0:
         for i, r in result.iterrows():
             kq_result.append({"courseID":str(r[0]),
@@ -305,7 +310,7 @@ def Off_Lan(result, missing_skill, lan_know, occupation, feeMax, condition_durat
                                 "peopleRating": "",
                                 "location": str(r[11]),
                                 "level": str(r[19]),
-                                "distance": str(r[30]),
+                                "distance": str(r[26]),
                                 "is_online": "false"})
     
         result, dict_f_ngoaile_W = Test_Weight_Duration_Fee(result, occupation, condition_duration, feeMax, typeFilter)
@@ -350,7 +355,8 @@ def Off_NotLan(result, missing_skill, lan_no_know, occupation, feeMax, condition
     lstSkill_Provider, lstSkill_notProvider = function.lst_Skill_RS(result, missing_skill, occupation)
     str_new_lstSkill_Provider = convertlst_toString(lstSkill_Provider)
     str_new_lstSkill_notProvider = ", ".join(lstSkill_notProvider)
-
+    print(result.info())
+    print(result)
     if len(result) > 0:
         for i, r in result.iterrows():
             kq_result.append({"courseID":str(r[0]),
@@ -369,7 +375,7 @@ def Off_NotLan(result, missing_skill, lan_no_know, occupation, feeMax, condition
                                 "peopleRating": "",
                                 "location": str(r[11]),
                                 "level": str(r[19]),
-                                "distance": str(r[30]),
+                                "distance": str(r[26]),
                                 "is_online": "false"})
     
                 

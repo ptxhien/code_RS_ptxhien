@@ -23,9 +23,6 @@ import makeAnimated from "react-select/animated";
 import "../Home/style.css";
 import { UncontrolledCarousel } from "reactstrap";
 import Pagination from "react-js-pagination";
-// import image1 from "../../assets/utils/images/dropdown-header/abstract1.jpg";
-// import image2 from "../../assets/utils/images/dropdown-header/abstract2.jpg";
-// import image3 from "../../assets/utils/images/dropdown-header/abstract3.jpg";
 
 import image1 from "../../assets/images/slider-img2.jpg";
 import image2 from "../../assets/images/slider-img2.jpg";
