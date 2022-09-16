@@ -195,12 +195,12 @@ export default function RecommendationPage() {
                       components={makeAnimated()}
                       closeMenuOnSelect={false}
                       getOptionLabel={(option) => option.jobTitle}
-                      getOptionValue={(option) => option.jobTitle}
+                      getOptionValue={(option) => option.jobID}
                       options={lsJob}
                       className="basic-multi-select"
                       classNamePrefix="select"
                       onChange={(e) => {
-                        recommendationInfo.current.occupation = e.jobTitle;
+                        recommendationInfo.current.occupation = e.jobID;
                       }}
                     />
                   </FormGroup>

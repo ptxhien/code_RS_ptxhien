@@ -32,7 +32,6 @@ def BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, conditi
 
     if len(df_On) > 0:
         rule_On_lan, flat_language = knowledgeDomain.Xet_Language(df_On, df_Off, "online", lan_know)
-        print("rule_On_lan", len(rule_On_lan))
         if len(rule_On_lan) > 0:
             rule_On_lan = rule_On_lan.loc[(rule_On_lan.level == 'Beginner') | (rule_On_lan.level == 'ALL Levels')]  
             if len(rule_On_lan) > 0:
@@ -46,10 +45,7 @@ def BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, conditi
                 flat_level = -1
             
         else:
-            print("df_On", len(df_On))
-            print("lan_know", lan_know)
             lan_no_know = function.Find_Language_Remaining_LearnNotKnow(df_On, lan_know) 
-            print("lan_no_know", lan_no_know)
             str_lan_no_know = ", ".join(lan_no_know)
             
             rule_On_remain, flat_language = knowledgeDomain.Xet_Language(df_On, df_Off, "online", lan_no_know) 
@@ -271,11 +267,6 @@ def Off_Lan(result, missing_skill, lan_know, occupation, feeMax, condition_durat
     kq_result = []
     freetime_remain = []
     
-    # Job similarity
-    lst_job_sim = knowledgeDomain.job_related(occupation)
-    del lst_job_sim[0:1]
-    str_lst_job_sim = ", ".join(lst_job_sim)
-    
     result, flat_course_freetime = Test_Location_FreeTime_JobNow(result, lat1, lon1, Learner_Job_Now, Learner_FreeTime)
 
     #Courses available in a different timeframe
@@ -290,8 +281,6 @@ def Off_Lan(result, missing_skill, lan_know, occupation, feeMax, condition_durat
     lstSkill_Provider, lstSkill_notProvider = function.lst_Skill_RS(result, missing_skill, occupation)
     str_new_lstSkill_Provider = convertlst_toString(lstSkill_Provider)
     str_new_lstSkill_notProvider = ", ".join(lstSkill_notProvider)
-    print(result.info())
-    print(result)
     if len(result) > 0:
         for i, r in result.iterrows():
             kq_result.append({"courseID":str(r[0]),
@@ -329,17 +318,12 @@ def Off_Lan(result, missing_skill, lan_know, occupation, feeMax, condition_durat
                                             "ExceptionDetail": []}}    
     return result, dict_f_Offline
 
-# def Off_NotLan(result, lan_no_know, occupation, feeMax, condition_duration, location, Learner_Job_Now, Learner_FreeTime, typeFilter):
 def Off_NotLan(result, missing_skill, lan_no_know, occupation, feeMax, condition_duration, lat1, lon1, Learner_Job_Now, Learner_FreeTime, typeFilter):
     dict_f_Offline = {}
     dict_f_ngoaile = [] 
     kq_result = []
     freetime_remain = []
-    
-    lst_job_sim = knowledgeDomain.job_related(occupation)
-    del lst_job_sim[0:1]
-    str_lst_job_sim = ", ".join(lst_job_sim)
-    
+
     result, flat_course_freetime = Test_Location_FreeTime_JobNow(result, lat1, lon1, Learner_Job_Now, Learner_FreeTime)
 
     # Part-time course available but in a different time frame
@@ -355,8 +339,7 @@ def Off_NotLan(result, missing_skill, lan_no_know, occupation, feeMax, condition
     lstSkill_Provider, lstSkill_notProvider = function.lst_Skill_RS(result, missing_skill, occupation)
     str_new_lstSkill_Provider = convertlst_toString(lstSkill_Provider)
     str_new_lstSkill_notProvider = ", ".join(lstSkill_notProvider)
-    print(result.info())
-    print(result)
+
     if len(result) > 0:
         for i, r in result.iterrows():
             kq_result.append({"courseID":str(r[0]),
@@ -389,7 +372,7 @@ def Off_NotLan(result, missing_skill, lan_no_know, occupation, feeMax, condition
                 dict_f_ngoaile.append(i)
 
         dict_f_ngoaile.append({ "lstSkill_Provider_ngoaile":str_new_lstSkill_Provider, 
-                                    "lstSkill_notProvider_ngoaile" :str_new_lstSkill_notProvider})    
+                                "lstSkill_notProvider_ngoaile" :str_new_lstSkill_notProvider})    
             
     dict_f_Offline = {"status": 202,  
                         "message": "frameRemain_Fulltime", 
@@ -409,7 +392,6 @@ def BuildRule_Offline(df_Off, missing_skill, lan_know, lat1, lon1, occupation, L
     lan_no_know = []
     lan_no_know_copy = []
     result = pd.DataFrame()
-    result_ngoaile = pd.DataFrame()
     lst_job_sim = []
     
     # job similarity
@@ -534,6 +516,11 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, lat1, lon1, occupatio
             df_rule = result_online
             dict_f_ngoaile = {'courses_online': dict_f_online,
                             'courses_offline': dict_f_Offline}
+        
+        elif len(result_online) == 0 and len(result_offline) == 0:
+            df_rule = pd.concat([result_online, result_offline])
+            dict_f_ngoaile = {'courses_online': dict_f_online,
+                            'courses_offline': dict_f_Offline}
         dict_f = dict_f_ngoaile
             
     elif Form_require.startswith('Online'):
@@ -553,6 +540,7 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, lat1, lon1, occupatio
                                     "ExceptionDetail": [] }}
                         }
         if len(df_rule) == 0:
+            print("Don't have result online. Therefore rs offline")
             result_Offline, kq_On = KiemTraOfflineNgoaiLe(df_Off, missing_skill, lan_know, lat1, lon1, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
             dict_f_ngoaile = {'courses_online': dict_onl
                             , 'courses_offline': kq_On}

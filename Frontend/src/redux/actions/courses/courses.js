@@ -42,5 +42,3 @@ export const recommendCourses = (occupation, form, month, email, typeFilter) => 
     
   }
 }
-
-// export const showOffer

@@ -26,7 +26,7 @@ export default function WizardStep4({ DTO, onClickRegister }) {
                         <p>Email: <b>{DTO.email}</b></p>
                         {/* <p>Password: <b>{DTO.password}</b></p> */}
                         <p>Full Name: <b>{DTO.fullname}</b></p>
-                        <p>Address: <b>{'Phường ' + DTO.ward + ', Quận ' + DTO.district + ', ' + DTO.city}</b></p>
+                        <p>Address: <b>{DTO.ward + ', ' + DTO.district + ', ' + DTO.city}</b></p>
                         <p>Gender: <b>{DTO.gender}</b></p>
                         <p>Job Now: <b>{DTO.jobNow}</b></p>
                         <p>Degree: <b>{DTO.learnerLevel}</b></p>

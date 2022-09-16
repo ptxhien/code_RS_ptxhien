@@ -31,14 +31,14 @@ def Find_Courses_Studied(email):
     lst_courses_studied.sort()
     return lst_courses_studied
 
-# 2. Find Skills Job Requirement
-def Find_Skill_Weight(occupation):
+
+# 2.2 Find Skills Job Requirement
+def Find_Skill_Weight(occupation_id):
     f = open('Rule_Job.json',)
     data = json.loads(f.read())
     d_skill = {}
     for i in data:
-        # if i['id'] == occupation:
-        if i['job'] == occupation:
+        if i['id'] == occupation_id:
             d_skill = i['skill']
     return d_skill 
 
@@ -478,7 +478,7 @@ def get_frame_days(t):
     f = t[12:]
     f = f[1:]
     f = f[:-1]
-    lst_day = f.split(' - ')
+    lst_day = f.split('-')
     
     return f_time, lst_day
 

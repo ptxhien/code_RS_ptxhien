@@ -1,1 +1,52 @@
-[]
+{
+    "courses_online": {
+        "status": 200,
+        "message": "PASS",
+        "Course": [
+            {
+                "courseID": "COURSE_144",
+                "courseTitle": "Applied Linux Command Line and Shell Scripting Zero to Elite",
+                "Tech_Skill": "Linux, Windows",
+                "studyTime": "",
+                "studyForm": "",
+                "technologySkill": "Tmux, Git, CSysdig, iproute2, DNS, SSH, Windows, SOCKS, IPTables, Linux",
+                "outcomeLearning": "Learning +200 modern Linux tools & commands with their use-cases.\nHandling basic to complex real-work Linux projects: network, security, system visibility, etc.\nProject-based shell scripting & automation: writing a backup tool, a password manager, etc.\nTerminal productivity using Tmux, Git, Oh My Zsh, Nerd Font, Windows Terminal, etc.\nManage Linux components in shell e.g. networking, disks, processes, users, etc.\nAdvanced system visibility using sysdig & CSysdig (Lua Scripts).\nProblem-solving mindset, both in theory & do-along.\nLinux Networking & DNS, route & adapter management with iproute2, etc.\nIn-depth IPTables e.g. filter, nat, mangle etc.\nDive in Linux Firewall.\nCovering complete SSH Technologies OpenSSH Server, SSH Port Forwarding & Tunneling, SOCKS Proxy, etc.\nTask automation using cron & other daemons.\nGet the most out of 1-second booting subsystem-Linux: WSL2.\nInstallation & setting up a virtual Linux Lab (VirtualBox).\nVendor-neutral approach, supporting any Linux Distros inspired by LPIC Certification.",
+                "provider": "Udemy",
+                "duration": "09:01:00",
+                "feeVND": "322078.0",
+                "URL": "https://www.udemy.com/course/complete-linux-command-line-and-terminal-productivity/",
+                "language": "English",
+                "rating": "4.4",
+                "peopleRating": "544",
+                "location": "",
+                "level": "ALL Levels",
+                "distance": "",
+                "is_online": "true"
+            }
+        ],
+        "Exception": [
+            {
+                "lstSkill_Provider": "Linux, Windows",
+                "lstSkill_notProvider": "Hyper-V, VMWare"
+            }
+        ],
+        "Ngoai_Le": {
+            "Course_Offer": [],
+            "ExceptionDetail": []
+        }
+    },
+    "courses_offline": {
+        "status": 403,
+        "message": "FAIL",
+        "Course": [],
+        "Exception": [
+            {
+                "Job_offer": "Junior Font-end Developer, Junior Bridge Software Engineer, Senior Business Analyst, Senior C# Developer, Mobile Tester"
+            }
+        ],
+        "Ngoai_Le": {
+            "Course_Offer": [],
+            "ExceptionDetail": []
+        }
+    }
+}

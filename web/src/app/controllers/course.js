@@ -97,6 +97,7 @@ CourseController.prototype.get = async (req, res, next) => {
       { name: "Courses", link: "" },
     ],
     jobTitle: "",
+    jobID: "",
     form: "",
     durationFrom: "0",
     durationTo: "7",
@@ -117,7 +118,8 @@ CourseController.prototype.recommend = async (req, res, next) => {
   const from = (prefix).substring(0, 2 - req.body?.durationFrom?.length) + req.body.durationFrom;
   const to = (prefix).substring(0, 2 - req.body?.durationTo?.length) + req.body.durationTo;
   const body = {
-    occupation: req.body?.jobTitle || "",
+    // occupation: req.body?.jobTitle || "",
+    occupation: req.body?.jobID || "",
     form: req.body?.form || "",
     month: `${from}-${to}`,
     email: req.user?.email,
@@ -147,6 +149,7 @@ CourseController.prototype.recommend = async (req, res, next) => {
       { name: "Courses", link: "" },
     ],
     jobTitle: req.body?.jobTitle || "",
+    jobID: req.body?.jobID || "",
     form: req.body?.form || "",
     durationFrom: parseInt(from),
     durationTo: parseInt(to),

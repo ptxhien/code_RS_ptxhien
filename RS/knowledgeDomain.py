@@ -4,7 +4,7 @@ from difflib import SequenceMatcher
 from datetime import timedelta
 import numpy
 import os 
-import dao
+import dao, json
 from sklearn.metrics.pairwise import pairwise_distances
 from math import cos, asin, sqrt
 import numpy as np
@@ -20,7 +20,7 @@ def Xet_Language(df_Onl, df_Off, filter, lst_lan):
         if len(course_know) == 0:
             flat_language = -1 
         df = df_Onl
-    else: # 0 offline
+    else: 
         course_know = function.findCourseOn_basedOn_Language(df_Off, lst_lan)
         df_Off = course_know.copy()
         if len(course_know) == 0: 
@@ -48,7 +48,7 @@ def Xet_Location(df_C, lat1, lon1):
     return df_C
 
 
-# 3. Xet StudyForm and FrameTime Offline
+# 3. StudyForm and FrameTime 
 def Xet_FrameStudy_JobNow(df, Job_Now, str_lst_frametime):
     df_Off = df.copy()
     flat_course_freetime = 0 
@@ -143,6 +143,7 @@ def Course_Learner_Duration(df, condition_duration):
     return df_Course_RS
 
 # 6. Job simmilar
+
 def Jac_Simmilar():
     conn = dao.create_connection()
     df = dao.select_job(conn)
@@ -205,15 +206,16 @@ def get_top5_similar(JobID):
     similar_score = similar_score.head(6)
     return similar_score
 
-def job_related(jobTitle):
+def job_related(job_id):
     conn = dao.create_connection()
     df = dao.select_job(conn)  
-    df_job_id = df[df.jobTitle==jobTitle.strip()].jobID.iloc[0]
-    df_get = get_top5_similar(df_job_id) 
+    
+    df_get = get_top5_similar(job_id) 
     new_data = pd.merge(df_get, df, how='left', on="jobID")
     lst_job_sim = []
     for id, row in new_data.iterrows():
         if row["jobTitle"] not in lst_job_sim:
             lst_job_sim.append(row["jobTitle"])
+            
     return lst_job_sim
 
