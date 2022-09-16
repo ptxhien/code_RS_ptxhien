@@ -72,14 +72,14 @@ function RecommendationHandler() {
 
           <Col md={3}>
             <FormGroup>
-              <Label for="exampleName">Form of study</Label>
+              <Label for="exampleName">Type of study</Label>
               <Input
                 type="select"
                 onChange={(e) => {
                   recommendationInfo.current.form = e.target.value;
                 }}
               >
-                <option value={""}>Choose Form of Study</option>
+                <option value={""}>Choosing a study method</option>
                 <option value={"online"}>Online</option>
                 <option value={"offline"}>Offline</option>
               </Input>
@@ -88,7 +88,7 @@ function RecommendationHandler() {
 
           <Col md={2}>
             <FormGroup>
-              <Label for="exampleName">The maximum study time</Label>
+              <Label for="exampleName">Maximum study period</Label>
               <Input
                 type="select"
                 onChange={(e) => {
@@ -114,7 +114,7 @@ function RecommendationHandler() {
 
           <Col md={2}>
             <FormGroup>
-              <Label for="exampleName">Form of recommendation systems</Label>
+              <Label for="exampleName">Kind of recommendation systems</Label>
               <Input
                 type="select"
                 onChange={(e) => {

@@ -239,7 +239,9 @@ export default function EditProfile() {
         count++;
     }
     if (count > 0 && count < 4) {
-      errors.push("bạn phải nhập đầy đủ địa chỉ");
+      // errors.push("bạn phải nhập đầy đủ địa chỉ");
+      errors.push("You must type in the complete address (including house number, ward, district, city)")
+      
     }
 
     errors.forEach((err) => {

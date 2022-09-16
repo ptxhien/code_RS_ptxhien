@@ -47,7 +47,6 @@ def Xet_Location(df_C, lat1, lon1):
     df_C = df_C.sort_values(['distance'], ascending=[True])
     return df_C
 
-
 # 3. StudyForm and FrameTime 
 def Xet_FrameStudy_JobNow(df, Job_Now, str_lst_frametime):
     df_Off = df.copy()

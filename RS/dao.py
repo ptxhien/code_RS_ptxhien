@@ -56,9 +56,10 @@ def Find_lat_long_learner(df_Learner_now):
     df_Learner_now = df_Learner_now.fillna('')
     df_Learner_now = df_Learner_now.reset_index(drop=True)
     # print("df_Learner_now", df_Learner_now)
-    address1_get = df_Learner_now['address1'][0]
     
+    address1_get = df_Learner_now['address1'][0]
     address_get = df_Learner_now['address'][0]
+    
     # print("address_get", address_get)
     # print("address1_get", address1_get)
 
