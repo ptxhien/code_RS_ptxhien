@@ -527,7 +527,7 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, lat1, lon1, occupatio
         print("Choose Online")
         df_rule, dict_onl = BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, condition_duration, typeFilter)
         #----
-        dict_f_ngoaile1.append({"job_offer": str_lst_job_sim})
+        dict_f_ngoaile1.append({"Job_offer": str_lst_job_sim})
         #----
         dict_f_ngoaile = {'courses_online': dict_onl,
                             'courses_offline': {
@@ -551,7 +551,7 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, lat1, lon1, occupatio
         print("Choose Offline")
         df_rule , dict_off = BuildRule_Offline(df_Off, missing_skill, lan_know, lat1, lon1, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
         #----
-        dict_f_ngoaile1.append({"job_offer": str_lst_job_sim})
+        dict_f_ngoaile1.append({"Job_offer": str_lst_job_sim})
         #----
         dict_f_ngoaile = {'courses_online': {
                             "status": 400, 

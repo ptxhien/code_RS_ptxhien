@@ -94,6 +94,12 @@ LearnerModel.prototype.hash = function () {
   console.log("password has been encrypted");
 };
 
+LearnerModel.prototype.hash = function () {
+  const salt = bcrypt.genSaltSync(10);
+  this.password = bcrypt.hashSync(this.password, salt);
+  console.log("password has been encrypted");
+};
+
 LearnerModel.prototype.compare = function (password = "abc") {
   return bcrypt.compareSync(password, this.password);
 };
