@@ -242,22 +242,23 @@ def Test_Weight_Duration_Fee(result, occupation, condition_duration, feeMax, typ
         result = function.Course_Weight(result, occupation, "offline")
         
     if len(result) > 0:
-        if feeMax != "":
-            flat_sum_fee_RS, fee_Learner, sum_fee_course, sum_bothem = knowledgeDomain.TinhSumFeeRS(result, feeMax)
-            nguong_max = function.convertfee(fee_Learner)
-            if flat_sum_fee_RS == -1:
-                dict_f_ngoaile.append({ "ExceptionType": "Fee", 
-                                        "Input":str(nguong_max),
-                                        "Output": str(sum_fee_course), 
-                                        "Balance":str(sum_bothem)})
+        if typeFilter.lower() != "top":
+            if feeMax != "":
+                flat_sum_fee_RS, fee_Learner, sum_fee_course, sum_bothem = knowledgeDomain.TinhSumFeeRS(result, feeMax)
+                nguong_max = function.convertfee(fee_Learner)
+                if flat_sum_fee_RS == -1:
+                    dict_f_ngoaile.append({ "ExceptionType": "Fee", 
+                                            "Input":str(nguong_max),
+                                            "Output": str(sum_fee_course), 
+                                            "Balance":str(sum_bothem)})
                 
-        if condition_duration > 0:
-            flat_sum_duration, sum_learn_duration, sum_course_duration, kq_hocthem = knowledgeDomain.TinhSumDurationRS(result, condition_duration)
-            if flat_sum_duration == -1:
-                dict_f_ngoaile.append({ "ExceptionType": "Duration", 
-                                        "Input": str(sum_learn_duration),
-                                        "Output":str(sum_course_duration), 
-                                        "Balance":str(kq_hocthem)})
+            if condition_duration > 0:
+                flat_sum_duration, sum_learn_duration, sum_course_duration, kq_hocthem = knowledgeDomain.TinhSumDurationRS(result, condition_duration)
+                if flat_sum_duration == -1:
+                    dict_f_ngoaile.append({ "ExceptionType": "Duration", 
+                                            "Input": str(sum_learn_duration),
+                                            "Output":str(sum_course_duration), 
+                                            "Balance":str(kq_hocthem)})
 
     return result, dict_f_ngoaile
 
