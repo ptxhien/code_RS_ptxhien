@@ -54,6 +54,8 @@ export default function Dashboards() {
                   <tr>
                     <th>ID</th>
                     <th>Course </th>
+                    <th>Course Title </th>
+                    <th>Technology Skill </th>
                     <th>Price </th>
                     <th>Purchase Date </th>
                   </tr>
@@ -63,6 +65,8 @@ export default function Dashboards() {
                     <tr>
                       <td>{row.InvoiceNo}</td>
                       <td>{row.CourseID}</td>
+                      <td>{row.course.courseTitle}</td>
+                      <td>{row.course.technologySkill}</td>
                       <td>{row.ItemPrice}</td>
                       <td>{row.InvoiceDate}</td>
                     </tr>
