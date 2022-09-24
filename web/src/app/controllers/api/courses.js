@@ -21,7 +21,6 @@ APICousesController.prototype.getOne = async (req, res, next) => {
   try {
     const offlineCourse = await OfflineCourseModel.findOne("*", `courseID="${id}"`);
     if (offlineCourse){
-      console.log(offlineCourse);
       res.status(200).json({data: offlineCourse});
       return;
     }

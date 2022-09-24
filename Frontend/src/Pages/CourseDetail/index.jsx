@@ -11,7 +11,7 @@ import image2 from "../../assets/images/slider-img2.jpg";
 import image3 from "../../assets/images/slider-img3.jpg";
 import { useHistory, useParams } from "react-router";
 import http from "../../redux/utils/http";
-
+import * as Types from "./../../redux/constants/actionType";
 
 const items = [
   {
@@ -66,6 +66,11 @@ export default function CourseDetail() {
       CourseID: course.courseID, 
       Quality: 0, 
       ItemPrice: course.feeVND,
+    }).then((result, a) => {
+      dispatch({
+        type: Types.AUTH_UPDATE,
+        payload: {user: result.user}
+      })
     });
     history.push("/dashboard");
   }, [course]);
