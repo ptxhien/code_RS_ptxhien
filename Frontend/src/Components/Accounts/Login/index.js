@@ -123,7 +123,7 @@ class LoginComponent extends React.Component {
                                                     >
                                                         {txtLoader}
                                                         &nbsp;
-                                                        Đăng nhập
+                                                        Login
                                                     </button>
                                                 </div>
                                             </div>

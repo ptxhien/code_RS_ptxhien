@@ -204,8 +204,8 @@ function RecommendationCourses({
           subNoteList.push(subNoteText);
         });
         // note = `We suggest the ideal courses for your ${noteArr.length > 1 ? (noteArr.slice(0, -1).join(', ') + ', and ' + noteArr.slice(-1)) : noteArr[0]} you know.`;
-        note = `We recommend the courses that are best for you based on your ${noteArr.length > 1 ? (noteArr.slice(0, -1).join(', ') + ', and ' + noteArr.slice(-1)) : noteArr[0]}.`;
-        subNote = subNoteArr.length === 0 ? '' : `However, there are differences when compared to certain criteria, like as: ${subNoteArr.length > 1 ? (subNoteArr.slice(0, -1).join(', ') + ' ,and ' + subNoteArr.slice(-1)) : subNoteArr[0]}.`;
+        note = `We recommend the courses that are best for you based on your ${noteArr.length > 1 ? (noteArr.slice(0, -1).join(', ') + ' and ' + noteArr.slice(-1)) : noteArr[0]}.`;
+        subNote = subNoteArr.length === 0 ? '' : `However, there are differences when compared to certain criteria, like as: ${subNoteArr.length > 1 ? (subNoteArr.slice(0, -1).join(', ') + ' and ' + subNoteArr.slice(-1)) : subNoteArr[0]}.`;
         return <Row style={{ padding: "10px 20px" }}>
           <span style={{ fontSize: "1rem", fontWeight: "bold", display: "block", width: "100%" }}>{note}</span>
           {subNoteArr.length > 0 && <span style={{ fontSize: "1rem", display: "block", width: "100%" }}>{subNote}</span>}
@@ -536,38 +536,6 @@ function RecommendationCourses({
           </CardBody>
           <CardBody>
             <CardTitle className="text-danger">Missing Skill</CardTitle>
-            {/* <Row>
-              <Col md={12}>
-                <Label className="font-weight-bold text-uppercase text-secondary mt-3">
-                  Provided skills
-                </Label>
-              </Col>
-            </Row> */}
-            {/* <Row>
-              <Col md={12}>
-                {providedSkills.map((skill, index) => (
-                  <FormGroup className="ml-4" key={index}>
-                    <Input
-                      type="radio"
-                      name="providedSkills"
-                      value={skill}
-                      id={skill}
-                    />
-                    <Label check for={skill}>
-                      {skill}
-                    </Label>
-                  </FormGroup>
-                ))}
-              </Col>
-            </Row> */}
-            {/* <Row>
-              <Col md={12}>
-                <Label className="font-weight-bold text-uppercase text-secondary mt-3">
-                  Provided skills
-                </Label>
-                <div>{missingSkills.join(", ")}</div>
-              </Col>
-            </Row> */}
             <Row>
               <Col md={12}>
                 <Label className="font-weight-bold text-uppercase text-secondary mt-3">
