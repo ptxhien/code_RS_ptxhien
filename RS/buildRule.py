@@ -499,29 +499,47 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, lat1, lon1, occupatio
     
     if not Form_require:
         print("Don't choose form")
-        result_online, dict_f_online = BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, condition_duration, typeFilter)
-        result_offline, dict_f_Offline = BuildRule_Offline(df_Off, missing_skill, lan_know, lat1, lon1, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
+        if Learner_Job_Now.startswith('work') or Learner_Job_Now.startswith('study'):
+            result_online, dict_f_online = BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, condition_duration, typeFilter)
+            if len(result_online) > 0:
+                dict_f_ngoaile1.append({"job_offer": str_lst_job_sim})
+                dict_f_ngoaile = {'courses_online': dict_f_online,
+                            'courses_offline': {
+                            "status": 400, 
+                            "message": "no courses",
+                            "Course": [], 
+                            "Exception": dict_f_ngoaile1,
+                            "Ngoai_Le":{
+                                    "Course_Offer": [],
+                                    "ExceptionDetail": [] }}}
+            else:
+                result_offline, kq_On = KiemTraOfflineNgoaiLe(df_Off, missing_skill, lan_know, lat1, lon1, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
+                dict_f_ngoaile = {'courses_online': dict_f_online, 
+                                'courses_offline': kq_On}
+        else:
+            result_online, dict_f_online = BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, condition_duration, typeFilter)
+            result_offline, dict_f_Offline = BuildRule_Offline(df_Off, missing_skill, lan_know, lat1, lon1, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
 
-        if len(result_online) > 0 and len(result_offline) > 0:
-            dict_f_ngoaile = {'courses_online': dict_f_online,
-                            'courses_offline': dict_f_Offline}
+            if len(result_online) > 0 and len(result_offline) > 0:
+                dict_f_ngoaile = {'courses_online': dict_f_online,
+                                'courses_offline': dict_f_Offline}
+                
+                df_rule = pd.concat([result_online, result_offline])
             
-            df_rule = pd.concat([result_online, result_offline])
+            elif len(result_online) == 0 and len(result_offline) > 0:
+                df_rule = result_offline
+                dict_f_ngoaile = {'courses_online': dict_f_online,
+                                'courses_offline': dict_f_Offline}
         
-        elif len(result_online) == 0 and len(result_offline) > 0:
-            df_rule = result_offline
-            dict_f_ngoaile = {'courses_online': dict_f_online,
-                            'courses_offline': dict_f_Offline}
-    
-        elif len(result_online) > 0 and len(result_offline) == 0:
-            df_rule = result_online
-            dict_f_ngoaile = {'courses_online': dict_f_online,
-                            'courses_offline': dict_f_Offline}
-        
-        elif len(result_online) == 0 and len(result_offline) == 0:
-            df_rule = pd.concat([result_online, result_offline])
-            dict_f_ngoaile = {'courses_online': dict_f_online,
-                            'courses_offline': dict_f_Offline}
+            elif len(result_online) > 0 and len(result_offline) == 0:
+                df_rule = result_online
+                dict_f_ngoaile = {'courses_online': dict_f_online,
+                                'courses_offline': dict_f_Offline}
+            
+            elif len(result_online) == 0 and len(result_offline) == 0:
+                df_rule = pd.concat([result_online, result_offline])
+                dict_f_ngoaile = {'courses_online': dict_f_online,
+                                'courses_offline': dict_f_Offline}
         dict_f = dict_f_ngoaile
             
     elif Form_require.startswith('Online'):
