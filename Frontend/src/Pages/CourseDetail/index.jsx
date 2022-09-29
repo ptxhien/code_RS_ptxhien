@@ -70,7 +70,8 @@ export default function CourseDetail() {
       dispatch({
         type: Types.AUTH_UPDATE,
         payload: {user: result.user}
-      })
+      });
+      localStorage.setItem("time_enroll", Date.now());
     });
     history.push("/dashboard");
   }, [course]);

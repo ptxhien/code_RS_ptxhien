@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { Col, Row, FormGroup, Label, Input, Card, CardBody } from "reactstrap";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
@@ -10,7 +10,7 @@ import { recommendCourses } from "../../redux/actions/courses/courses";
 
 
 function RecommendationHandler() {
-  const { masterdataReducer, accountReducer } = useSelector((state) => state);
+  const { masterdataReducer, accountReducer, coursesReducer } = useSelector((state) => state);
   const { lsJob } = masterdataReducer;
 
   const history = useHistory();
@@ -22,6 +22,21 @@ function RecommendationHandler() {
     month: "00",
     typeFilter: "progress",
   });
+
+  useEffect(() => {
+    const onStorageEvent = ({key, oldValue, newValue}) => {
+      if (key === 'time_enroll') {
+        if (coursesReducer.isRecommended) {
+          console.log('tung1 vao');
+          submit();
+        }
+      }
+    }
+    window.addEventListener('storage', onStorageEvent);
+    return () => {
+      window.removeEventListener('storage', onStorageEvent)
+    }
+  }, [coursesReducer]);
 
   const submit = () => {
     const errs = [];
