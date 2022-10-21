@@ -1,0 +1,482 @@
+[
+ {
+  "JobID": "JOB_001",
+  "JobTitle": ".Net Developer",
+  "Weight_Technology": {"BI": 1, "Git": 3, "SSIS": 2, "SSRS": 1, "Angular": 3, "CI\/CD": 3, "JQuery": 5, "JavaScript": 5, "Microsoft Visual Studio": 1, "SQL": 2, "SSMS": 1, "T-SQL": 1, "TFS": 2, "Agile": 1, "Bootstrap": 2, "CSS": 3, "HTML": 3, "HTML5": 3, "Kanban": 1, "Microsoft SQL Server": 2, "SVN": 1, "Scrum": 1, "SharePoint": 1, "UML": 1, "CSS3": 1, "EJB": 1, "MySQL": 1, "PostgreSQL": 1, "WCF": 1, "Amazon Web Services (AWS)": 1, "C#": 1, "Entity Framework": 1, "LinQ": 1, "SOLID": 1, "Vue.js": 1, "Umbraco": 1}
+ },
+ {
+  "JobID": "JOB_002",
+  "JobTitle": "AI Engineer",
+  "Weight_Technology": {"AI": 2, "C++": 1, "Linux": 1, "Python": 2, "Beautiful Soup": 1, "CNN": 1, "Datalab": 1, "Deep Learning": 2, "GANs": 1, "GitHub": 1, "Google Colab": 1, "Jupyter": 1, "Kaggle": 1, "Keras": 1, "LSTM": 1, "Librosa": 1, "Machine Learning": 2, "Matplotlib": 1, "MySQL": 1, "NumPy": 1, "OpenCV": 1, "PIL": 1, "Pandas": 1, "PostgreSQL": 1, "PySpark": 1, "Pytorch": 1, "RNN": 1, "Regex": 1, "SQL": 1, "Seaborn": 1, "Tensorflow": 1, "NLTK": 1, "Scikit-learn": 1, "API": 1, "Amazon Web Services (AWS)": 1, "Cognitive Computing": 1, "Elastic Search": 1, "Google Cloud": 1, "Graph Database": 1, "IBM BlueMix": 1, "Microsoft Azure": 1, "NoSQL": 1, "RDBMS": 1, "Apache Solr": 1}
+ },
+ {
+  "JobID": "JOB_003",
+  "JobTitle": "Android Developer",
+  "Weight_Technology": {"Android": 10, "FCM": 1, "Git": 3, "GitLab": 1, "RESTful API": 4, "Android SDK": 3, "SOAP": 2, "Gitflow": 1, "Google Maps": 1, "Java": 4, "React Native": 1, "C++": 2, "Dagger": 2, "Kotlin": 4, "MVP": 3, "Android Native (NDK)": 1, "CSS": 1, "HTML": 1, "Json": 2, "JavaScript": 1, "REST": 1, "XML": 2, "iOS": 1, "AVN": 1, "Google Colab": 1, "Jira": 1, "UML": 1, "VLM": 1, "Gerrit": 1, "Dependency Injection": 1, "HTTP": 1, "LiveData": 1, "MVC": 1, "MVVM": 2, "Retrofit": 2, "RxJava": 3, "SQL": 1, "SQLite": 1, "ViewModel": 1, "CI\/CD": 1, "Google Cloud": 1, "TDD": 1, "Android Studio": 1, "Butter Knife": 1, "Gson": 1}
+ },
+ {
+  "JobID": "JOB_004",
+  "JobTitle": "Automation Tester",
+  "Weight_Technology": {"Jira": 1, "Python": 5, "React": 1, "Selenium": 3, "Apache ANT": 1, "Amazon Web Services (AWS)": 1, "Cucumber": 1, "Protractor": 1, "IBM Db2": 1, "Docker": 1, "Git": 2, "HP ALM": 1, "Jenkins": 3, "JUnit": 1, "Microsoft Office": 1, "Microsoft Visio": 1, "Apache Maven": 2, "SVN": 1, "Selenium Grid": 1, "Selenium Webdriver": 1, "SharePoint": 1, "Spring": 1, "Struts": 1, "TestNG": 1, "VersionOne": 1, "XML": 1, "Android Studio": 1, "Appium": 1, "Java": 3, "JavaScript": 2, "Sauce Labs": 1, "Xcode": 1, "GitHub": 1, "TestLink": 1, "File Aid": 1, "File Manager": 1, "JCL": 1, "C": 1, "CANalyser": 1, "CANape": 1, "CANoe": 1, "Perl": 1, "Shell": 1}
+ },
+ {
+  "JobID": "JOB_005",
+  "JobTitle": "BI Developer",
+  "Weight_Technology": {"Amazon Web Services (AWS)": 1, "Microsoft Power BI": 1, "SQL": 1, "Cognos": 1, "BI": 1, "DataStage": 1, "ETL": 1, "Microsoft Oracle": 1, "Star Schema": 1, "Tableau": 1}
+ },
+ {
+  "JobID": "JOB_006",
+  "JobTitle": "Back-end Developer",
+  "Weight_Technology": {"Bootstrap": 2, "Jenkins": 1, "SonarQube": 1, "WCAG 2.1": 1, "Gulp": 1, "Amazon Web Services (AWS)": 1, "C++": 1, "Golang": 1, "Helm": 1, "Java": 1, "Python": 2, "Bazel": 1, "ELK": 1, "Elastic Search": 1, "Exotel": 1, "Firebase": 1, "Firestore": 1, "Google Cloud": 1, "Kibana": 1, "Logstash": 1, "MongoDB": 1, "MySQL": 2, "PostgreSQL": 1, "Twilio": 1, "CSS": 1, "Docker": 1, "GitHub": 1, "HTML": 1, "JQuery": 1, "JavaScript": 1, "Laravel": 1, "PHP": 1, "Yii": 1}
+ },
+ {
+  "JobID": "JOB_007",
+  "JobTitle": "Bridge Software Engineer",
+  "Weight_Technology": {"Git": 1, "SVN": 1}
+ },
+ {
+  "JobID": "JOB_008",
+  "JobTitle": "Business Analyst",
+  "Weight_Technology": {"IBM Db2": 1, "Microsoft Office": 3, "RPG": 1, "SAP ECC": 1, "XML": 1, "Microsoft Excel": 2, "Microsoft Power BI": 1, "Microsoft Outlook": 1, "Microsoft PowerPoint": 2, "SQL": 2, "Sisense": 1, "Tableau": 1, "Microsoft Word": 2, "Microsoft Dynamics CRM 365": 1, "Microsoft Dynamics GP": 1, "Apache Airflow": 1, "Azure Databricks": 1, "ETL": 1, "GitHub": 1, "Pycharm": 1, "Redshift": 1, "Amazon S3": 1, "Data Lake": 1, "Microsoft Oracle": 1, "Financial": 2, "Risk Management": 1, "SAAS": 1, "Microsoft Visio": 1, "Workforce Management (WFM)": 1, "Software Architect (SA)": 1, "Amazon Web Services (AWS)": 1, "Microsoft Azure": 1, "CI\/CD": 1, "Chef": 1, "DNS": 1, "Datadog": 1, "Docker": 1, "Elastic Search": 1, "GitLab": 1, "Google Cloud": 1, "Jenkins": 1, "Kubernetes": 1, "Linux": 1, "Puppet": 1, "Python": 1, "Splunk": 1, "TCP\/IP": 1, "VLAN": 1, "Bash": 1}
+ },
+ {
+  "JobID": "JOB_009",
+  "JobTitle": "C# Developer",
+  "Weight_Technology": {"Angular": 1, "JavaScript": 3, "Microsoft SQL Server": 3, "C#": 3, "React": 2, "TypeScript": 1, "Webpack": 1, "MVC": 1, "T-SQL": 2, "WCF": 1, "Web Service": 1, "Windows": 1, "Caliburn Micro": 1, "Git": 1, "LinQ": 1, "MVVM": 1, "Azure DevOps": 1, "Nunit": 1, "ORM": 1, "SQL": 1, "WPF": 1, "Xunit": 1, "CSS": 1, "HTML5": 1}
+ },
+ {
+  "JobID": "JOB_010",
+  "JobTitle": "C++ Developer",
+  "Weight_Technology": {"Ansible": 1, "C++": 4, "SQL": 1, "CUDA": 1, "MFC": 1, "OpenGL": 1, "Python": 1, "Winforms": 1, "Qt": 1, "C": 1, "DDS": 1, "RTOS": 1, "UML": 1}
+ },
+ {
+  "JobID": "JOB_011",
+  "JobTitle": "Cloud Engineer",
+  "Weight_Technology": {"Hyper-V": 1, "Linux": 1, "VMWare": 1, "Windows": 1}
+ },
+ {
+  "JobID": "JOB_012",
+  "JobTitle": "Cyber Security Engineer",
+  "Weight_Technology": {"Arcsight": 1, "CentOS": 1, "DNS": 1, "Linux": 1, "Logrhythm": 1, "iOS": 1, "Objective C": 1, "Snort": 1, "TCP\/IP": 1, "Windows": 1, "Wireshark": 1, "TCPDUMP": 1}
+ },
+ {
+  "JobID": "JOB_013",
+  "JobTitle": "Data Analyst",
+  "Weight_Technology": {"BI": 2, "ETL": 4, "Microsoft Excel": 6, "JavaScript": 2, "SAS": 3, "SPSS": 3, "SQL": 9, "XML": 3, "CSPRO": 1, "Eview": 1, "Java": 1, "Microsoft Access": 1, "MySQL": 1, "STATA": 1, "VBA": 1, "Alteryx": 2, "Python": 6, "R": 4, "Tableau": 9, "MatLab": 1, "NumPy": 1, "Microsoft Outlook": 1, "Microsoft PowerPoint": 1, "Weka": 1, "Microsoft Word": 1, "AI": 1, "CI\/CD": 1, "Machine Learning": 2, "OCR": 1, "Microsoft Power BI": 4, "Qlik": 2, "SSAS": 1, "SSIS": 2, "BigQuery": 1, "Google Data Studio": 2, "Business Object": 2, "SSRS": 1, "PL\/SQL": 1, "TIBCO Spotfire": 1, "Teradata": 1, "Amazon Athena": 1, "Presto": 1, "Microsoft Office": 1, "DBMS": 1, "Microsoft Oracle": 1, "ThoughtSpot": 1, "SharePoint": 1, "Json": 1, "Lambda": 1, "Amazon RDS": 1, "Amazon S3": 1, "PostgreSQL": 1}
+ },
+ {
+  "JobID": "JOB_014",
+  "JobTitle": "Data Analytics",
+  "Weight_Technology": {"Alteryx": 1, "Python": 3, "R": 3, "SQL": 2, "Tableau": 2, "Microsoft Excel": 1, "MatLab": 1, "NumPy": 1, "Microsoft Outlook": 1, "Microsoft PowerPoint": 1, "Weka": 1, "Microsoft Word": 1, "Amazon Web Services (AWS)": 1, "SAS": 1, "Apache Accumulo": 1, "Apache Cassandra": 1, "Data Lake": 1, "Amazon DynamoDB": 1, "Apache Hbase": 1, "Apache Hadoop": 1, "MongoDB": 1}
+ },
+ {
+  "JobID": "JOB_015",
+  "JobTitle": "Data Architect",
+  "Weight_Technology": {"ER\/Studio": 2, "ETL": 1, "Erwin Data Modeler": 2, "NoSQL": 1, "SQL": 3, "BI": 1, "Business Object": 1, "Clarabridge": 1, "Data Warehouse": 1, "Apache Hbase": 1, "Apache Hive": 2, "Informatica": 1, "OBIEE": 1, "RUP": 1, "SAS": 1, "Apache Spark": 2, "SPSS": 1, "TIBCO Spotfire": 1, "Waterfall": 1, "Amazon Web Services (AWS)": 1, "Amazon EMR": 1, "Apache Hadoop": 1, "JavaScript": 1, "MySQL": 1, "PostgreSQL": 1, "Python": 1, "Amazon Redshift": 1, "Amazon S3": 1, "Snowflake": 1, "PL\/SQL": 1}
+ },
+ {
+  "JobID": "JOB_016",
+  "JobTitle": "Data Engineer",
+  "Weight_Technology": {"Amazon Web Services (AWS)": 5, "BigQuery": 5, "Google Cloud": 5, "Apache Kafka": 6, "Apache NiFi": 1, "Python": 17, "R": 3, "Amazon Redshift": 2, "Apache Spark": 10, "SQL": 10, "Amazon EMR": 1, "Apache Hadoop": 10, "Apache Hive": 7, "JavaScript": 2, "MySQL": 2, "PostgreSQL": 2, "Amazon S3": 1, "Snowflake": 2, "AtScale": 1, "Oracle Essbase": 1, "Apache Impala": 1, "OLAP": 2, "Microsoft Power BI": 1, "SSAS": 1, "Scala": 5, "Shiny": 1, "Tableau": 1, "C": 2, "C#": 2, "C++": 2, "Node.js": 1, "Apache Airflow": 1, "Apache Avro": 1, "Apache Flink": 1, "Google Analytics": 1, "Apache Hbase": 1, "Java": 8, "Java Spring": 1, "Kubernetes": 2, "Apache Parquet": 1, "Apache Samza": 1, "Amazon Athena": 1, "NumPy": 1, "Pandas": 1, "Redshift": 1, "ETL": 3, "Elastic Search": 1, "Microsoft PowerPoint": 1, "MongoDB": 1, "Apache Storm": 1, "Bash": 1, "API": 2, "Google App Engine": 1, "Bitbucket": 1, "CI\/CD": 1, "Cloud Bigtable": 1, "Cloud Composer": 1, "Cloud DataStore": 1, "Cloud Dataflow": 1, "Cloud Dataprep": 1, "Cloud Dataproc": 1, "Cloud Spanner": 1, "Cloud Storage": 1, "Cloud SQL": 1, "GitLab": 1, "Jenkins": 1, "Microservices": 1, "Stackdriver": 1, "AI": 1, "Big Data": 2, "Evolutionary Algorithms": 1, "Fuzzy Logic": 1, "Neural Network": 1, "OLTP": 1, "Git": 1, "NoSQL": 1, "REST": 1, "Version Control": 1, "SAS": 1, "Control-M": 1, "Apache Oozie": 1, "HDFS": 1}
+ },
+ {
+  "JobID": "JOB_017",
+  "JobTitle": "Data Manager",
+  "Weight_Technology": {"Microsoft Excel": 1, "SQL": 1}
+ },
+ {
+  "JobID": "JOB_018",
+  "JobTitle": "Data Scientist",
+  "Weight_Technology": {"R": 5, "R Shiny": 1, "RStudio": 1, "Azure Data Factory": 1, "Azure Databricks": 1, "Python": 6, "Apache Spark": 3, "Snowflake": 1, "C": 1, "Data Visualization": 1, "ETL": 1, "Java": 1, "SQL": 4, "Amazon Web Services (AWS)": 1, "Amazon EMR": 1, "Amazon S3": 1, "Amazon EC2": 1, "Redshift": 1, "Apache Hadoop": 3, "Pytorch": 1, "Tensorflow": 1, "Apache Hive": 1, "HDF5": 1, "JavaScript": 1, "Matplotlib": 1, "Node.js": 1, "NumPy": 1, "Pandas": 1, "Apache Parquet": 1, "React": 1, "SciPy": 1, "Vega-Lite": 1, "D3.js": 1, "Scikit-learn": 1, "Machine Learning": 2, "SAS": 1, "SPSS": 1, "SPSS Modeler": 1, "SPSS Statistics": 1, "Tableau": 1, "Deep Learning": 1}
+ },
+ {
+  "JobID": "JOB_019",
+  "JobTitle": "Database Administrator",
+  "Weight_Technology": {"SQL": 2, "Microsoft SQL Server": 3, "Microsoft Azure": 3, "FedRamp": 1, "Json": 1, "Microsoft Power BI": 1, "Performance Monitor": 1, "SSAS": 1, "SSIS": 1, "SSMS": 1, "SSRS": 1, "Microsoft Visual Studio": 1, "XML": 1, "Singleton": 1}
+ },
+ {
+  "JobID": "JOB_020",
+  "JobTitle": "Database Engineer",
+  "Weight_Technology": {"C#": 1, "C++": 1, "CI\/CD": 1, "Docker": 1, "Elastic Search": 1, "Helm": 1, "Kubernetes": 1, "MongoDB": 1, "MySQL": 1, "PostgreSQL": 1, "SQL": 1}
+ },
+ {
+  "JobID": "JOB_021",
+  "JobTitle": "Designer",
+  "Weight_Technology": {"CSS": 1, "HTML": 1, "Adobe Photoshop": 1, "WordPress": 1}
+ },
+ {
+  "JobID": "JOB_022",
+  "JobTitle": "DevOps Engineer",
+  "Weight_Technology": {"Amazon Web Services (AWS)": 2, "Docker": 2, "GitLab": 1, "CI\/CD": 2, "Jenkins": 1, "Kubernetes": 2, "Google Cloud": 3, "Linux": 1, "MacOS": 1, "Pipeline": 1, "PowerShell": 1, "Sonar": 1, "Bash": 1, "Azure DevOps": 2, "Docker Swarm": 1, "MongoDB": 1, "MySQL": 1, "REDIS": 1, "Ansible": 1, "AppDynamics": 1, "CSS": 1, "Dynatrace": 1, "HTML": 1, "JavaScript": 1, "MTTD": 1, "MTTR": 1, "Puppet": 1, "SLAs": 1, "SLIs": 1, "SLOs": 1, "Splunk": 1}
+ },
+ {
+  "JobID": "JOB_023",
+  "JobTitle": "Embedded Software Engineer",
+  "Weight_Technology": {"C": 1, "C++": 1, "IPv4": 1, "IPv6": 1, "SNMP": 1, "TCP\/IP": 1, "TR-069": 1}
+ },
+ {
+  "JobID": "JOB_024",
+  "JobTitle": "Font-end Developer",
+  "Weight_Technology": {"Bitbucket": 2, "GitHub": 1, "Java": 4, "JavaScript": 7, "MongoDB": 1, "MySQL": 1, "Node.js": 1, "PHP Laravel": 1, "PostgreSQL": 1, "CMS WordPress": 2, "Angular": 4, "Google Analytics": 1, "Graph API": 1, "HTML5": 5, "Microsoft OneNote": 1, "Moqups": 1, "NPM": 1, "Adobe Photoshop": 1, "SASS": 2, "SCSS": 2, "Tableau": 1, "TypeScript": 3, "Gulp": 3, "Webpack": 2, "Confluence": 1, "Git": 3, "Apache Groovy": 1, "Jenkins": 1, "Jira": 1, "ScriptRunner": 1, "C++": 1, "C#": 1, "CSS": 6, "HTML": 4, "Json": 1, "Python": 3, "REST": 1, "SNMP": 1, "SOAP": 1, "UI": 2, "UX": 1, "React": 4, "React Native": 1, "Vue.js": 3, "CSS3": 4, "Django": 1, "Android Studio": 1, "Xcode": 1, "Gherkin": 1, "IoT": 1, "Kotlin": 1, "Swift": 1, "AJAX": 1, "Amazon Web Services (AWS)": 1, "PHP": 2, "Bootstrap": 3, "JQuery": 2, "Joomla": 1, "Grunt": 2, "Babel": 1, "Browserify": 1, "CMS": 1, "CommonJS": 1, "DOM": 1, "HTTP2": 1, "Linux": 1, "MacOS": 1, "Redux": 1, "Rxjs": 1, "SVN": 1, "TFS": 1}
+ },
+ {
+  "JobID": "JOB_025",
+  "JobTitle": "Full-stack Developer",
+  "Weight_Technology": {"Microsoft Azure": 1, "CSS": 5, "Git": 3, "GraphQL": 1, "HTML5": 1, "Jira": 1, "NoSQL": 1, "RDBMS": 1, "REST": 2, "SOLID": 1, "Microsoft SQL Server": 1, "VSCode": 1, "VSTS": 1, "Microsoft Visual Studio": 1, "C#": 2, "C++": 2, "Delphi": 1, "HTML": 4, "Java": 1, "React": 3, "SQL": 2, "JavaScript": 4, "Machine Learning": 1, "NLP": 1, "Node.js": 3, "Angular": 3, "Vue.js": 1, "MySQL": 1, "Ruby on Rails": 1, "SVN": 1, "Amazon Web Services (AWS)": 1, "JQuery": 1, "Linux": 1, "NumPy": 1, "Python": 1, "SciPy": 1, "TypeScript": 1}
+ },
+ {
+  "JobID": "JOB_026",
+  "JobTitle": "Java Architect",
+  "Weight_Technology": {"Angular": 1, "Bitbucket": 1, "Consumer Driven Contracts (CDC)": 1, "Google Cloud": 1, "Azure DevOps": 1, "GitHub": 1, "Kubernetes": 1, "Docker": 1, "Node.js": 1, "PCF": 1, "Perl": 1, "Python": 1, "Ruby": 1, "React": 1, "Spring Cloud": 1, "Bash": 1, "Spring Boot": 1}
+ },
+ {
+  "JobID": "JOB_027",
+  "JobTitle": "Java Developer",
+  "Weight_Technology": {"IBM Db2": 1, "EJB": 1, "J2EE": 7, "JDBC": 1, "Json": 2, "JSP": 1, "JavaScript": 6, "Microsoft Oracle": 2, "SQL": 3, "Spring MVC": 1, "XHTML": 1, "XML": 1, "Android": 1, "Ansible": 1, "CI\/CD": 1, "Chef": 1, "Eclipse": 1, "Git": 3, "IntelliJ IDE": 1, "Java": 9, "Jira": 1, "Kubernetes": 1, "MVC": 2, "Apache Maven": 2, "NoSQL": 1, "Postman": 1, "Puppet": 1, "REST": 2, "Slack": 1, "iOS": 1, "Spring Boot": 3, "Google Cloud": 2, "React": 1, "Firebug": 1, "CSS": 3, "HTML": 2, "Jenkins": 2, "Angular": 2, "HTML5": 2, "Apache Tomcat": 2, "MongoDB": 1, "RESTful API": 1, "SOAP": 1, "SOLID": 1, "Bootstrap": 1, "JQuery": 1, "Java Core": 1, "Microsoft SQL Server": 1, "SVN": 1, "Sonar": 1, "Spring Core": 1, "TFS": 1, "Vaadin": 1, "JBOSS": 1, "JBPM": 1, "Apache Akka": 1, "Continuous Delivery (CD)": 1}
+ },
+ {
+  "JobID": "JOB_028",
+  "JobTitle": "Junior Bridge Software Engineer",
+  "Weight_Technology": {"HTML": 1}
+ },
+ {
+  "JobID": "JOB_029",
+  "JobTitle": "Junior Data Analyst",
+  "Weight_Technology": {"ELT": 1, "ETL": 1, "Microsoft SQL Server": 1, "MySQL": 1, "NoSQL": 1, "PostgreSQL": 1, "Microsoft Power BI": 1, "SQL": 1}
+ },
+ {
+  "JobID": "JOB_030",
+  "JobTitle": "Junior Font-end Developer",
+  "Weight_Technology": {"Angular": 1}
+ },
+ {
+  "JobID": "JOB_031",
+  "JobTitle": "Junior Project Manager",
+  "Weight_Technology": {"Microsoft Excel": 1, "SharePoint": 1, "Microsoft PowerPoint": 1, "Microsoft Word": 1}
+ },
+ {
+  "JobID": "JOB_032",
+  "JobTitle": "Junior QC Tester",
+  "Weight_Technology": {"CMS": 1, "CSS": 1, "CSP": 1, "HTML": 1, "Jira": 1, "Markdown": 1, "Postman": 1, "RESTful API": 1, "Selenium": 1}
+ },
+ {
+  "JobID": "JOB_033",
+  "JobTitle": "Junior Technical Architect",
+  "Weight_Technology": {"Amazon Web Services (AWS)": 1, "Microsoft Azure": 1, "Linux": 1, "Microsoft SQL Server": 1, "Microservices": 1, "Microsoft Oracle": 1, "SOA": 1, "Windows": 1}
+ },
+ {
+  "JobID": "JOB_034",
+  "JobTitle": "Junior iOS Developer",
+  "Weight_Technology": {"Android": 1, "Android Studio": 1, "Xcode": 1}
+ },
+ {
+  "JobID": "JOB_035",
+  "JobTitle": "Lead Cloud Engineer",
+  "Weight_Technology": {"Active Directory (AD)": 1, "Microsoft Azure": 1, "IaaS": 1, "DNS": 1, "GPO": 1, "Microsoft Office": 1, "PowerShell": 1}
+ },
+ {
+  "JobID": "JOB_036",
+  "JobTitle": "Lead Data Analyst",
+  "Weight_Technology": {"Apache Airflow": 1, "Azure Databricks": 1, "ETL": 1, "GitHub": 1, "Pycharm": 1, "Redshift": 1, "Amazon S3": 1, "Data Lake": 1}
+ },
+ {
+  "JobID": "JOB_037",
+  "JobTitle": "Lead Data Scientist",
+  "Weight_Technology": {"Python": 1, "R": 1, "Apache Spark": 1, "Apache Hadoop": 1, "NoSQL": 1, "SQL": 1, "XML": 1}
+ },
+ {
+  "JobID": "JOB_038",
+  "JobTitle": "Lead Java Developer",
+  "Weight_Technology": {"Amazon RDS": 1, "Microsoft Azure": 1, "RESTful API": 1, "Spring Boot": 1}
+ },
+ {
+  "JobID": "JOB_039",
+  "JobTitle": "Lead Software Engineer",
+  "Weight_Technology": {"C++": 1, "Dart": 1, "Docker": 1, "Git": 1, "Go": 1, "JavaScript": 1, "Kubernetes": 1, "Python": 1, "RESTful API": 1}
+ },
+ {
+  "JobID": "JOB_040",
+  "JobTitle": "Lead Web Developer",
+  "Weight_Technology": {"WordPress": 1, "SASS": 1, "PHP": 1, "JavaScript": 1, "HTML": 1, "HTML5": 1, "CSS3": 1, "CSS": 1, "Adobe AEM": 1}
+ },
+ {
+  "JobID": "JOB_041",
+  "JobTitle": "Linux System Administrator",
+  "Weight_Technology": {"Akamai CLI": 1, "Ansible": 1, "Linux": 2, "MySQL": 1, "Perl": 1, "PostgreSQL": 1, "Puppet": 1, "Python": 2, "Unix": 1, "VMWare": 1, "DHCP": 1, "DNS": 1, "BIND": 1, "GPFS": 1, "LDAP": 1, "NFS": 1, "RADIUS": 1, "YAML": 1}
+ },
+ {
+  "JobID": "JOB_042",
+  "JobTitle": "Machine Learning Engineer",
+  "Weight_Technology": {"AtScale": 1, "BigQuery": 1, "Oracle Essbase": 1, "Apache Hadoop": 1, "Apache Hive": 1, "Apache Impala": 1, "Apache Kafka": 1, "OLAP": 1, "Microsoft Power BI": 1, "Python": 2, "Apache Spark": 1, "SSAS": 1, "Scala": 1, "Shiny": 1, "Tableau": 1, "R": 1, "SAS": 1, "SQL": 1}
+ },
+ {
+  "JobID": "JOB_043",
+  "JobTitle": "Manual Tester",
+  "Weight_Technology": {"Java": 1, "Objective C": 1, "QTP": 1, "Swift": 1, "Travis CI": 1, "XCTest": 1, "Xcode": 1, "iOS": 1, "Web Service": 1}
+ },
+ {
+  "JobID": "JOB_044",
+  "JobTitle": "Mobile Developer",
+  "Weight_Technology": {"Google Cloud": 1, ".NET": 1, "C#": 1, "Pocket PC": 1, "SOA": 1, "Microsoft Visual Studio": 1, "Windows Mobile Applications": 1, "XML": 2, "Android": 8, "Java": 2, "Objective C": 2, "Swift": 5, "iOS": 8, "Json": 2, "REST": 1, "Xcode": 1, "Angular": 1, "Appium": 1, "Apache Cordova": 1, "FastLane": 1, "Firebase": 1, "GraphQL": 1, "JWT": 1, "Kotlin": 2, "NativeScript": 1, "Notification": 1, "Oauth": 1, "PhoneGap": 1, "RESTful API": 1, "SQLite": 1, "Sauce Labs": 1, "TestFairy": 1, "TestFlight": 1, "TypeScript": 2, "UI": 3, "Vue.js": 1, "JavaScript": 2, "React Native": 1, "Redux": 1, "API": 1, "Cocoa Touch": 1, "Core Animation": 1, "Core Foundation": 1, "FCM": 1, "HTTP": 1, "MVC": 1, "MVP": 1, "MVVM": 1, "OkHttp": 1, "RMD": 1, "Retrofit": 1, "RxAndroid": 1, "RxJava": 1, "OOP": 1, "UX": 1}
+ },
+ {
+  "JobID": "JOB_045",
+  "JobTitle": "Mobile Tester",
+  "Weight_Technology": {"Jira": 1, "SQL": 1}
+ },
+ {
+  "JobID": "JOB_046",
+  "JobTitle": "Network Administrator",
+  "Weight_Technology": {"Active Directory (AD)": 1, "Azure Virtual Network": 1, "Hyper-V": 1, "RADIUS": 1, "TACACS+": 1, "Windows": 2, "Amazon Web Services (AWS)": 1, "Microsoft Azure": 1, "Backup Exec": 1, "HP": 1, "Nutanix": 1, "VMWare": 1}
+ },
+ {
+  "JobID": "JOB_047",
+  "JobTitle": "PHP Developer",
+  "Weight_Technology": {"AJAX": 1, "Bootstrap": 1, "CSS3": 1, "CodeIgniter": 1, "Drupal": 1, "HTML5": 1, "JQuery": 1, "JSON": 1, "JavaScript": 1, "Laravel": 1, "Magento": 1, "PHP": 1, "CMS": 1, "RESTful API": 1, "Webkit": 1, "WordPress": 1}
+ },
+ {
+  "JobID": "JOB_048",
+  "JobTitle": "Perl Developer",
+  "Weight_Technology": {"JavaScript": 1, "Linux": 1, "MySQL": 1, "Perl": 1, "PHP": 1, "Python": 1, "Ruby": 1}
+ },
+ {
+  "JobID": "JOB_049",
+  "JobTitle": "Project Manager",
+  "Weight_Technology": {"BI": 1, "Big Data": 1, "BizTalk": 1, "Lync": 1, "Microsoft Office": 1, "NoSQL": 1, "SQL": 1, "SharePoint": 1, "Team Services": 1, "Amazon Web Services (AWS)": 1, "Microsoft Project": 1, "SmartSheet": 1, ".NET": 1, "Java": 1}
+ },
+ {
+  "JobID": "JOB_050",
+  "JobTitle": "QA Tester",
+  "Weight_Technology": {"SQL": 2, "Zephyr": 1, "Qtest": 1, "C#": 1, "Jira": 4, "Unity": 1, "Java": 2, "JavaScript": 2, "Perl": 1, "Python": 1, "Ruby": 1, "Angular": 1, "HTML": 1, "GIT": 1, "Jenkins": 2, "Amazon Web Services (AWS)": 1, "Linux": 1, "Unix": 1, "Bugzilla": 1, "HP ALM": 1, "Mantis": 1, "QTP": 1, "Redmine": 1, "SVN": 1, "Selenium": 3, "TFS": 2, "TestRail": 1, "TestLink": 2, "Selenium Webdriver": 1}
+ },
+ {
+  "JobID": "JOB_051",
+  "JobTitle": "QC Tester",
+  "Weight_Technology": {"Jira": 2, "SQL": 1, "TestRail": 1, "Selenium": 2, "Appium": 1, "C#": 1, "Waterfall": 1, "SVN": 1, "SourceTree": 1}
+ },
+ {
+  "JobID": "JOB_052",
+  "JobTitle": "RPA Business Analyst",
+  "Weight_Technology": {"RPA": 1, "UiPath": 1}
+ },
+ {
+  "JobID": "JOB_053",
+  "JobTitle": "React\/Vue Developer",
+  "Weight_Technology": {"HTML": 1, "JavaScript": 1, "React": 1, "Vue.js": 1}
+ },
+ {
+  "JobID": "JOB_054",
+  "JobTitle": "SEO Executive",
+  "Weight_Technology": {"Ahrefs": 1, "Google Analytics": 1, "SEMRush": 1, "SEO": 1, "Screaming Frogs": 1, "Marketing Analytics": 1, "WordPress": 1}
+ },
+ {
+  "JobID": "JOB_055",
+  "JobTitle": "Senior .Net Developer",
+  "Weight_Technology": {"Microsoft Azure": 2, "Azure Cosmos DB": 1, "SQL": 1, "Azure Service Bus": 1, "T-SQL": 1, "Amazon Web Services (AWS)": 1, "CSS": 1, "Git": 1, "HTML": 1, "JavaScript": 1, "MySQL": 1, "RDBMS": 1, "Microsoft SQL Server": 1, "Ubuntu": 1}
+ },
+ {
+  "JobID": "JOB_056",
+  "JobTitle": "Senior Android Developer",
+  "Weight_Technology": {"Android": 1, "Android SDK": 1, "Android Studio": 1, "Git": 1, "Json": 1, "Java": 1, "SOAP": 1, "XML": 1}
+ },
+ {
+  "JobID": "JOB_057",
+  "JobTitle": "Senior Angular Developer",
+  "Weight_Technology": {"Angular": 1, "JavaScript": 2, "Express.js": 1, "JQuery": 1, "Node.js": 1, "TypeScript": 1}
+ },
+ {
+  "JobID": "JOB_058",
+  "JobTitle": "Senior Automation Tester",
+  "Weight_Technology": {"API": 1, "Cucumber": 1, "Jmeter": 1, "LoadRunner": 1, "REST": 1, "Selenium": 1}
+ },
+ {
+  "JobID": "JOB_059",
+  "JobTitle": "Senior Back-end Developer",
+  "Weight_Technology": {"J2EE": 1, "JSF": 1, "Java": 1, "MongoDB": 1, "MySQL": 1, "RESTful API": 1, "SQL": 1, "Spring": 1, "Struts": 1, "Hibernate": 1, "WebRTC": 1}
+ },
+ {
+  "JobID": "JOB_060",
+  "JobTitle": "Senior C# Developer",
+  "Weight_Technology": {"C#": 1}
+ },
+ {
+  "JobID": "JOB_061",
+  "JobTitle": "Senior Data Analyst",
+  "Weight_Technology": {"Business Object": 1, "SQL": 2, "Tableau": 2, "Microsoft Azure": 1, "Microsoft Excel": 2, "Git": 1, "Microsoft Power BI": 1, "Microsoft SQL Server": 1, "Snowflake": 1, "Microsoft Access": 1, "Microsoft Project": 1, "Microsoft Word": 1, "PAM": 1, "Microsoft PowerPoint": 1, "SharePoint": 1, "Microsoft Visio": 1}
+ },
+ {
+  "JobID": "JOB_062",
+  "JobTitle": "Senior Data Analytics",
+  "Weight_Technology": {"Alteryx": 1, "Azure Databricks": 1, "Macrocell": 1, "Microsoft Excel": 1, "Pivot Table": 1, "SAP": 1, "ServiceNow": 1, "TIBCO Spotfire": 1, "Tableau": 1}
+ },
+ {
+  "JobID": "JOB_063",
+  "JobTitle": "Senior Data Engineer",
+  "Weight_Technology": {"Amazon Web Services (AWS)": 3, "Java": 3, "Microsoft Oracle": 1, "PHP": 1, "PL\/SQL": 2, "Python": 4, "RESTful API": 1, "SOAP": 1, "SQL": 5, "Microsoft SQL Server": 1, "SAAS": 1, "C#": 1, "Amazon Kinesis": 1, "Microsoft Power BI": 2, "Amazon QuickSights": 1, "Amazon RDS": 1, "Ruby": 1, "Amazon Redshift": 1, "Amazon S3": 1, "Scala": 2, "Tableau": 2, "Microsoft Azure": 2, "Azure Data Factory": 1, "Azure SQL Database": 1, "Azure Synapse Analytics": 1, "CI\/CD": 2, "ETL": 1, "PostgreSQL": 1, "Data Warehouse": 1, "SSAS": 1, "SSIS": 1, "SSRS": 1, "T-SQL": 1, "Talend": 1, "Data Lake": 1, "Couchbase": 1, "Elastic Search": 1, "Git": 1, "Google Cloud": 1, "Neo4J": 1, "NoSQL": 1, "OWL": 1, "RDF": 1, "Apache Solr": 1, "TIBCO Spotfire": 1, "Topic Map Query Language (TMQL)": 1}
+ },
+ {
+  "JobID": "JOB_064",
+  "JobTitle": "Senior Data Scientist",
+  "Weight_Technology": {"Microsoft Excel": 1, "Git": 2, "Microsoft Power BI": 1, "Python": 2, "SQL": 2, "Tableau": 1, "R": 1}
+ },
+ {
+  "JobID": "JOB_065",
+  "JobTitle": "Senior Database Administrator",
+  "Weight_Technology": {"Microsoft SQL Server": 2, "MariaDB": 1, "PostgreSQL": 1, "Microsoft Oracle": 1, "Snowflake": 1}
+ },
+ {
+  "JobID": "JOB_066",
+  "JobTitle": "Senior DevOps Engineer",
+  "Weight_Technology": {"Amazon Web Services (AWS)": 1, "Ansible": 1, "Chef": 1, "Docker": 1, "Jenkins": 1, "Linux": 1, "Puppet": 1, "TCP\/IP": 1, "Windows": 1, "PowerShell": 1}
+ },
+ {
+  "JobID": "JOB_067",
+  "JobTitle": "Senior Font-end Developer",
+  "Weight_Technology": {"CMS": 1, "CSS3": 1, "DNN": 1, "Git": 1, "HTML5": 1, "HTTP": 1, "Json": 2, "JavaScript": 2, "MVC": 1, "Adobe Photoshop": 1, "REST": 1, "SOAP": 1, "Microsoft Visual Studio": 1, "WCF": 1, "AJAX": 1, "CSS": 1, "HTML": 1, "JQuery": 1}
+ },
+ {
+  "JobID": "JOB_068",
+  "JobTitle": "Senior Full-stack Developer",
+  "Weight_Technology": {"Amazon Web Services (AWS)": 3, "Agile": 1, "CI\/CD": 1, "Azure DevOps": 1, "Express.js": 1, "JavaScript": 3, "Nest.js": 2, "NoSQL": 1, "Node.js": 2, "REST": 1, "React": 2, "SQL": 1, "TypeScript": 2, "Git": 2, "GraphQL": 1, "Nuxt.js": 1, "Vue.js": 2, "CMS": 1, "CSS": 1, "CSS3": 1, "CSP": 1, "Confluence": 1, "Docker": 1, "HTML": 1, "HTML5": 1, "Json": 1, "Java": 1, "Jenkins": 1, "Jira": 1, "JUnit": 1, "Kubernetes": 1, "MSA": 1, "MySQL": 1, "NGINX": 1, "Next.js": 1, "Microsoft Oracle": 1, "Postman": 1, "RESTful API": 1, "Redux": 1, "SonarQube": 1, "Tensorflow": 1, "Webpack": 1}
+ },
+ {
+  "JobID": "JOB_069",
+  "JobTitle": "Senior Java Developer",
+  "Weight_Technology": {"Amazon Web Services (AWS)": 1, "Docker": 1, "Google Cloud": 1, "Java": 1, "Apache Kafka": 1, "Kubernetes": 1, "PaaS": 1, "RESTful API": 1, "RabbitMQ": 1, "SOA": 1, "SOAP": 1}
+ },
+ {
+  "JobID": "JOB_070",
+  "JobTitle": "Senior Manager",
+  "Weight_Technology": {"Marketing Analytics": 1, "Medical Affairs": 1, "Product Development": 1, "Sales Operations": 1}
+ },
+ {
+  "JobID": "JOB_071",
+  "JobTitle": "Senior Manual Tester",
+  "Weight_Technology": {"Magento": 1, "Microsoft Oracle": 1, "SFCC": 1, "STLC": 1, "Shopify": 1}
+ },
+ {
+  "JobID": "JOB_072",
+  "JobTitle": "Senior Mobile Developer",
+  "Weight_Technology": {".NET": 1, "Android": 1, "C#": 1, "HTTP": 1, "LinQ": 1, "MVC": 1, "MVVM": 1, "REST": 2, "SOAP": 1, "UWP": 1, "WPF": 1, "iOS": 1, "Task Parallel Library (TPL)": 1, "Angular": 1, "CSS3": 1, "Apache Cordova": 1, "Couchbase": 1, "HTML5": 1, "IndexedDB": 1, "Ionic Platform": 1, "Json": 1, "JavaScript": 1, "Node.js": 1, "PhoneGap": 1, "SQL": 1}
+ },
+ {
+  "JobID": "JOB_073",
+  "JobTitle": "Senior Network Engineer",
+  "Weight_Technology": {"Cisco iOS": 1, "DNS": 1, "QoS": 1, "STIGs": 1, "Wireshark": 1, "Firewall": 1}
+ },
+ {
+  "JobID": "JOB_074",
+  "JobTitle": "Senior Python Developer",
+  "Weight_Technology": {"Amazon Web Services (AWS)": 1, "AWS CloudFormation": 1, "Amazon EC2": 1, "Json": 1, "Python": 1, "Amazon RDS": 1, "REDIS": 1, "REST": 1, "SOAP": 1, "SQLAlchemy": 1, "SAAS": 1, "Amazon VPC": 1}
+ },
+ {
+  "JobID": "JOB_075",
+  "JobTitle": "Senior QC Tester",
+  "Weight_Technology": {"Jira": 1, "SQL": 1, "TestRail": 1}
+ },
+ {
+  "JobID": "JOB_076",
+  "JobTitle": "Senior Ruby Developer",
+  "Weight_Technology": {"AJAX": 1, "Amazon Web Services (AWS)": 1, "CSS": 1, "HAML": 1, "HTML": 1, "JQuery": 1, "Json": 1, "JavaScript": 1, "Jenkins": 1, "MySQL": 1, "Rails": 1, "REST": 1, "RSPEC": 1, "Ruby": 1, "React": 1, "RuboCop": 1, "SASS": 1, "Selenium": 1, "Semaphore": 2, "Tmux": 1, "Vim": 1, "Capybara": 1, "Code Climate": 1}
+ },
+ {
+  "JobID": "JOB_077",
+  "JobTitle": "Senior SQL Server Developer",
+  "Weight_Technology": {"Microsoft SQL Server": 1, "SQL": 1}
+ },
+ {
+  "JobID": "JOB_078",
+  "JobTitle": "Senior Scrum Master",
+  "Weight_Technology": {"HIPAA": 1, "Jira": 1, "Microsoft Office Suite": 1}
+ },
+ {
+  "JobID": "JOB_079",
+  "JobTitle": "Senior Software Developer",
+  "Weight_Technology": {"CSS": 1, "Django": 1, "GitHub": 1, "HTML": 1, "Python": 1}
+ },
+ {
+  "JobID": "JOB_080",
+  "JobTitle": "Senior Software Engineer",
+  "Weight_Technology": {"C": 1, "C#": 1, "C++": 1, "GitLab": 1, "Jenkins": 1, "Kanban": 1, "Linux": 1, "Python": 1, "Windows": 1}
+ },
+ {
+  "JobID": "JOB_081",
+  "JobTitle": "Senior Technical Architect",
+  "Weight_Technology": {"Amazon Web Services (AWS)": 1, "Microsoft Azure": 1, "Linux": 1, "Microsoft SQL Server": 1, "Microservices": 1, "Microsoft Oracle": 1, "SOA": 1, "Windows": 1}
+ },
+ {
+  "JobID": "JOB_082",
+  "JobTitle": "Senior Unity Developer",
+  "Weight_Technology": {"Android": 1, "C#": 1, "Unity": 1, "iOS": 1}
+ },
+ {
+  "JobID": "JOB_083",
+  "JobTitle": "Senior Web Developer",
+  "Weight_Technology": {"ALM": 1, "Bootstrap": 2, "CSS": 1, "Docker": 1, "Amazon EBS": 1, "Eclipse": 1, "GitLab": 1, "HTML": 1, "J2EE": 1, "JQuery": 2, "JavaScript": 2, "Jenkins": 1, "Notepad++": 1, "Microsoft Oracle": 2, "RAD": 1, "REST": 1, "SDLC": 1, "SQL": 1, "SVN": 1, "Apache Tomcat": 1, "Unix": 1, "VSCode": 1, "VersionOne": 1, "WebSphere": 1, "C++": 1, "CSS3": 1, "Git": 2, "HTML5": 1, "Json": 1, "Laravel": 1, "Microsoft SQL Server": 1, "MongoDB": 1, "MySQL": 1, "Vue.js": 1, "OOP": 1}
+ },
+ {
+  "JobID": "JOB_084",
+  "JobTitle": "Senior iOS Developer",
+  "Weight_Technology": {"Json": 1, "MVVM": 2, "Objective C": 1, "RESTful API": 1, "Swift": 3, "XML": 1, "Xcode": 1, "iOS": 3, ".NET": 1, "Android": 1, "C#": 1, "HTTP": 1, "LinQ": 1, "MVC": 1, "REST": 1, "SOAP": 1, "Task Parallel Library (TPL)": 1, "UWP": 1, "WPF": 1, "UI": 1, "CI\/CD": 1, "TvOS": 1, "WatchOS": 1}
+ },
+ {
+  "JobID": "JOB_085",
+  "JobTitle": "Senior iOS Engineer",
+  "Weight_Technology": {"Json": 1, "RESTful API": 1, "Cocoa Touch": 1, "Objective C": 2, "Swift": 2, "iOS": 2, "Human Interface Guidelines": 1, "RxSwift": 1, "TCP\/IP": 1, "UX": 1}
+ },
+ {
+  "JobID": "JOB_086",
+  "JobTitle": "Software Developer",
+  "Weight_Technology": {"CSS": 1, "HTML": 1, "JQuery": 1, "Java": 2, "JavaScript": 1, "Node.js": 1, "Microsoft Oracle": 1, "SQL": 1, "Spring": 1, "C#": 1, "C++": 1, "IBM Rational Doors": 1, "Eclipse": 1, "Git": 1, "Jira": 1, "Redhat": 1, "Linux": 1, "VMWare": 1, "Microsoft Visual Studio": 1}
+ },
+ {
+  "JobID": "JOB_087",
+  "JobTitle": "Software Development Manager",
+  "Weight_Technology": {"AI": 1, "C": 1, "C++": 1, "Apache Hadoop": 1, "Java": 1, "Machine Learning": 1, "Perl": 1, "Python": 1}
+ },
+ {
+  "JobID": "JOB_088",
+  "JobTitle": "Software Engineer",
+  "Weight_Technology": {"C++": 5, "Java": 2, "JavaScript": 4, "Linux": 1, "Python": 2, "React": 2, "C#": 3, "CI\/CD": 2, "Docker": 2, "Elastic Search": 1, "Helm": 2, "Kubernetes": 2, "MongoDB": 1, "MySQL": 2, "PostgreSQL": 1, "SQL": 4, "Delphi": 1, "HTML": 1, "Chef": 1, "Git": 1, "Json": 1, "NoSQL": 2, "Puppet": 1, "XML": 2, "Django": 1, "RAILS": 1, "REDIS": 1, "RSPEC": 1, "Ruby": 1, "Sinatra": 1, "Teradata": 1, "AJAX": 1, "API": 1, "SOAP": 1, "REST": 1, "Android": 1, "Angular": 1, "Bootstrap": 1, "CMS": 1, "CSS": 1, "Drupal": 1, "HTML5": 1, "JQuery": 1, "JSON": 1, "Joomla": 1, "MVC": 1, "Node.js": 1, "PHP": 1, "Component Object Model (COM)": 1}
+ },
+ {
+  "JobID": "JOB_089",
+  "JobTitle": "System Engineer",
+  "Weight_Technology": {"Amazon Web Services (AWS)": 1, "Google Cloud": 1, "HP": 1, "Microsoft Office": 1, "Network": 1, "VMWare": 1, "PABX": 1, "Server": 1}
+ },
+ {
+  "JobID": "JOB_090",
+  "JobTitle": "Technical Architect",
+  "Weight_Technology": {"Amazon Web Services (AWS)": 1, "Angular": 1, "Azure DevOps": 1, "DevSecOps": 1, "Google Cloud": 1, "Java": 1, "NoSQL": 1, "Oauth": 1, "React": 1, "Ruby on Rails": 1, "Microsoft SQL Server": 1, "Vue.js": 1}
+ },
+ {
+  "JobID": "JOB_091",
+  "JobTitle": "Technical Business Analyst",
+  "Weight_Technology": {"Microsoft Excel": 1, "Microsoft Access": 1, "Microsoft Office": 1, "Microsoft Visio": 1}
+ },
+ {
+  "JobID": "JOB_092",
+  "JobTitle": "Tester",
+  "Weight_Technology": {"Jira": 1, "Microsoft Office": 1, "SDLC": 1, "SQL": 1}
+ },
+ {
+  "JobID": "JOB_093",
+  "JobTitle": "UI Developer",
+  "Weight_Technology": {"Angular": 1, "C++": 1, "C#": 1, "CSS": 1, "HTML": 1, "Json": 1, "Java": 1, "JavaScript": 1, "Python": 1, "REST": 1, "SNMP": 1, "SOAP": 1, "TypeScript": 1, "UI": 1, "UX": 1}
+ },
+ {
+  "JobID": "JOB_094",
+  "JobTitle": "Unix\/Linux System Administrator",
+  "Weight_Technology": {"Border Gateway Protocol (BGP)": 1, "CentOS": 1, "Security Technical Implementation Guides (STIGs)": 1, "Enhanced Interior Gateway Routing Protocol (EIGRP)": 1, "FRRouting (frr)": 1, "GRE": 1, "IPSec": 1, "Linux": 1, "MPLS": 1, "OSPF": 1, "RMF": 1, "Redhat": 1, "Unix": 1, "VLAN": 1}
+ },
+ {
+  "JobID": "JOB_095",
+  "JobTitle": "Web Developer",
+  "Weight_Technology": {"CSS3": 3, "CodeIgniter": 2, "HTML5": 6, "JQuery": 7, "JavaScript": 13, "Laravel": 2, "MVC": 3, "MySQL": 6, "NoSQL": 1, "PHP": 6, "PHP 7": 1, "SQL": 3, "CSS": 12, "HTML": 10, "CMS WordPress": 1, "TypeRocket": 1, "WooCommerce": 1, "WordPress": 6, "CI\/CD": 1, "Docker": 1, "Express.js": 1, "Git": 3, "Jenkins": 1, "Kubernetes": 1, "Microservices": 1, "Node.js": 2, "REST": 2, "RESTful API": 1, "Spring Boot": 1, "Angular": 4, "J2EE": 1, "JSF": 1, "JSP": 1, "React": 1, "Vue.js": 1, "JDBC": 1, "Microsoft Oracle": 2, "SOAP": 2, "Spring": 1, "Adobe Photoshop": 1, "AJAX": 2, "API": 3, "Android": 1, "Bootstrap": 3, "CMS": 2, "Drupal": 1, "JSON": 1, "Joomla": 1, "XML": 2, "WIX": 1, ".NET": 1, "C#": 2, "Entity Framework": 1, "Microsoft SQL Server": 2, "Web API": 2, "Adobe Creative Cloud": 1, "Microsoft Office": 1, "SASS": 1, "UI": 1, "GitHub": 1, "TypeScript": 1, "Microsoft Visual Studio": 1, "Django": 1, "Python": 1, "Shell Script": 1, "Java": 1, "IDE": 1, "Zend": 1}
+ },
+ {
+  "JobID": "JOB_096",
+  "JobTitle": "iOS Developer",
+  "Weight_Technology": {"C#": 1, "Cocoa Touch": 3, "Swift 5": 1, "Microsoft Visual Studio": 1, "Xamarin": 2, "Xcode": 3, "C": 2, "Json": 1, "Objective C": 7, "Swift": 6, "XML": 1, "REST": 1, "iOS": 7, "CI\/CD": 1, "KVC": 1, "KVO": 1, "Notification": 1, "RESTful API": 1, "RxSwift": 1, "SwiftUI": 1, "UI": 2, "iOS SDK": 1, "IDE": 1, "Microsoft SQL Server": 1, "MySQL": 1, "React Native": 1, "SQLite": 1, "Human Interface Guidelines": 1}
+ }
+]

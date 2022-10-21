@@ -23,44 +23,40 @@ def RS():
     month = request.args.get("month")
     email = request.args.get("email")
     typeFilter = request.args.get("typeFilter")
-
+    
     # 2. load information relate learner
     # user profile
     df_attribute_requirement = dao.User_Preq_Attributes(email, occupation, form, month, typeFilter)
     
     # load courses
-    df_courses_On = function.take_CourseOnline(df_attribute_requirement)
-    df_courses_Off = function.take_CourseOffline(df_attribute_requirement)
+    df_On = function.take_CourseOnline(df_attribute_requirement)
+    df_Off = function.take_CourseOffline(df_attribute_requirement)
     
     # # find missing skill
-    missing_skill = function.FindMissingSkill(df_attribute_requirement)
+    skills_acquired = function.Find_Skill_Weight(df_attribute_requirement.Occupation[0])
+    skills_to_learn = function.FindMissingSkill(df_attribute_requirement)
+    str_skills_to_learn = ", ".join(skills_to_learn)
+    
+    #----------------------------------------------------------------
+    lst_job_sim = knowledgeDomain.job_related(occupation)
+    del lst_job_sim[0:1]
+    str_lst_job_sim = ", ".join(lst_job_sim)
+    #----------------------------------------------------------------
+    
     dict_f = {}
 
     # # 3. Dua vao model
     if len(df_attribute_requirement) > 0:
         dict_f_ngoaile1 = []
         
-        lan_know = df_attribute_requirement.language[0].split(', ')
-        feeMax = df_attribute_requirement.feeMax[0]
-        Learner_Job_Now = df_attribute_requirement.jobNow[0]
-        Learner_FreeTime = df_attribute_requirement.freeTime[0]
-        typeFilter = df_attribute_requirement.typeFilter[0]
-        condition_duration = df_attribute_requirement.durationSecond[0]
-        lat1 = df_attribute_requirement.latitude[0]
-        lon1 = df_attribute_requirement.longitude[0]
-        Form_require = df_attribute_requirement.Form_require[0]
-        
-        # print("missing_skill", missing_skill)
-        if len(missing_skill) > 0:
-            if len(df_courses_On) > 0 or len(df_courses_Off) > 0:
-                dict_f = buildRule.recommendation(df_courses_On, df_courses_Off, missing_skill, lan_know, lat1, lon1, occupation, Form_require, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
-    
+        if len(skills_to_learn) > 0:
+            if len(df_On) > 0 or len(df_Off) > 0:
+                dict_f = buildRule.recommendation(df_On, df_Off, df_attribute_requirement, skills_acquired, str_skills_to_learn)
             else:
-                lst_job_sim = knowledgeDomain.job_related(occupation)
-                del lst_job_sim[0:1]
-                str_lst_job_sim = ", ".join(lst_job_sim)
                 dict_f_ngoaile1.append({"Job_offer": str_lst_job_sim})
                 dict_f = {
+                    'skills_acquired': skills_acquired,
+                    'skills_to_learn': str_skills_to_learn, 
                     'courses_offline': {
                         "status": 400, 
                         "message": "no courses",
@@ -79,6 +75,8 @@ def RS():
                         "ExceptionDetail": []}}}
         else:
                 dict_f = {
+                    'skills_acquired': skills_acquired,
+                    'skills_to_learn': str_skills_to_learn, 
                     'courses_offline': {
                         "status": 203, 
                         "message": "enough skills",

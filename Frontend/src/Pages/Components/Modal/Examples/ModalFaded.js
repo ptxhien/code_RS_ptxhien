@@ -42,7 +42,9 @@ class ModalFaded extends React.Component {
       return (
         <Button key={index}  color="primary" onClick={this.props.submit} outline
         style={style}>
-          Recommend
+          {/* Recommend
+           */}
+          Search
         </Button>
       );
     });

@@ -36,7 +36,10 @@ export default function WizardStep1({ DTO, setDTO }) {
 
                             <Col md={6}>
                                 <FormGroup>
-                                    <Label for="exampleName"><span className="text-danger">*</span>Gender</Label>
+                                    {/* <Label for="exampleName"><span className="text-danger">*</span>Gender</Label> */}
+                                    <Label for="exampleName">
+                                        Gender
+                                    </Label>
                                     <Input type="select" value={DTO.gender} onChange={(e) => setDTO({ ...DTO, gender: e.target.value })}>
                                         <option value={""}>Please choose your gender</option>
                                         <option value={"Male"}>Male</option>

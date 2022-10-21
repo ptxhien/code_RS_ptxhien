@@ -225,9 +225,11 @@ export default function WizardStep2({ DTO, setDTO }) {
 
 
                     <FormGroup row>
-                        <Label for="exampleSelectMulti" sm={4}>
+                        {/* <Label for="exampleSelectMulti" sm={4}>
                             Which languages can you know?
-                        </Label>
+                        </Label> */}
+                        <Label for="exampleSelectMulti" sm={4}><span className="text-danger">*</span>Which languages can you know?</Label>
+
                         <Col sm={7}>
                             <Select isMulti components={makeAnimated()}
                                 closeMenuOnSelect={false}
@@ -242,9 +244,11 @@ export default function WizardStep2({ DTO, setDTO }) {
                         </Col>
                     </FormGroup>
                     <FormGroup row>
-                        <Label for="exampleSelectMulti" sm={4}>
+                        {/* <Label for="exampleSelectMulti" sm={4}>
                             What skills do you know?
-                        </Label>
+                        </Label> */}
+                        <Label for="exampleSelectMulti" sm={4}><span className="text-danger">*</span>What skills do you know?</Label>
+
                         <Col sm={7}>
                             <Select isMulti components={makeAnimated()}
                                 closeMenuOnSelect={false}

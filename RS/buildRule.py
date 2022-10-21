@@ -480,7 +480,7 @@ def KiemTraOfflineNgoaiLe(df_Off, missing_skill, lan_know, lat1, lon1, occupatio
     return result_Offline, dict_f_Offline
 
 # RECOMMENDATION SYSTEMS
-def recommendation(df_On, df_Off, missing_skill, lan_know, lat1, lon1, occupation, Form_require, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter):
+def recommendation(df_On, df_Off, df_attribute_requirement, skills_acquired, str_skills_to_learn):
     dict_f_Offline = {}
     dict_f_ngoaile = []
     dict_f_ngoaile1 = []
@@ -490,6 +490,19 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, lat1, lon1, occupatio
     df_rule = pd.DataFrame()
     result_offline = pd.DataFrame()
     result_online = pd.DataFrame()
+    
+    # ----------------
+    missing_skill = function.FindMissingSkill(df_attribute_requirement)
+    lan_know = df_attribute_requirement.language[0].split(', ')
+    lat1 = df_attribute_requirement.latitude[0]
+    lon1 = df_attribute_requirement.longitude[0]
+    occupation = df_attribute_requirement.Occupation[0]
+    Form_require = df_attribute_requirement.Form_require[0]
+    Learner_Job_Now = df_attribute_requirement.jobNow[0]
+    Learner_FreeTime = df_attribute_requirement.freeTime[0]
+    feeMax = df_attribute_requirement.feeMax[0]
+    condition_duration = df_attribute_requirement.durationSecond[0]
+    typeFilter = df_attribute_requirement.typeFilter[0]
     
     #-----------------
     lst_job_sim = knowledgeDomain.job_related(occupation)
@@ -503,7 +516,10 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, lat1, lon1, occupatio
             result_online, dict_f_online = BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, condition_duration, typeFilter)
             if len(result_online) > 0:
                 dict_f_ngoaile1.append({"job_offer": str_lst_job_sim})
-                dict_f_ngoaile = {'courses_online': dict_f_online,
+                dict_f_ngoaile = {
+                            'skills_acquired': skills_acquired,
+                            'skills_to_learn': str_skills_to_learn,
+                            'courses_online': dict_f_online,
                             'courses_offline': {
                             "status": 400, 
                             "message": "no courses",
@@ -514,31 +530,46 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, lat1, lon1, occupatio
                                     "ExceptionDetail": [] }}}
             else:
                 result_offline, kq_On = KiemTraOfflineNgoaiLe(df_Off, missing_skill, lan_know, lat1, lon1, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
-                dict_f_ngoaile = {'courses_online': dict_f_online, 
+                dict_f_ngoaile = {
+                                'skills_acquired': skills_acquired,
+                                'skills_to_learn': str_skills_to_learn,
+                                'courses_online': dict_f_online, 
                                 'courses_offline': kq_On}
         else:
             result_online, dict_f_online = BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, condition_duration, typeFilter)
             result_offline, dict_f_Offline = BuildRule_Offline(df_Off, missing_skill, lan_know, lat1, lon1, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
 
             if len(result_online) > 0 and len(result_offline) > 0:
-                dict_f_ngoaile = {'courses_online': dict_f_online,
+                dict_f_ngoaile = {
+                                'skills_acquired': skills_acquired,
+                                'skills_to_learn': str_skills_to_learn,
+                                'courses_online': dict_f_online,
                                 'courses_offline': dict_f_Offline}
                 
                 df_rule = pd.concat([result_online, result_offline])
             
             elif len(result_online) == 0 and len(result_offline) > 0:
                 df_rule = result_offline
-                dict_f_ngoaile = {'courses_online': dict_f_online,
+                dict_f_ngoaile = {
+                                'skills_acquired': skills_acquired,
+                                'skills_to_learn': str_skills_to_learn,
+                                'courses_online': dict_f_online,
                                 'courses_offline': dict_f_Offline}
         
             elif len(result_online) > 0 and len(result_offline) == 0:
                 df_rule = result_online
-                dict_f_ngoaile = {'courses_online': dict_f_online,
+                dict_f_ngoaile = {
+                                'skills_acquired': skills_acquired,
+                                'skills_to_learn': str_skills_to_learn,
+                                'courses_online': dict_f_online,
                                 'courses_offline': dict_f_Offline}
             
             elif len(result_online) == 0 and len(result_offline) == 0:
                 df_rule = pd.concat([result_online, result_offline])
-                dict_f_ngoaile = {'courses_online': dict_f_online,
+                dict_f_ngoaile = {
+                                'skills_acquired': skills_acquired,
+                                'skills_to_learn': str_skills_to_learn,
+                                'courses_online': dict_f_online,
                                 'courses_offline': dict_f_Offline}
         dict_f = dict_f_ngoaile
             
@@ -548,21 +579,27 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, lat1, lon1, occupatio
         #----
         dict_f_ngoaile1.append({"Job_offer": str_lst_job_sim})
         #----
-        dict_f_ngoaile = {'courses_online': dict_onl,
+        dict_f_ngoaile = {
+                            'skills_acquired': skills_acquired,
+                            'skills_to_learn': str_skills_to_learn,
+                            'courses_online': dict_onl,
                             'courses_offline': {
-                            "status": 400, 
-                            "message": "no courses",
-                            "Course": [], 
-                            "Exception": dict_f_ngoaile1,
-                            "Ngoai_Le":{
-                                    "Course_Offer": [],
-                                    "ExceptionDetail": [] }}
+                                "status": 400, 
+                                "message": "no courses",
+                                "Course": [], 
+                                "Exception": dict_f_ngoaile1,
+                                "Ngoai_Le":{
+                                        "Course_Offer": [],
+                                        "ExceptionDetail": [] }}
                         }
         if len(df_rule) == 0:
             print("Don't have result online. Therefore rs offline")
             result_Offline, kq_On = KiemTraOfflineNgoaiLe(df_Off, missing_skill, lan_know, lat1, lon1, occupation, Learner_Job_Now, Learner_FreeTime, feeMax, condition_duration, typeFilter)
-            dict_f_ngoaile = {'courses_online': dict_onl
-                            , 'courses_offline': kq_On}
+            dict_f_ngoaile = {
+                            'skills_acquired': skills_acquired,
+                            'skills_to_learn': str_skills_to_learn,
+                            'courses_online': dict_onl, 
+                            'courses_offline': kq_On}
         
         dict_f = dict_f_ngoaile
     
@@ -572,7 +609,10 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, lat1, lon1, occupatio
         #----
         dict_f_ngoaile1.append({"Job_offer": str_lst_job_sim})
         #----
-        dict_f_ngoaile = {'courses_online': {
+        dict_f_ngoaile = {
+                        'skills_acquired': skills_acquired,
+                        'skills_to_learn': str_skills_to_learn,
+                        'courses_online': {
                             "status": 400, 
                             "message": "no courses",
                             "Course": [], 
@@ -584,7 +624,10 @@ def recommendation(df_On, df_Off, missing_skill, lan_know, lat1, lon1, occupatio
     
         if len(df_rule) == 0:
             result_Offline, kq_Off = KiemTraOnlineNgoaiLe(df_On, missing_skill, lan_know, occupation, feeMax, condition_duration, typeFilter)
-            dict_f_ngoaile = { 'courses_online': kq_Off,
+            dict_f_ngoaile = { 
+                            'skills_acquired': skills_acquired,
+                            'skills_to_learn': str_skills_to_learn,
+                            'courses_online': kq_Off,
                                 'courses_offline': dict_off}
         
         dict_f = dict_f_ngoaile

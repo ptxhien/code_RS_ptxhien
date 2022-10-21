@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { Col, Row, FormGroup, Label, Input, Card, CardBody } from "reactstrap";
+import { Button, Col, Row, FormGroup, Label, Input, Card, CardBody } from "reactstrap";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import ModalFaded from "../../Pages/Components/Modal/Examples/ModalFaded";
@@ -27,7 +27,6 @@ function RecommendationHandler() {
     const onStorageEvent = ({key, oldValue, newValue}) => {
       if (key === 'time_enroll') {
         if (coursesReducer.isRecommended) {
-          console.log('tung1 vao');
           submit();
         }
       }
@@ -50,7 +49,6 @@ function RecommendationHandler() {
       history.push("/login");
       return;
     }
-
     // fire errs message 
     if (errs.length) {
       errs.forEach((err) => {
@@ -59,9 +57,6 @@ function RecommendationHandler() {
     } else { // call api to RS server
       localStorage.setItem("Form", form);
       dispatch(recommendCourses(occupation, form, month, email, typeFilter));
-      // history.push({
-      //   search: "?abc=xyz"
-      // })
     }
   }
 
@@ -69,14 +64,13 @@ function RecommendationHandler() {
     <Card>
       <CardBody>
         <Row form>
-          <Col md={3}>
+          <Col md={2}>
             <FormGroup>
               <Label for="exampleName">Position Job</Label>
               <Select
                 components={makeAnimated()}
                 closeMenuOnSelect={false}
                 getOptionLabel={(option) => option.jobTitle}
-                // getOptionValue={(option) => option.jobTitle}
                 getOptionValue={(option) => option.jobID}
                 options={lsJob}
                 className="basic-multi-select"
@@ -88,16 +82,16 @@ function RecommendationHandler() {
             </FormGroup>
           </Col>
 
-          <Col md={3}>
+          <Col md={2}>
             <FormGroup>
-              <Label for="exampleName">Type of study</Label>
+              <Label for="exampleName">Study Method</Label>
               <Input
                 type="select"
                 onChange={(e) => {
                   recommendationInfo.current.form = e.target.value;
                 }}
               >
-                <option value={""}>Choosing a study method</option>
+                <option value={""}>Choose a study method</option>
                 <option value={"online"}>Online</option>
                 <option value={"offline"}>Offline</option>
               </Input>
@@ -139,17 +133,37 @@ function RecommendationHandler() {
                   recommendationInfo.current.typeFilter = e.target.value;
                 }}
               >
-                <option value={"progress"}>Follow the process</option>
                 <option value={"top"}>Top 10 courses</option>
+                <option value={"progress"}>Learning Path</option>
               </Input>
+            </FormGroup>
+          </Col>
+
+          <Col md={3}>
+            <FormGroup>
+              <ModalFaded submit={submit}></ModalFaded>
             </FormGroup>
           </Col>
 
           <Col md={2}>
             <FormGroup>
-              <ModalFaded submit={submit}></ModalFaded>
+              <Label for="exampleName">Evaluation Recommendation Systems</Label>
+              <Button
+                onClick={(e) => {
+                  window.open(
+                    'https://docs.google.com/forms/d/e/1FAIpQLSc_YfWh5VU5TRhu7bC0tluDmMB6xdB-YeXr5dlrGHT3KMqZYg/viewform',
+                    '_blank' // <- This is what makes it open in a new window.
+                  );
+                  // e.preventDefault();
+                }}
+                // style={{ margin: "0 auto" }}
+              >
+                Take the survey
+              </Button>
             </FormGroup>
+
           </Col>
+
         </Row>
       </CardBody>
     </Card>

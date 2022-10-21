@@ -11,8 +11,8 @@ import {
   CardTitle,
   CardSubtitle,
   Modal,
-  ModalHeader,
-  ModalFooter,
+  // ModalHeader,
+  // ModalFooter,
   ModalBody,
 } from "reactstrap";
 import image1 from "../../assets/images/slider-img2.jpg";
@@ -356,110 +356,10 @@ function RecommendationCourses({
   //   return "";
   // }
 
-
-
   return (
     <Row>
       <Col md={9}>
         <Card>
-          <Modal
-            isOpen={openGoogleForm}
-            toggle={() => {
-              setOpenGoogleForm(false);
-            }}
-            centered
-            className="rating-modal"
-          >
-            <ModalHeader>EVALUATION OF THE CONSULTATION SYSTEM</ModalHeader>
-            <ModalBody>
-              <p>We eagerly anticipate receiving your responses to the survey so that we can continue to enhance the recommender system.
-              </p>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                color="primary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setOpenGoogleForm(false);
-                }}
-                style={{ margin: "0 auto" }}
-              >
-                Reject the survey
-              </Button>
-              <Button
-                color="primary"
-                onClick={(e) => {
-                  window.open(
-                    'https://docs.google.com/forms/d/e/1FAIpQLSc_YfWh5VU5TRhu7bC0tluDmMB6xdB-YeXr5dlrGHT3KMqZYg/viewform',
-                    '_blank' // <- This is what makes it open in a new window.
-                  );
-                  e.preventDefault();
-                  setOpenGoogleForm(false);
-                }}
-                style={{ margin: "0 auto" }}
-              >
-                Take the survey
-              </Button>
-
-            </ModalFooter>
-          </Modal>
-          <Modal
-            isOpen={openRating}
-            toggle={() => {
-              setOpenRating(false);
-            }}
-            centered
-            className="rating-modal"
-          >
-            <ModalHeader>Evaluate Recommendation Systems</ModalHeader>
-            <ModalBody>
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSc_YfWh5VU5TRhu7bC0tluDmMB6xdB-YeXr5dlrGHT3KMqZYg/viewform" target="_blank">Google Form</a>
-              <br />
-              <br />
-              <Rating
-                className="d-flex justify-content-between"
-                initialRating={0}
-                stop={10}
-                onChange={(value) => {
-                  console.log(value);
-                  setRating(value);
-                }}
-                emptySymbol={
-                  <span className="text-muted opacity-3">
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      style={{ fontSize: "32px" }}
-                    />
-                  </span>
-                }
-                fullSymbol={
-                  <span className="text-warning">
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      style={{ fontSize: "32px" }}
-                    />
-                  </span>
-                }
-              />
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                color="primary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  http.post("/rating", {
-                    Rating: rating,
-                  });
-                  toastSuccessText("Thanks for your rating");
-                  setOpenRating(false);
-                }}
-                style={{ margin: "0 auto" }}
-              >
-                Submit
-              </Button>
-            </ModalFooter>
-          </Modal>
-
           <Modal
             isOpen={isOpen && !coursesReducer.shouldShowException && errorForm}
             className="exception-popup"
@@ -612,25 +512,6 @@ function RecommendationCourses({
                   <Input
                     type="radio"
                     name="learningMethod"
-                    value="Offline"
-                    id="offline"
-                    onChange={() => {
-                      setMethod(MethodEnum.OFFLINE);
-                    }}
-                    checked={method === MethodEnum.OFFLINE}
-                  />
-                  <Label check for="offline">
-                    Offline
-                  </Label>
-                </FormGroup>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={12}>
-                <FormGroup className="ml-4">
-                  <Input
-                    type="radio"
-                    name="learningMethod"
                     value="Online"
                     id="online"
                     onChange={() => {
@@ -644,7 +525,57 @@ function RecommendationCourses({
                 </FormGroup>
               </Col>
             </Row>
+            <Row>
+              <Col md={12}>
+                <FormGroup className="ml-4">
+                  <Input
+                    type="radio"
+                    name="learningMethod"
+                    value="Offline"
+                    id="offline"
+                    onChange={() => {
+                      setMethod(MethodEnum.OFFLINE);
+                    }}
+                    checked={method === MethodEnum.OFFLINE}
+                  />
+                  <Label check for="offline">
+                    Offline
+                  </Label>
+                </FormGroup>
+              </Col>
+            </Row>
+            
           </CardBody>
+
+          <CardBody>
+            <CardTitle className="text-danger">Information Skill</CardTitle>
+            <Row>
+              <Col md={12}>
+                <Label className="font-weight-bold text-uppercase text-secondary mt-3">
+                  Skill Acquired
+                </Label>
+                <div>
+                  {/* {coursesProvidedKkills()} */}
+
+                </div>
+              </Col>
+
+            </Row>
+            <Row>
+              <Col md={12}>
+                <Label className="font-weight-bold text-uppercase text-secondary mt-3">
+                  Skill to learn
+                </Label>
+                <div>
+                  {/* {lstSkillNotProvider()} */}
+                  
+                </div>
+              </Col>
+
+            </Row>
+          </CardBody>
+
+
           <CardBody>
             <CardTitle className="text-danger">Missing Skill</CardTitle>
             <Row>

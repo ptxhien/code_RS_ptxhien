@@ -34,12 +34,13 @@ def Find_Courses_Studied(email):
 
 # 2.2 Find Skills Job Requirement
 def Find_Skill_Weight(occupation_id):
-    f = open('Rule_Job.json',)
+    f = open('Rule_Job_h.json',)
     data = json.loads(f.read())
     d_skill = {}
     for i in data:
-        if i['id'] == occupation_id:
-            d_skill = i['skill']
+        if i['JobID'] == occupation_id:
+            d_skill = i['Weight_Technology']
+    d_skill = (dict(sorted(d_skill.items(), key = lambda x: x[1], reverse = True)))    
     return d_skill 
 
 # 3. Find Skill User Missing
@@ -84,7 +85,7 @@ def FindCourseFromMissingSkill(df, df_attribute_requirement):
             for tec in row.loc['technologySkill'].split(', '):
                 if (tec != ''):
                     for k in range(len(skill)):
-                        if (tec.strip() != skill[k].strip()):
+                        if (tec.lower().strip() != skill[k].lower().strip()):
                             continue
                         else:
                             df_Course_Filter.at[id,skill[k]] = '1'
@@ -119,7 +120,7 @@ def FindCourseFromMissingSkill(df, df_attribute_requirement):
             for tec in row.loc['Tech_Skill'].split(', '):
                 if (tec != ''):
                     for key, value in d_skill.items():
-                        if tec == key:
+                        if tec.lower().strip() == key.lower().strip():
                             sum_weight += value
                         else:
                             continue  
