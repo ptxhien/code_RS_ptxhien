@@ -34,6 +34,9 @@ def RS():
     
     # # find missing skill
     skills_acquired = function.Find_Skill_Weight(df_attribute_requirement.Occupation[0])
+    skills_acquired = sorted(skills_acquired, key = skills_acquired.get, reverse=True)
+    str_skills_acquired = ", ".join(skills_acquired)
+    
     skills_to_learn = function.FindMissingSkill(df_attribute_requirement)
     str_skills_to_learn = ", ".join(skills_to_learn)
     
@@ -51,11 +54,11 @@ def RS():
         
         if len(skills_to_learn) > 0:
             if len(df_On) > 0 or len(df_Off) > 0:
-                dict_f = buildRule.recommendation(df_On, df_Off, df_attribute_requirement, skills_acquired, str_skills_to_learn)
+                dict_f = buildRule.recommendation(df_On, df_Off, df_attribute_requirement, str_skills_acquired, str_skills_to_learn)
             else:
                 dict_f_ngoaile1.append({"Job_offer": str_lst_job_sim})
                 dict_f = {
-                    'skills_acquired': skills_acquired,
+                    'skills_acquired': str_skills_acquired,
                     'skills_to_learn': str_skills_to_learn, 
                     'courses_offline': {
                         "status": 400, 
@@ -75,7 +78,7 @@ def RS():
                         "ExceptionDetail": []}}}
         else:
                 dict_f = {
-                    'skills_acquired': skills_acquired,
+                    'skills_acquired': str_skills_acquired,
                     'skills_to_learn': str_skills_to_learn, 
                     'courses_offline': {
                         "status": 203, 

@@ -65,6 +65,8 @@ function RecommendationCourses({
   const [openGoogleForm, setOpenGoogleForm] = useState(false);
   const [rating, setRating] = useState(0);
 
+  const [skills_acquired, setSkill_acquired] = useState([]);
+  const [skills_to_learn, setSkills_to_learn] = useState([]);
   const coursesReducer = useSelector((state) => state.coursesReducer);
 
   useEffect(() => {
@@ -81,6 +83,12 @@ function RecommendationCourses({
   useEffect(() => {
     if (coursesReducer.isRecommended) {
       if (method === MethodEnum.ONLINE) {
+        setSkill_acquired(
+          sortKeys(coursesReducer && coursesReducer.skills_acquired || {})
+        );
+        setSkills_to_learn(
+          sortKeys(coursesReducer && coursesReducer.skills_to_learn || {})
+        );
         setProvidedSkills(
           sortKeys(coursesReducer.online && coursesReducer.online.lstSkill_Provider || {}, "DESC")
         );
@@ -88,6 +96,12 @@ function RecommendationCourses({
           sortKeys(coursesReducer.online && coursesReducer.online.lstSkill_notProvider || {}, "DESC")
         );
       } else if (method === MethodEnum.OFFLINE) {
+        setSkill_acquired(
+          sortKeys(coursesReducer && coursesReducer.skills_acquired || {}, "DESC")
+        );
+        setSkills_to_learn(
+          sortKeys(coursesReducer && coursesReducer.skills_to_learn || {}, "DESC")
+        );
         setProvidedSkills(
           sortKeys(coursesReducer.offline && coursesReducer.offline.lstSkill_Provider || {}, "DESC")
         );
@@ -96,6 +110,8 @@ function RecommendationCourses({
         );
       }
     } else {
+      setSkill_acquired([]);
+      setSkills_to_learn([]);
       setProvidedSkills([]);
       setMissingSkills([]);
     }
@@ -104,6 +120,19 @@ function RecommendationCourses({
   useEffect(() => {
     setTimeout(() => setOpenGoogleForm(true), 20000);
   }, []);
+
+  function lstSkill_acquired() {
+    let lstskill_acquired = exceptions.find(el => !!el.skills_acquired);
+    let text = lstskill_acquired && lstskill_acquired.lstSkill_acquired || "";
+
+    return text;
+  }
+  function lstSkill_to_learn() {
+    let lstSkill_to_learn = exceptions.find(el => !!el.skills_to_learn);
+    let text = lstSkill_to_learn && lstSkill_to_learn.lstSkill_to_learn || "";
+
+    return text;
+  }
 
   function coursesProvidedKkills() {
     let lstSkill_Provider = exceptions.find(el => !!el.lstSkill_Provider);
@@ -555,8 +584,7 @@ function RecommendationCourses({
                   Skill Acquired
                 </Label>
                 <div>
-                  {/* {coursesProvidedKkills()} */}
-
+                  {lstSkill_acquired()}
                 </div>
               </Col>
 
@@ -567,7 +595,7 @@ function RecommendationCourses({
                   Skill to learn
                 </Label>
                 <div>
-                  {/* {lstSkillNotProvider()} */}
+                  {lstSkill_to_learn()}
                   
                 </div>
               </Col>
