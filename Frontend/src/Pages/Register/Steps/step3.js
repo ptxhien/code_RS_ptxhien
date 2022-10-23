@@ -1,16 +1,16 @@
 import React, { Fragment } from "react";
 import { Dot } from "reactour";
 import {
-    Row,
-    Col,
-    TabContent,
-    TabPane,
-    ButtonGroup,
-    ListGroup,
-    ListGroupItem,
+    // Row,
+    // Col,
+    // TabContent,
+    // TabPane,
+    // ButtonGroup,
+    // ListGroup,
+    // ListGroupItem,
     Card,
-    CardBody,
-    CardFooter,
+    // CardBody,
+    // CardFooter,
     Button,
     CardTitle
 } from "reactstrap";
@@ -26,6 +26,7 @@ export default function WizardStep4({ DTO, onClickRegister }) {
                         <p>Email: <b>{DTO.email}</b></p>
                         {/* <p>Password: <b>{DTO.password}</b></p> */}
                         <p>Full Name: <b>{DTO.fullname}</b></p>
+                        
                         <p>Address: <b>{DTO.ward + ', ' + DTO.district + ', ' + DTO.city}</b></p>
                         <p>Gender: <b>{DTO.gender}</b></p>
                         <p>Job Now: <b>{DTO.jobNow}</b></p>
@@ -37,18 +38,19 @@ export default function WizardStep4({ DTO, onClickRegister }) {
                         <p>Frame time: <b>{DTO.freeTime && DTO.freeTime.join(', ')}</b></p>
                         <p>Future Self Development: <b>{DTO.futureSelfDevelopment}</b></p>
                     </Card>
-                    <div className="sa-icon sa-success animate">
-                        <span className="sa-line sa-tip animateSuccessTip" />
-                        <span className="sa-line sa-long animateSuccessLong" />
-                        <div className="sa-placeholder" />
-                        <div className="sa-fix" />
-                    </div>
+                    
                     <div className="results-subtitle mt-4">Finished!</div>
                     <div className="mt-3 mb-3" />
                     <div className="text-center">
                         <Button color="success" size="lg" className="btn-shadow btn-wide" onClick={() => onClickRegister()}>
                             Register
                         </Button>
+                        {/* <div className="sa-icon sa-success animate">
+                        <span className="sa-line sa-tip animateSuccessTip" />
+                        <span className="sa-line sa-long animateSuccessLong" />
+                        <div className="sa-placeholder" />
+                        <div className="sa-fix" />
+                        </div> */}
                     </div>
                 </div>
             </div>

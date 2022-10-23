@@ -27,7 +27,6 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import city3 from "../../../assets/utils/images/dropdown-header/city3.jpg";
-import avatar1 from "../../../assets/utils/images/avatars/1.jpg";
 import { history } from './../../../helpers/history';
 import { Logout } from "../../../redux/actions/account/accountAction";
 
@@ -73,7 +72,7 @@ class UserBox extends React.Component {
                     <img
                       width={42}
                       className="rounded-circle"
-                      src={avatar1}
+                      src={'https://png.pngtree.com/png-clipart/20190904/original/pngtree-hand-drawn-flat-wind-user-avatar-icon-png-image_4492039.jpg'}
                       alt=""
                     />
                     <FontAwesomeIcon
@@ -95,18 +94,18 @@ class UserBox extends React.Component {
                             <div className="widget-content-wrapper">
                               <div className="widget-content-left mr-3">
                                 <img
-                                  width={42}
+                                  width={45}
                                   className="rounded-circle"
-                                  src={avatar1}
+                                  src={'https://png.pngtree.com/png-clipart/20190904/original/pngtree-hand-drawn-flat-wind-user-avatar-icon-png-image_4492039.jpg'}
                                   alt=""
                                 />
                               </div>
                               <div className="widget-content-left">
                                 <div className="widget-heading text-light">
-                                  {retrievedUser.fullname}
+                                <b>{retrievedUser.fullname}</b>
                                 </div>
                                 <div className="widget-subheading text-light">
-                                  {retrievedUser.email}
+                                  <b>{retrievedUser.email}</b>
                                 </div>
                               </div>
                               <div className="widget-content-right mr-2">

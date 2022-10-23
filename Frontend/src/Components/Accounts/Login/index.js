@@ -30,11 +30,11 @@ class LoginComponent extends React.Component {
     onClickLogin = () => {
         let { txtUsername, txtPassword } = this.state;
         if (txtUsername == "") {
-            toastErrorText("Vui lòng nhập tên tài khoản");
+            toastErrorText("Please enter your email");
             return false;
         }
         if (txtPassword == "") {
-            toastErrorText("Vui lòng nhập mật khẩu");
+            toastErrorText("Please enter your password");
             return false;
         }
         this.setState({
@@ -79,8 +79,8 @@ class LoginComponent extends React.Component {
                                             <div className="modal-body">
                                                 <div className="h5 modal-title text-center">
                                                     <h4 className="mt-2">
-                                                        <div>Xin chào,</div>
-                                                        <span>Vui lòng đăng nhập tài khoản.</span>
+                                                        <div>Hello,</div>
+                                                        <span>Please login your account.</span>
                                                     </h4>
                                                 </div>
                                                 <form className="">
@@ -88,7 +88,7 @@ class LoginComponent extends React.Component {
                                                         <div className="col-md-12">
                                                             <div className="position-relative form-group">
                                                                 <input
-                                                                    placeholder="Nhập tên tài khoản..."
+                                                                    placeholder="Email..."
                                                                     type="text"
                                                                     className="form-control"
                                                                     name="txtUsername"
@@ -101,7 +101,7 @@ class LoginComponent extends React.Component {
                                                         <div className="col-md-12">
                                                             <div className="position-relative form-group">
                                                                 <input
-                                                                    placeholder="Nhập mật khẩu..."
+                                                                    placeholder="Password..."
                                                                     type="password"
                                                                     className="form-control"
                                                                     name='txtPassword'

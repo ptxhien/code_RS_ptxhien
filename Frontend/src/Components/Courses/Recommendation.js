@@ -69,6 +69,7 @@ function RecommendationCourses({
   const [skills_to_learn, setSkills_to_learn] = useState([]);
   const coursesReducer = useSelector((state) => state.coursesReducer);
 
+  
   useEffect(() => {
     if (coursesReducer.isRecommended && !coursesReducer.shouldShowException) {
       const form = localStorage.getItem("Form");
@@ -83,12 +84,6 @@ function RecommendationCourses({
   useEffect(() => {
     if (coursesReducer.isRecommended) {
       if (method === MethodEnum.ONLINE) {
-        setSkill_acquired(
-          sortKeys(coursesReducer && coursesReducer.skills_acquired || {})
-        );
-        setSkills_to_learn(
-          sortKeys(coursesReducer && coursesReducer.skills_to_learn || {})
-        );
         setProvidedSkills(
           sortKeys(coursesReducer.online && coursesReducer.online.lstSkill_Provider || {}, "DESC")
         );
@@ -96,12 +91,6 @@ function RecommendationCourses({
           sortKeys(coursesReducer.online && coursesReducer.online.lstSkill_notProvider || {}, "DESC")
         );
       } else if (method === MethodEnum.OFFLINE) {
-        setSkill_acquired(
-          sortKeys(coursesReducer && coursesReducer.skills_acquired || {}, "DESC")
-        );
-        setSkills_to_learn(
-          sortKeys(coursesReducer && coursesReducer.skills_to_learn || {}, "DESC")
-        );
         setProvidedSkills(
           sortKeys(coursesReducer.offline && coursesReducer.offline.lstSkill_Provider || {}, "DESC")
         );
@@ -110,8 +99,6 @@ function RecommendationCourses({
         );
       }
     } else {
-      setSkill_acquired([]);
-      setSkills_to_learn([]);
       setProvidedSkills([]);
       setMissingSkills([]);
     }
@@ -122,16 +109,10 @@ function RecommendationCourses({
   }, []);
 
   function lstSkill_acquired() {
-    let lstskill_acquired = exceptions.find(el => !!el.skills_acquired);
-    let text = lstskill_acquired && lstskill_acquired.lstSkill_acquired || "";
-
-    return text;
+    return coursesReducer.skills_acquired;
   }
   function lstSkill_to_learn() {
-    let lstSkill_to_learn = exceptions.find(el => !!el.skills_to_learn);
-    let text = lstSkill_to_learn && lstSkill_to_learn.lstSkill_to_learn || "";
-
-    return text;
+    return coursesReducer.skills_to_learn;
   }
 
   function coursesProvidedKkills() {
@@ -577,11 +558,11 @@ function RecommendationCourses({
           </CardBody>
 
           <CardBody>
-            <CardTitle className="text-danger">Information Skill</CardTitle>
+            <CardTitle className="text-danger">Information about career skills</CardTitle>
             <Row>
               <Col md={12}>
                 <Label className="font-weight-bold text-uppercase text-secondary mt-3">
-                  Skill Acquired
+                  Skills Acquired
                 </Label>
                 <div>
                   {lstSkill_acquired()}
@@ -592,7 +573,7 @@ function RecommendationCourses({
             <Row>
               <Col md={12}>
                 <Label className="font-weight-bold text-uppercase text-secondary mt-3">
-                  Skill to learn
+                  Skills to learn
                 </Label>
                 <div>
                   {lstSkill_to_learn()}
@@ -605,11 +586,11 @@ function RecommendationCourses({
 
 
           <CardBody>
-            <CardTitle className="text-danger">Missing Skill</CardTitle>
+            <CardTitle className="text-danger">Information on the recommended courses</CardTitle>
             <Row>
               <Col md={12}>
                 <Label className="font-weight-bold text-uppercase text-secondary mt-3">
-                  Courses provided skills
+                  Skills the course provides
                 </Label>
                 <div>
                   {coursesProvidedKkills()}
@@ -620,7 +601,7 @@ function RecommendationCourses({
             <Row>
               <Col md={12}>
                 <Label className="font-weight-bold text-uppercase text-secondary mt-3">
-                  Courses unprovided skills
+                  Skills the course unprovided
                 </Label>
                 <div>
                   {lstSkillNotProvider()}

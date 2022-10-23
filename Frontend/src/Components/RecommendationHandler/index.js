@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { Button, Col, Row, FormGroup, Label, Input, Card, CardBody } from "reactstrap";
+import { Form, Button, Col, Row, FormGroup, Label, Input, Card, CardBody } from "reactstrap";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import ModalFaded from "../../Pages/Components/Modal/Examples/ModalFaded";
@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { toastErrorText } from "../../helpers/toastify";
 import { recommendCourses } from "../../redux/actions/courses/courses";
+import Grid from '@mui/material/Grid';
+
 
 
 function RecommendationHandler() {
@@ -60,11 +62,14 @@ function RecommendationHandler() {
     }
   }
 
+
   return (
-    <Card>
+<Card>
       <CardBody>
-        <Row form>
+        <Row form> 
+      
           <Col md={2}>
+            
             <FormGroup>
               <Label for="exampleName">Position Job</Label>
               <Select
@@ -91,7 +96,7 @@ function RecommendationHandler() {
                   recommendationInfo.current.form = e.target.value;
                 }}
               >
-                <option value={""}>Choose a study method</option>
+                <option value={""}>Choose study method</option>
                 <option value={"online"}>Online</option>
                 <option value={"offline"}>Offline</option>
               </Input>
@@ -139,7 +144,7 @@ function RecommendationHandler() {
             </FormGroup>
           </Col>
 
-          <Col md={3}>
+          <Col md={2}>
             <FormGroup>
               <ModalFaded submit={submit}></ModalFaded>
             </FormGroup>
@@ -148,25 +153,24 @@ function RecommendationHandler() {
           <Col md={2}>
             <FormGroup>
               <Label for="exampleName">Evaluation Recommendation Systems</Label>
-              <Button
-                onClick={(e) => {
-                  window.open(
+            
+              <Button variant="contained" color="success"
+              onClick={(e) => {window.open(
                     'https://docs.google.com/forms/d/e/1FAIpQLSc_YfWh5VU5TRhu7bC0tluDmMB6xdB-YeXr5dlrGHT3KMqZYg/viewform',
                     '_blank' // <- This is what makes it open in a new window.
                   );
-                  // e.preventDefault();
-                }}
-                // style={{ margin: "0 auto" }}
-              >
+                }}>
                 Take the survey
               </Button>
+              
             </FormGroup>
 
-          </Col>
+          </Col> 
 
         </Row>
       </CardBody>
     </Card>
+
   );
 }
 

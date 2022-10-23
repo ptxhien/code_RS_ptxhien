@@ -209,6 +209,8 @@ export default function RecommendationPage() {
                 <Col md={3}>
                   <FormGroup>
                     <Label for="exampleName">Online/OffLine</Label>
+                    
+                    
                     <Input
                       type="select"
                       onChange={(e) => {

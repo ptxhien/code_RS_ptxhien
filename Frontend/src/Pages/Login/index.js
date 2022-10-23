@@ -70,9 +70,7 @@ export default function Login() {
                   <div className="slider-content">
                     <h3>Perfect Balance</h3>
                     <p>
-                      ArchitectUI is like a dream. Some think it's too good to
-                      be true! Extensive collection of unified React Boostrap
-                      Components and Elements.
+                      ArchitectUI is like a dream. 
                     </p>
                   </div>
                 </div>

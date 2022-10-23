@@ -102,8 +102,8 @@ export default function CourseDetail() {
             <div className="row">
               <div className="col-lg-8">
                 <div className="mb-5">
-                  <h6 className="text-primary mb-3">Jan 01, 2050</h6>
-                  <h1 className="mb-5"> {course.courseTitle} </h1>
+              
+                  <h1 className="mb-5"> <b>{course.courseTitle}</b> </h1>
                   <div className="banner">
                     <img className="img-fluid rounded w-100 mb-4" src={course1} alt="Image" />
                     <ButtonGroup className="enroll-btn-group">
@@ -114,44 +114,30 @@ export default function CourseDetail() {
                         onClick={enroll}
                       >
                         <i className="pe-7s-news-paper btn-icon-wrapper"></i>
-                        Enroll for {course.feeVND > 0 + " VND" ? course.feeVND : "free"}
+                        Add to cart 
                       </Button>
                     </ButtonGroup>
                   </div>
+                  
+                  <h6 className="text-primary mb-3">What you'll learn</h6>
+                  {/* <p>Fee: {course > 0 + " VND" ? course.feeVND : "free"}</p> */}
                   <p>{course.outcomeLearning}</p>
                 </div>
+                {/* <div className="mb-5">
+                  <h6 className="text-primary mb-3">Course Details</h6>
+                  <p>Fee: {course.feeVND > 0 + " VND" ? course.feeVND : "free"}</p>
+                </div> */}
                 {/* Comment List */}
                 <div className="mb-5">
-                  <h3 className="text-uppercase mb-4" style={{letterSpacing: '5px'}}>3 Comments</h3>
+                  <h3 className="text-uppercase mb-4" style={{letterSpacing: '5px'}}>1 Comments</h3>
+                
                   <div className="media mb-4">
                     <img src={avatar1} alt="Image" className="img-fluid rounded-circle mr-3 mt-1" style={{width: '45px'}} />
                     <div className="media-body">
-                      <h6>John Doe <small><i>01 Jan 2045 at 12:00pm</i></small></h6>
-                      <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at.
-                        Kasd diam tempor rebum magna dolores sed sed eirmod ipsum. Gubergren clita aliquyam
-                        consetetur sadipscing, at tempor amet ipsum diam tempor consetetur at sit.</p>
+                      <h6>Phạm Thị Xuân Hiền <small><i>01 Jan 2022 at 12:00pm</i></small></h6>
+                      <p>Courses Good</p>
                       <button className="btn btn-sm btn-secondary">Reply</button>
-                    </div>
-                  </div>
-                  <div className="media mb-4">
-                    <img src={avatar1} alt="Image" className="img-fluid rounded-circle mr-3 mt-1" style={{width: '45px'}} />
-                    <div className="media-body">
-                      <h6>John Doe <small><i>01 Jan 2045 at 12:00pm</i></small></h6>
-                      <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at.
-                        Kasd diam tempor rebum magna dolores sed sed eirmod ipsum. Gubergren clita aliquyam
-                        consetetur sadipscing, at tempor amet ipsum diam tempor consetetur at sit.</p>
-                      <button className="btn btn-sm btn-secondary">Reply</button>
-                      <div className="media mt-4">
-                        <img src={avatar1} alt="Image" className="img-fluid rounded-circle mr-3 mt-1" style={{width: '45px'}} />
-                        <div className="media-body">
-                          <h6>John Doe <small><i>01 Jan 2045 at 12:00pm</i></small></h6>
-                          <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum
-                            et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.
-                            Gubergren clita aliquyam consetetur, at tempor amet ipsum diam tempor at
-                            sit.</p>
-                          <button className="btn btn-sm btn-secondary">Reply</button>
-                        </div>
-                      </div>
+    
                     </div>
                   </div>
                 </div>
@@ -160,14 +146,14 @@ export default function CourseDetail() {
               <div className="col-lg-4 mt-5 mt-lg-0">
                 {/* Author Bio */}
                 <div className="d-flex flex-column text-center bg-info rounded mb-5 py-5 px-4">
-                  <img src={avatar1} className="img-fluid rounded-circle mx-auto mb-3" style={{width: '100px'}} />
-                  <h3 className="text-white mb-3">John Doe</h3>
-                  <p className="text-white m-0">Conset elitr erat vero dolor ipsum et diam, eos dolor lorem, ipsum sit
-                    no ut est ipsum erat kasd amet elitr</p>
+                  <img src={'https://png.pngtree.com/element_our/png_detail/20181226/trainingcourseonlinecomputerchat-line-icon--vector-isola-png_285274.jpg'} className="img-fluid rounded-circle mx-auto mb-3" style={{width: '100px'}} />
+                  <h3 className="text-white mb-3"> {course.provider}</h3>
+  
                 </div>
                 {/* Tag Cloud */}
                 <div className="mb-5">
-                  <h3 className="text-uppercase mb-4" style={{letterSpacing: '2px'}}>Tags</h3>
+                  <h3 className="text-uppercase mb-4" style={{letterSpacing: '2px'}}>
+                  <b>SKILLS COURSES</b></h3>
                   <div className="d-flex flex-wrap m-n1">
                     {course.technologySkill.split(", ").map((skill, index) => (
                       <a href="" onClick={(e) => e.preventDefault()} className="btn btn-outline-primary m-1" key={index}>{skill}</a>
@@ -176,7 +162,7 @@ export default function CourseDetail() {
                 </div>
 
                 {/* Comment Form */}
-                <div className="bg-info rounded p-3">
+                {/* <div className="bg-info rounded p-3">
                   <h3 className="text-uppercase text-white mb-4" style={{letterSpacing: '5px'}}>Leave a comment</h3>
                   <form>
                     <div className="form-group">
@@ -199,7 +185,7 @@ export default function CourseDetail() {
                       <input type="submit" defaultValue="Leave Comment" className="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold" />
                     </div>
                   </form>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

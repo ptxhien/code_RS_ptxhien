@@ -56,7 +56,6 @@ import avatar4 from "../../../../assets/utils/images/avatars/4.jpg";
 import avatar5 from "../../../../assets/utils/images/avatars/5.jpg";
 import avatar6 from "../../../../assets/utils/images/avatars/8.jpg";
 import avatar7 from "../../../../assets/utils/images/avatars/9.jpg";
-
 import { makeData } from "../../../Tables/DataTables/Examples/utils";
 
 const data55 = [

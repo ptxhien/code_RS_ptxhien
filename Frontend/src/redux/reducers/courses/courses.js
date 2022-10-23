@@ -7,6 +7,8 @@ const initialState = {
   data: [],
   online: {},
   offline: {},
+  skills_acquired: "",
+  skills_to_learn: ""
 };
 
 const coursesReducer = (state = initialState, action) => {
@@ -26,7 +28,9 @@ const coursesReducer = (state = initialState, action) => {
         isRecommended: true,
         shouldShowException: false,
         online: data.courses_online,
-        offline: data.courses_offline,        
+        offline: data.courses_offline, 
+        skills_acquired: data.skills_acquired,
+        skills_to_learn: data.skills_to_learn,       
         data: [],
       };
     }

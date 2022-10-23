@@ -756,7 +756,7 @@ class BasicExample extends Component {
               </Col>
             </Row>
             <div className="divider mt-0" style={{ marginBottom: "30px" }} />
-            <Row>
+            {/* <Row>
               <Col md="12" lg="6">
                 <Card className="mb-3">
                   <CardHeader className="h-auto p-3">
@@ -1545,7 +1545,7 @@ class BasicExample extends Component {
                   </Row>
                 </Card>
               </Col>
-            </Row>
+            </Row> */}
             <div className="divider mt-0" style={{ marginBottom: "30px" }} />
             <Row>
               <Col md="6">
@@ -2008,48 +2008,7 @@ class BasicExample extends Component {
                     </ListGroupItem>
                   </ListGroup>
                 </Card>
-                <Card className="main-card mb-3">
-                  <ListGroup flush>
-                    <ListGroupItem>
-                      <Row>
-                        <Col md="6" className="align-self-center">
-                          <Sparklines height={90} data={this.state.data} limit={150}>
-                            <SparklinesBars style={{ fill: "#41c3f9", fillOpacity: ".25" }}/>
-                            <SparklinesLine style={{ stroke: "#41c3f9", fill: "none" }}/>
-                          </Sparklines>
-                        </Col>
-                        <Col md="6" className="align-self-center">
-                          <Row>
-                            <Col md="6">
-                              <div className="widget-chart">
-                                <div className="widget-chart-content">
-                                  <div className="widget-numbers text-warning fsize-3">
-                                    158
-                                  </div>
-                                  <div className="widget-subheading pt-1">
-                                    Bug Reports
-                                  </div>
-                                </div>
-                              </div>
-                            </Col>
-                            <Col md="6">
-                              <div className="widget-chart">
-                                <div className="widget-chart-content">
-                                  <div className="widget-numbers text-info fsize-3">
-                                    12.31k
-                                  </div>
-                                  <div className="widget-subheading pt-1">
-                                    Page Views
-                                  </div>
-                                </div>
-                              </div>
-                            </Col>
-                          </Row>
-                        </Col>
-                      </Row>
-                    </ListGroupItem>
-                  </ListGroup>
-                </Card>
+              
               </Col>
             </Row>
           </div>
