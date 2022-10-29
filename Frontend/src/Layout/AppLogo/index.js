@@ -39,16 +39,16 @@ class HeaderLogo extends React.Component {
   render() {
     return (
       <Fragment>
-        <div className="app-header__logo">
-          <Link to="/" className="logo-src" />
-          <div className="header__pane ml-auto">
+        <div className="app-header__logo" style={{ width: "auto" }}>
+          <Link to="/" className="logo-src" style={{ backgroundRepeat: 'no-repeat' }} />
+          {/* <div className="header__pane ml-auto">
             <div onClick={this.toggleEnableClosedSidebar}>
               <Slider width={26} lineHeight={2} lineSpacing={5} color="#6c757d"
                 active={this.state.active} onClick={() => this.setState({ active: !this.state.active })}/>
             </div>
-          </div>
+          </div> */}
         </div>
-        <AppMobileMenu />
+        {/* <AppMobileMenu /> */}
       </Fragment>
     );
   }

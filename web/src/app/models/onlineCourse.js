@@ -20,6 +20,7 @@ const OnlineCourseModel = function (Obj) {
   this.level = Obj ? Obj.level : undefined;
   this.majorSubject = Obj ? Obj.majorSubject : undefined;
   this.language = Obj ? Obj.language : undefined;
+  this.Tech_Skill = Obj ? Obj.Tech_Skill : undefined;
 };
 
 

@@ -76,7 +76,7 @@ function DefaultCourses({ courseArrays, activePage, itemsCountPerPage, handlePag
                           </span>
                         </CardBody>
                         <CardBody>
-                          <img src={image1} width={"100%"}></img>
+                          <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIq54GdfdVl775njXwO5XC3IjHu9IX6LzuVg&usqp=CAU'} width='{"100%"}'></img>
                           <span className="multilines-truncate">
                             {item.outcomeLearning}
                           </span>

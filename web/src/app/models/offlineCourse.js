@@ -19,6 +19,7 @@ const OfflineCourseModel = function (Obj) {
   this.level = Obj ? Obj.level : undefined;
   this.language = Obj ? Obj.language : undefined;
   this.durationSecond = Obj ? Obj.durationSecond : undefined;
+  this.Tech_Skill = Obj ? Obj.Tech_Skill : undefined;
 };
 
 

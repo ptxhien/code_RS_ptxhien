@@ -141,8 +141,8 @@ export default function HomePage() {
           <div className="app-main__outer">
             <div className="app-main__inner mt-2 container-fluid">
               {coursesReducer.isLoading ? (
-                <div className="m-auto" style={{ width: 200, height: 100 }}>
-                  <img src="/images/loading.gif"></img>
+                <div className="m-auto" style={{ width: 100, height: 50 }}>
+                  <img src="/images/loading.gif" style={{ width: 300, height: 300 }}></img>
                 </div>
               ) : coursesReducer.isRecommended ? (
                 <RecommendationCourses
