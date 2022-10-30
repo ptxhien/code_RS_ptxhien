@@ -16,7 +16,7 @@ const apiVerify = async function (req, res, next) {
   try {
     const user = await jwt.verify(
       token,
-      process.env.PRIVATE_KEY || "DevSecretKey"
+      "zFUVn{;Sd4!]#lN" || "DevSecretKey"
     );
     req.user = user;
     res.locals.user = user;
@@ -43,7 +43,7 @@ const verify = async function (req, res, next) {
   try {
     const user = await jwt.verify(
       token,
-      process.env.PRIVATE_KEY || "DevSecretKey"
+      "zFUVn{;Sd4!]#lN" || "DevSecretKey"
     );
     req.user = user;
     res.locals.user = user;

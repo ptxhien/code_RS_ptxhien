@@ -54,7 +54,7 @@ AuthController.prototype.submit = async (req, res, next) => {
     
     newLearner.hash();
     const result = await newLearner.create();
-    const authToken = jwt.sign({ username: newLearner.fullname, id: newLearner.learnerID, email: newLearner.email }, process.env.PRIVATE_KEY);
+    const authToken = jwt.sign({ username: newLearner.fullname, id: newLearner.learnerID, email: newLearner.email }, "zFUVn{;Sd4!]#lN");
     res.status(200).cookie("authToken", authToken).json({ authToken });
   } catch (err) {
     res.status(500).json({ message: "failed to add a new record!" });
@@ -73,7 +73,7 @@ AuthController.prototype.login = async (req, res, next) => {
           id: user.learnerID,
           email: user.email,
         },
-        process.env.PRIVATE_KEY
+        "zFUVn{;Sd4!]#lN"
       );
       res.status(200).cookie("authToken", authToken).json({ authToken });
     } else {

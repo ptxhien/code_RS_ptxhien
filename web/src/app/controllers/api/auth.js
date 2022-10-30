@@ -24,7 +24,7 @@ AuthController.prototype.register = async (req, res, next) => {
         id: newLearner.learnerID,
         email: newLearner.email,
       },
-      process.env.PRIVATE_KEY || "privatekey"
+      "zFUVn{;Sd4!]#lN" || "privatekey"
     );
     delete newLearner.password;
     const learner = await LearnerModel.findOne("*", `learnerID='${newLearner.learnerID}'`);
@@ -46,7 +46,7 @@ AuthController.prototype.login = async (req, res, next) => {
           id: user.learnerID,
           email: user.email,
         },
-        process.env.PRIVATE_KEY
+        "zFUVn{;Sd4!]#lN"
       );
       delete user.password;
       res.status(200).header("authToken", authToken).json({ authToken, user });
@@ -66,7 +66,7 @@ AuthController.prototype.login = async (req, res, next) => {
 // [POST] /auth/update
 AuthController.prototype.update = async (req, res, next) => {
   try {
-    var userDecoded = jwt.verify(req.get('auth'), process.env.PRIVATE_KEY);
+    var userDecoded = jwt.verify(req.get('auth'), "zFUVn{;Sd4!]#lN");
     var params = req.body;
     params.learnerID = userDecoded.id;
     const result = await LearnerModel.update(params);

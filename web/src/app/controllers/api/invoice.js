@@ -29,7 +29,7 @@ InvoiceController.prototype.get = async (req, res, next) => {
 
 InvoiceController.prototype.post = async (req, res, next) => {
   try {
-    var userDecoded = jwt.verify(req.get('auth'), process.env.PRIVATE_KEY);
+    var userDecoded = jwt.verify(req.get('auth'), "zFUVn{;Sd4!]#lN");
     let LearnerID = userDecoded.id;
     const { CourseID, Quality, ItemPrice } = req.body;
 
