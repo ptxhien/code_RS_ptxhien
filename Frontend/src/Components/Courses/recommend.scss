@@ -1,0 +1,50 @@
+.exception-popup {
+    box-shadow: none;
+    .modal-content {
+        border-radius: 12px;
+        overflow: hidden;
+        .exception {
+            margin-bottom: 12px;
+            &-title {
+                color: #126196;
+                font-weight: bold;
+            }
+            &-body {
+                padding: 12px;
+                .languages {
+                    word-wrap: break-word;
+                }
+                .see-result-btn {
+                    min-width: 100px;
+                    padding: 8px;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    background-color: #126196;
+                    color: #fff;
+                    border: none;
+                    &:hover {
+                        background-color: darken($color: #126196, $amount: 10);
+                    }
+                    &:active,
+                    &:disabled {
+                        background-color: darken($color: #126196, $amount: 20%);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.rating-modal {
+    box-shadow: none;
+}
+
+.active-btn {
+    color: #fff;
+    background-color: #545cd8;
+    border-color: #545cd8;
+}
+
+.pointer {
+    cursor: pointer;
+}
