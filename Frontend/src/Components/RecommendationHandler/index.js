@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { toastErrorText } from "../../helpers/toastify";
 import { recommendCourses } from "../../redux/actions/courses/courses";
-import Grid from '@mui/material/Grid';
 
 
 

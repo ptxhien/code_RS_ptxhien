@@ -8,9 +8,10 @@ import avatar1 from "../../assets/utils/images/avatars/2.jpg";
 import image1 from "../../assets/images/slider-img1.jpg";
 import image2 from "../../assets/images/slider-img2.jpg";
 import image3 from "../../assets/images/slider-img3.jpg";
-import { useHistory, useParams } from "react-router";
+import { useHistory, useParams, useLocation } from "react-router";
 import http from "../../redux/utils/http";
 import * as Types from "./../../redux/constants/actionType";
+import { useMemo } from "react";
 
 const items = [
   {
@@ -32,12 +33,19 @@ const items = [
     caption: "Slide 3",
   },
 ];
-
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 const CarouselDefault = (props) => (
   <UncontrolledCarousel style={{ height: "100px !important" }} items={items} />
 );
 
 const CourseDetail = () => {
+  const query = useQuery()
+  const skillsAcquiredArray = useMemo(() => {
+    let data = query.get("skillsAcquired") || ""
+    return data.split(", ")
+  }, [query])
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
@@ -82,7 +90,6 @@ const CourseDetail = () => {
       <CarouselDefault></CarouselDefault>
 
       <div className="app-main__inner">
-
         {!course && !loading && <section id="wrapper" className="error-page my-5">
           <div className="error-box">
             <div className="error-body text-center">
@@ -149,7 +156,7 @@ const CourseDetail = () => {
                   <b>SKILLS COURSES</b></h3>
                   <div className="d-flex flex-wrap m-n1">
                     {course.technologySkill.split(", ").map((skill, index) => (
-                      <a href="" onClick={(e) => e.preventDefault()} className={`btn ${index % 3 == 0 ? "btn-outline-warning" : "btn-outline-primary"} m-1`} key={index}>{skill}</a>
+                      <a href="" onClick={(e) => e.preventDefault()} className={`btn ${skillsAcquiredArray.includes(skill) ? "active-btn" : "btn-outline-primary"} m-1`} key={index}>{skill}</a>
                     ))}
               
                   </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Col,
   Row,
@@ -22,7 +22,7 @@ import Pagination from "react-js-pagination";
 import MethodEnum from "./MethodEnum";
 import { useSelector } from "react-redux";
 import http from "../../redux/utils/http";
-import { toastSuccessText } from "../../helpers/toastify";
+import { toastErrorText } from "../../helpers/toastify";
 
 import "./recommend.scss";
 import Rating from "react-rating";
@@ -43,7 +43,7 @@ const sortKeys = (obj = { key1: 10, key2: 20 }, type = "ASC" || "DESC") => {
 };
 
 function RecommendationCourses({
-  courseArrays,
+  courseArrays = [],
   courseOnlineArrays,
   courseOfflineArrays,
   exceptions,
@@ -56,7 +56,7 @@ function RecommendationCourses({
   method,
   bothStatus,
   bothMessage,
-  bothNgoaiLe
+  bothNgoaiLe,
 }) {
   const [providedSkills, setProvidedSkills] = useState([]);
   const [missingSkills, setMissingSkills] = useState([]);
@@ -68,7 +68,28 @@ function RecommendationCourses({
 
   const coursesReducer = useSelector((state) => state.coursesReducer);
 
-  
+  const [filterArrays, setFilterArrays] = useState([]);
+  const courses = useMemo(() => {
+    if (filterArrays.length > 0) {
+      let temp = [];
+      courseArrays.forEach((item) => (temp = temp.concat(item)));
+      let filteredArrayCourseByFilters = temp.filter((item) => {
+        let skills = item.technologySkill.split(", ");
+        for (let i = 0; i < skills.length; i++) {
+          for (let j = 0; j < filterArrays.length; j++) {
+            if (skills[i] === filterArrays[j]) {
+              return true;
+            }
+          }
+        }
+        return false;
+      });
+      return [filteredArrayCourseByFilters];
+    } else {
+      return courseArrays;
+    }
+  }, [filterArrays, courseArrays, coursesReducer]);
+
   useEffect(() => {
     if (coursesReducer.isRecommended && !coursesReducer.shouldShowException) {
       const form = localStorage.getItem("Form");
@@ -84,17 +105,37 @@ function RecommendationCourses({
     if (coursesReducer.isRecommended) {
       if (method === MethodEnum.ONLINE) {
         setProvidedSkills(
-          sortKeys(coursesReducer.online && coursesReducer.online.lstSkill_Provider || {}, "DESC")
+          sortKeys(
+            (coursesReducer.online &&
+              coursesReducer.online.lstSkill_Provider) ||
+              {},
+            "DESC"
+          )
         );
         setMissingSkills(
-          sortKeys(coursesReducer.online && coursesReducer.online.lstSkill_notProvider || {}, "DESC")
+          sortKeys(
+            (coursesReducer.online &&
+              coursesReducer.online.lstSkill_notProvider) ||
+              {},
+            "DESC"
+          )
         );
       } else if (method === MethodEnum.OFFLINE) {
         setProvidedSkills(
-          sortKeys(coursesReducer.offline && coursesReducer.offline.lstSkill_Provider || {}, "DESC")
+          sortKeys(
+            (coursesReducer.offline &&
+              coursesReducer.offline.lstSkill_Provider) ||
+              {},
+            "DESC"
+          )
         );
         setMissingSkills(
-          sortKeys(coursesReducer.offline && coursesReducer.offline.lstSkill_notProvider || {}, "DESC")
+          sortKeys(
+            (coursesReducer.offline &&
+              coursesReducer.offline.lstSkill_notProvider) ||
+              {},
+            "DESC"
+          )
         );
       }
     } else {
@@ -115,30 +156,55 @@ function RecommendationCourses({
   }
 
   function coursesProvidedKkills() {
-    let lstSkill_Provider = exceptions.find(el => !!el.lstSkill_Provider);
-    let lstSkill_Provider_text = lstSkill_Provider && lstSkill_Provider.lstSkill_Provider || "";
+    let lstSkill_Provider = exceptions.find((el) => !!el.lstSkill_Provider);
+    let lstSkill_Provider_text =
+      (lstSkill_Provider && lstSkill_Provider.lstSkill_Provider) || "";
     if (!lstSkill_Provider_text) {
-      lstSkill_Provider = exceptions.find(el => !!el.lstSkill_Provider_ngoaile);
-      lstSkill_Provider_text = lstSkill_Provider && lstSkill_Provider.lstSkill_Provider_ngoaile || "";
+      lstSkill_Provider = exceptions.find(
+        (el) => !!el.lstSkill_Provider_ngoaile
+      );
+      lstSkill_Provider_text =
+        (lstSkill_Provider && lstSkill_Provider.lstSkill_Provider_ngoaile) ||
+        "";
     }
     if (!lstSkill_Provider_text) {
-      lstSkill_Provider = bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => !!el.lstSkill_Provider_ngoaile);
-      lstSkill_Provider_text = lstSkill_Provider && lstSkill_Provider.lstSkill_Provider_ngoaile || "";
+      lstSkill_Provider =
+        bothNgoaiLe.ExceptionDetail &&
+        bothNgoaiLe.ExceptionDetail.find(
+          (el) => !!el.lstSkill_Provider_ngoaile
+        );
+      lstSkill_Provider_text =
+        (lstSkill_Provider && lstSkill_Provider.lstSkill_Provider_ngoaile) ||
+        "";
     }
     return lstSkill_Provider_text;
-
   }
 
   function lstSkillNotProvider() {
-    let lstSkill_notProvider = exceptions.find(el => !!el.lstSkill_notProvider);
-    let text = lstSkill_notProvider && lstSkill_notProvider.lstSkill_notProvider || "";
+    let lstSkill_notProvider = exceptions.find(
+      (el) => !!el.lstSkill_notProvider
+    );
+    let text =
+      (lstSkill_notProvider && lstSkill_notProvider.lstSkill_notProvider) || "";
     if (!text) {
-      lstSkill_notProvider = exceptions.find(el => !!el.lstSkill_notProvider_ngoaile);
-      text = lstSkill_notProvider && lstSkill_notProvider.lstSkill_notProvider_ngoaile || "";
+      lstSkill_notProvider = exceptions.find(
+        (el) => !!el.lstSkill_notProvider_ngoaile
+      );
+      text =
+        (lstSkill_notProvider &&
+          lstSkill_notProvider.lstSkill_notProvider_ngoaile) ||
+        "";
     }
     if (!text) {
-      lstSkill_notProvider = bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => !!el.lstSkill_notProvider_ngoaile);
-      text = lstSkill_notProvider && lstSkill_notProvider.lstSkill_notProvider_ngoaile || "";
+      lstSkill_notProvider =
+        bothNgoaiLe.ExceptionDetail &&
+        bothNgoaiLe.ExceptionDetail.find(
+          (el) => !!el.lstSkill_notProvider_ngoaile
+        );
+      text =
+        (lstSkill_notProvider &&
+          lstSkill_notProvider.lstSkill_notProvider_ngoaile) ||
+        "";
     }
     return text;
   }
@@ -148,55 +214,84 @@ function RecommendationCourses({
       noteText: "position job",
       subNoteText: (bothException) => {
         return null;
-      }
+      },
     },
     Form: {
-      noteText : "study form",
+      noteText: "study form",
       subNoteText: (bothException) => {
         return null;
-      }
+      },
     },
     Lan: {
       noteText: "language",
       subNoteText: (bothException, bothNgoaiLe) => {
-        const lan = bothException.find(el => el.ExceptionType == 'Lan')
-          || (bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => el.ExceptionType == 'Lan'));
-        return lan && lan.lan_remain ? `The courses' language is: ${lan.lan_remain}` : null;
-      }
+        const lan =
+          bothException.find((el) => el.ExceptionType == "Lan") ||
+          (bothNgoaiLe.ExceptionDetail &&
+            bothNgoaiLe.ExceptionDetail.find(
+              (el) => el.ExceptionType == "Lan"
+            ));
+        return lan && lan.lan_remain
+          ? `The courses' language is: ${lan.lan_remain}`
+          : null;
+      },
     },
     Fee: {
       noteText: "fee",
       subNoteText: (bothException, bothNgoaiLe) => {
-        const fee = bothException.find(el => el.ExceptionType == 'Fee')
-          || (bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => el.ExceptionType == 'Fee'));
-        return fee && fee.Output ? `Total study budget: ${new Intl.NumberFormat('it-IT').format(fee.Output)} VNĐ 💵` : null;
-      }
+        const fee =
+          bothException.find((el) => el.ExceptionType == "Fee") ||
+          (bothNgoaiLe.ExceptionDetail &&
+            bothNgoaiLe.ExceptionDetail.find(
+              (el) => el.ExceptionType == "Fee"
+            ));
+        return fee && fee.Output
+          ? `Total study budget: ${new Intl.NumberFormat("it-IT").format(
+              fee.Output
+            )} VNĐ 💵`
+          : null;
+      },
     },
     Duration: {
       noteText: "duration",
       subNoteText: (bothException, bothNgoaiLe) => {
-        const duration = bothException.find(el => el.ExceptionType == 'Duration')
-          || (bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => el.ExceptionType == 'Duration'));
-        return duration && duration.Output ? `Total study time: ${duration.Output} ⏲️` : null;
-      }
+        const duration =
+          bothException.find((el) => el.ExceptionType == "Duration") ||
+          (bothNgoaiLe.ExceptionDetail &&
+            bothNgoaiLe.ExceptionDetail.find(
+              (el) => el.ExceptionType == "Duration"
+            ));
+        return duration && duration.Output
+          ? `Total study time: ${duration.Output} ⏲️`
+          : null;
+      },
     },
     Frame_Remain: {
       noteText: "studying period",
       subNoteText: (bothException, bothNgoaiLe) => {
-        const frameRemain = bothException.find(el => el.ExceptionType == 'Frame_Remain')
-          || (bothNgoaiLe.ExceptionDetail && bothNgoaiLe.ExceptionDetail.find(el => el.ExceptionType == 'Frame_Remain'));
-        return frameRemain && frameRemain.frame_remain ? `These courses are in the study period, including: ${frameRemain.frame_remain} 🗓️` : null;
-      }
+        const frameRemain =
+          bothException.find((el) => el.ExceptionType == "Frame_Remain") ||
+          (bothNgoaiLe.ExceptionDetail &&
+            bothNgoaiLe.ExceptionDetail.find(
+              (el) => el.ExceptionType == "Frame_Remain"
+            ));
+        return frameRemain && frameRemain.frame_remain
+          ? `These courses are in the study period, including: ${frameRemain.frame_remain} 🗓️`
+          : null;
+      },
     },
-  }
+  };
 
   function showStatusMessage() {
-    let note, subNote, subNoteList = [];
+    let note,
+      subNote,
+      subNoteList = [];
     switch (bothStatus) {
       case 200:
       case 201:
       case 202: {
-        const noteArr = [], subNoteArr = [];
+        const noteArr = [],
+          subNoteArr = [];
         const mappings = Object.entries(mappingNote);
         mappings.forEach(([key, value]) => {
           const subNoteText = value.subNoteText(bothException, bothNgoaiLe);
@@ -208,61 +303,137 @@ function RecommendationCourses({
           subNoteList.push(subNoteText);
         });
         // note = `We suggest the ideal courses for your ${noteArr.length > 1 ? (noteArr.slice(0, -1).join(', ') + ', and ' + noteArr.slice(-1)) : noteArr[0]} you know.`;
-        note = `We recommend the courses that are best for you based on your ${noteArr.length > 1 ? (noteArr.slice(0, -1).join(', ') + ' and ' + noteArr.slice(-1)) : noteArr[0]}.`;
-        subNote = subNoteArr.length === 0 ? '' : `However, there are differences when compared to certain criteria, like as: ${subNoteArr.length > 1 ? (subNoteArr.slice(0, -1).join(', ') + ' and ' + subNoteArr.slice(-1)) : subNoteArr[0]}.`;
-        return <Row style={{ padding: "10px 20px" }}>
-          <span style={{ fontSize: "1rem", fontWeight: "bold", display: "block", width: "100%" }}>{note}</span>
-          {subNoteArr.length > 0 && <span style={{ fontSize: "1rem", display: "block", width: "100%" }}>{subNote}</span>}
-          <ul style={{ width: "100%" }}>
-            {subNoteList.map((e, i) => <li key={i}>{e}</li>)}
-          </ul>
-        </Row>;
+        note = `We recommend the courses that are best for you based on your ${
+          noteArr.length > 1
+            ? noteArr.slice(0, -1).join(", ") + " and " + noteArr.slice(-1)
+            : noteArr[0]
+        }.`;
+        subNote =
+          subNoteArr.length === 0
+            ? ""
+            : `However, there are differences when compared to certain criteria, like as: ${
+                subNoteArr.length > 1
+                  ? subNoteArr.slice(0, -1).join(", ") +
+                    " and " +
+                    subNoteArr.slice(-1)
+                  : subNoteArr[0]
+              }.`;
+        return (
+          <Row style={{ padding: "10px 20px" }}>
+            <span
+              style={{
+                fontSize: "1rem",
+                fontWeight: "bold",
+                display: "block",
+                width: "100%",
+              }}
+            >
+              {note}
+            </span>
+            {subNoteArr.length > 0 && (
+              <span
+                style={{ fontSize: "1rem", display: "block", width: "100%" }}
+              >
+                {subNote}
+              </span>
+            )}
+            <ul style={{ width: "100%" }}>
+              {subNoteList.map((e, i) => (
+                <li key={i}>{e}</li>
+              ))}
+            </ul>
+          </Row>
+        );
       }
       case 203:
-        note = "You have enough skills that the profession requires, you can apply for that position.";
-        return <Row style={{ padding: "10px 20px" }}>
-          <span style={{ fontSize: "1rem", fontWeight: "bold", display: "block", width: "100%" }}>{note}</span>
-        </Row>;
+        note =
+          "You have enough skills that the profession requires, you can apply for that position.";
+        return (
+          <Row style={{ padding: "10px 20px" }}>
+            <span
+              style={{
+                fontSize: "1rem",
+                fontWeight: "bold",
+                display: "block",
+                width: "100%",
+              }}
+            >
+              {note}
+            </span>
+          </Row>
+        );
       case 400:
       case 401:
       case 402:
       case 403:
-        note = (!courseOfflineArrays || !courseOfflineArrays[0]) && (!courseOnlineArrays || courseOnlineArrays[0]) ?
-          // `Không có khoá học ${method === MethodEnum.ONLINE ? "Online" : "Offline"} phù hợp với tiêu chí của bạn.` :
-          `No ${method === MethodEnum.ONLINE ? "Online" : "Offline"} courses meet your requirements.` :
-          "The system is updating courses related to the required missing skills.";
-        subNote = "You might look at five occupations that are associated with the career you are pursuing: ";
+        note =
+          (!courseOfflineArrays || !courseOfflineArrays[0]) &&
+          (!courseOnlineArrays || courseOnlineArrays[0])
+            ? // `Không có khoá học ${method === MethodEnum.ONLINE ? "Online" : "Offline"} phù hợp với tiêu chí của bạn.` :
+              `No ${
+                method === MethodEnum.ONLINE ? "Online" : "Offline"
+              } courses meet your requirements.`
+            : "The system is updating courses related to the required missing skills.";
+        subNote =
+          "You might look at five occupations that are associated with the career you are pursuing: ";
         if (bothException && bothException[0] && bothException[0].Job_offer) {
-          subNoteList = (bothException && bothException[0] && bothException[0].Job_offer).split(", ");
+          subNoteList = (
+            bothException &&
+            bothException[0] &&
+            bothException[0].Job_offer
+          ).split(", ");
         }
-        return <Row style={{ padding: "10px 20px" }}>
-          <span style={{ fontSize: "1rem", fontWeight: "bold", display: "block", width: "100%" }}>{note}</span>
-          {
-            (subNoteList && subNoteList.length > 0) &&
-            <>
-              <span style={{ fontSize: "1rem", display: "block", width: "100%" }}>{subNote}</span>
-              <ul style={{ width: "100%" }}>
-                {subNoteList.map((e, i) => <li key={i}>{e}</li>)}
-              </ul>
-            </>
-          }
-        </Row>;
+        return (
+          <Row style={{ padding: "10px 20px" }}>
+            <span
+              style={{
+                fontSize: "1rem",
+                fontWeight: "bold",
+                display: "block",
+                width: "100%",
+              }}
+            >
+              {note}
+            </span>
+            {subNoteList && subNoteList.length > 0 && (
+              <>
+                <span
+                  style={{ fontSize: "1rem", display: "block", width: "100%" }}
+                >
+                  {subNote}
+                </span>
+                <ul style={{ width: "100%" }}>
+                  {subNoteList.map((e, i) => (
+                    <li key={i}>{e}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </Row>
+        );
     }
     return "";
   }
 
-  // const deleteCourse = (skill) => {
+  function deleteCourse(skill) {
+    // let text ="";
+    console.log("heloo" + skill);
+    // return text;
+  }
+
+  // function deleteCourse(skill) {
   //   console.log('heloo' + skill);
-  //   const newCourseList = [];
+
+  //   // return coursesReducer.technologySkill.split(", ").include(skill)=== true;
   //   if (coursesReducer.isRecommended) {
   //     if (method === MethodEnum.ONLINE) {
-  //       newCourseList = coursesReducer.online.filter((course) => course.technologySkill.split(", ") !== skill);
-
+  //       // newCourseList = coursesReducer.online.filter((course) => course.technologySkill.split(", ") !== skill);
+  //       newCourseList = coursesReducer.online.technologySkill.split(", ").include(skill)=== true;
   //     } else if (method === MethodEnum.OFFLINE) {
-  //       newCourseList = coursesReducer.offline.filter((course) => course.technologySkill.split(", ") !== skill);
+  //       newCourseList = coursesReducer.offline.technologySkill.split(", ").include(skill)=== true;
   //     }
   //   return newCourseList;
-  // }
+  // };
 
   return (
     <Row>
@@ -317,8 +488,8 @@ function RecommendationCourses({
           <CardBody>
             {showStatusMessage()}
             <Row>
-              {courseArrays[activePage - 1] &&
-                courseArrays[activePage - 1].map((item, index) => {
+              {courses[activePage - 1] &&
+                courses[activePage - 1].map((item, index) => {
                   return (
                     <Col md="6" lg="4" key={index}>
                       <Card
@@ -370,7 +541,12 @@ function RecommendationCourses({
                           </span>
                         </CardBody>
                         <CardBody>
-                          <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIq54GdfdVl775njXwO5XC3IjHu9IX6LzuVg&usqp=CAU'} width={"100%"}></img>
+                          <img
+                            src={
+                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIq54GdfdVl775njXwO5XC3IjHu9IX6LzuVg&usqp=CAU"
+                            }
+                            width={"100%"}
+                          ></img>
                           <span className="multilines-truncate">
                             {item.outcomeLearning}
                           </span>
@@ -381,19 +557,24 @@ function RecommendationCourses({
                               color="primary"
                             >
                               <i className="pe-7s-cash btn-icon-wrapper"></i>
-                              {item.feeVND == 0 ? "Free" : new Intl.NumberFormat('it-IT').format(item.feeVND) + " VNĐ"}
+                              {item.feeVND == 0
+                                ? "Free"
+                                : new Intl.NumberFormat("it-IT").format(
+                                    item.feeVND
+                                  ) + " VNĐ"}
                             </Button>
                             <Link
                               target="_blank"
-                              to={`course/${item.courseID}`}
-                              
+                              to={{
+                                pathname: `course/${item.courseID}`,
+                                search: `?skillsAcquired=${coursesReducer.skills_acquired}`
+                              }}
                               className="btn-wide mb-2 btn-icon d-inline-block btn btn-outline-primary"
                             >
                               <i className="pe-7s-news-paper btn-icon-wrapper"></i>
                               Details
                             </Link>
-                        
-                            
+
                             {/* <CourseDetail nam = 'hien'/> */}
                           </div>
                         </CardBody>
@@ -456,51 +637,67 @@ function RecommendationCourses({
                 </FormGroup>
               </Col>
             </Row>
-            
           </CardBody>
 
           <CardBody>
-            <CardTitle className="text-danger">Information about career skills</CardTitle>
+            <CardTitle className="text-danger">
+              Information about career skills
+            </CardTitle>
             <Row>
               <Col md={12}>
                 <Label className="font-weight-bold text-uppercase text-secondary mt-3">
                   Skills Acquired
                 </Label>
-                <div>
-                  {lstSkill_acquired()} 
-                  
-                </div>
+                <div>{lstSkill_acquired()}</div>
               </Col>
-
             </Row>
             <Row>
               <Col md={12}>
                 <Label className="font-weight-bold text-uppercase text-secondary mt-3">
                   Skills to learn
                 </Label>
-                <div>
-                  {lstSkill_to_learn()}
-                </div>
+                <div>{lstSkill_to_learn()}</div>
               </Col>
             </Row>
           </CardBody>
 
           <CardBody>
-            <CardTitle className="text-danger">Information on the recommended courses</CardTitle>
+            <CardTitle className="text-danger">
+              Information on the recommended courses
+            </CardTitle>
             <Row>
               <Col md={12}>
                 <Label className="font-weight-bold text-uppercase text-secondary mt-3">
                   Skills the course provides
                 </Label>
-                
+
                 <div>
-                    
-                    {coursesProvidedKkills().split(", ").map((skill, index) => (
+                  {/* {coursesProvidedKkills().split(", ").map((skill, index) => (
                       <a href="" onClick={(e) => e.preventDefault()} className="btn btn-outline-primary m-1" key={index}>{skill}</a>
+                    ))} */}
+                  {coursesProvidedKkills()
+                    .split(", ")
+                    .map((skill, index) => (
+                      <span
+                        onClick={() => {
+                          if (filterArrays.includes(skill)) {
+                            setFilterArrays(
+                              filterArrays.filter((item) => skill !== item)
+                            );
+                          } else {
+                            setFilterArrays([...filterArrays, skill]);
+                          }
+                        }}
+                        className={`pointer btn btn-outline-primary m-1 ${
+                          filterArrays.includes(skill) ? "active-btn" : ""
+                        }`}
+                        key={index}
+                      >
+                        {skill}
+                      </span>
                     ))}
                 </div>
               </Col>
-
             </Row>
             <Row>
               <Col md={12}>
@@ -509,12 +706,23 @@ function RecommendationCourses({
                 </Label>
                 <div>
                   {/* {lstSkillNotProvider()} */}
-                  {lstSkillNotProvider().split(", ").map((skill, index) => (
-                      <a href="" onClick={(e) => e.preventDefault()} className="btn btn-outline-primary m-1" key={index}>{skill}</a>
+                  {lstSkillNotProvider()
+                    .split(", ")
+                    .map((skill, index) => (
+                      <a 
+                        href=""
+                        onClick={(e) => {
+                          e.preventDefault()
+                          toastErrorText("There is no provided course for this skill.")
+                        }}
+                        className="btn btn-outline-primary m-1"
+                        key={index}
+                      >
+                        {skill}
+                      </a>
                     ))}
                 </div>
               </Col>
-
             </Row>
           </CardBody>
         </Card>
