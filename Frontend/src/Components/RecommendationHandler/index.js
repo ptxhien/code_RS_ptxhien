@@ -21,7 +21,7 @@ function RecommendationHandler() {
     occupation: "",
     form: "",
     month: "00",
-    typeFilter: "progress",
+    typeFilter: "top",
   });
 
   useEffect(() => {
