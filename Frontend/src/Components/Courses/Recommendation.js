@@ -641,35 +641,35 @@ function RecommendationCourses({
 
           <CardBody>
             <CardTitle className="text-danger">
-              Information about career skills
+              SKILL REQUIRE FOR ...
             </CardTitle>
             <Row>
               <Col md={12}>
-                <Label className="font-weight-bold text-uppercase text-secondary mt-3">
+                {/* <Label className="font-weight-bold text-uppercase text-secondary mt-3">
                   Skills Acquired
-                </Label>
+                </Label> */}
                 <div>{lstSkill_acquired()}</div>
               </Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Col md={12}>
                 <Label className="font-weight-bold text-uppercase text-secondary mt-3">
                   Skills to learn
                 </Label>
                 <div>{lstSkill_to_learn()}</div>
               </Col>
-            </Row>
+            </Row> */}
           </CardBody>
 
           <CardBody>
             <CardTitle className="text-danger">
-              Information on the recommended courses
+              SKILL TO LEARN FOR ...
             </CardTitle>
             <Row>
               <Col md={12}>
-                <Label className="font-weight-bold text-uppercase text-secondary mt-3">
+                {/* <Label className="font-weight-bold text-uppercase text-secondary mt-3">
                   Skills the course provides
-                </Label>
+                </Label> */}
 
                 <div>
                   {/* {coursesProvidedKkills().split(", ").map((skill, index) => (
@@ -701,9 +701,9 @@ function RecommendationCourses({
             </Row>
             <Row>
               <Col md={12}>
-                <Label className="font-weight-bold text-uppercase text-secondary mt-3">
+                {/* <Label className="font-weight-bold text-uppercase text-secondary mt-3">
                   Skills the course unprovided
-                </Label>
+                </Label> */}
                 <div>
                   {/* {lstSkillNotProvider()} */}
                   {lstSkillNotProvider()
@@ -713,7 +713,7 @@ function RecommendationCourses({
                         href=""
                         onClick={(e) => {
                           e.preventDefault()
-                          toastErrorText("There is no provided course for this skill.")
+                          toastErrorText("No exists courses is provided for this skill.")
                         }}
                         className="btn btn-outline-primary m-1"
                         key={index}

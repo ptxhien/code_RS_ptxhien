@@ -41,21 +41,40 @@ def Find_Skill_Weight(occupation_id):
         if i['JobID'] == occupation_id:
             d_skill = i['Weight_Technology']
     d_skill = (dict(sorted(d_skill.items(), key = lambda x: x[1], reverse = True)))    
-    return d_skill 
+    return d_skill
 
 # 3. Find Skill User Missing
-def FindMissingSkill(df_attribute_requirement):
-    occupation = df_attribute_requirement.Occupation[0] 
+def FindMissingSkill_1(df_attribute_requirement):
+    occupation = df_attribute_requirement.Occupation[0]
     d_skill = Find_Skill_Weight(occupation)
-    lst_weight_sort = sorted(d_skill, key = d_skill.get, reverse=True)
-    
+    lst_weight_sort = d_skill
+
     skill_now_learner = []
     for id, row in df_attribute_requirement.iterrows():
         for tec in row.loc['technologySkill'].split(', '):
             if tec != '' and tec not in skill_now_learner:
                 skill_now_learner.append(tec)
     skill_now_learner.sort()
-    
+
+    missing_skill = lst_weight_sort
+    common_l = list(set(skill_now_learner) & set(missing_skill))
+    if len(common_l) > 0:
+        for i in common_l:
+            missing_skill.pop(i)
+    return missing_skill
+
+def FindMissingSkill(df_attribute_requirement):
+    occupation = df_attribute_requirement.Occupation[0]
+    d_skill = Find_Skill_Weight(occupation)
+    lst_weight_sort = sorted(d_skill, key = d_skill.get, reverse=True)
+
+    skill_now_learner = []
+    for id, row in df_attribute_requirement.iterrows():
+        for tec in row.loc['technologySkill'].split(', '):
+            if tec != '' and tec not in skill_now_learner:
+                skill_now_learner.append(tec)
+    skill_now_learner.sort()
+
     missing_skill = lst_weight_sort
     common_l = list(set(skill_now_learner) & set(missing_skill))
     if len(common_l) > 0:

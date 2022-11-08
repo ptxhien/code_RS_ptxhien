@@ -33,12 +33,9 @@ def RS():
     df_Off = function.take_CourseOffline(df_attribute_requirement)
     
     # # find missing skill
-    skills_acquired = function.Find_Skill_Weight(df_attribute_requirement.Occupation[0])
-    skills_acquired = sorted(skills_acquired, key = skills_acquired.get, reverse=True)
-    str_skills_acquired = ", ".join(skills_acquired)
-    
-    skills_to_learn = function.FindMissingSkill(df_attribute_requirement)
-    str_skills_to_learn = ", ".join(skills_to_learn)
+    str_skills_acquired = function.Find_Skill_Weight(df_attribute_requirement.Occupation[0])
+   
+    str_skills_to_learn = function.FindMissingSkill_1(df_attribute_requirement)
     
     #----------------------------------------------------------------
     lst_job_sim = knowledgeDomain.job_related(occupation)
@@ -52,7 +49,7 @@ def RS():
     if len(df_attribute_requirement) > 0:
         dict_f_ngoaile1 = []
         
-        if len(skills_to_learn) > 0:
+        if len(str_skills_to_learn) > 0:
             if len(df_On) > 0 or len(df_Off) > 0:
                 dict_f = buildRule.recommendation(df_On, df_Off, df_attribute_requirement, str_skills_acquired, str_skills_to_learn)
             else:
@@ -96,22 +93,20 @@ def RS():
                         "Ngoai_Le":{
                         "Course_Offer": [],
                         "ExceptionDetail": []}}}
-                
+
     else:
         dict_f = {"message": "This user doesn't exist",
                     "status": 407}
-        
+
     # save file result
-    file_name = 'KQ_RS.json'
-    with open(file_name, 'w') as f:
-        json.dump(dict_f, f, ensure_ascii=False, indent=4) 
-    
+    # file_name = 'KQ_RS.json'
+    # with open(file_name, 'w') as f:
+    #     json.dump(dict_f, f, ensure_ascii=False, indent=4)
+
     # 4. tra ket qua ve trang chu hien thi
     # return render_template("index.html", dict_f)
     return dict_f
-        
+
 # start backend 
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port = '6868')
-    
-    
