@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ThemeOptions from "../../Layout/ThemeOptions";
 import AppHeader from "../../Layout/AppHeader";
 import "./style.scss";
-import { Button, ButtonGroup, UncontrolledCarousel } from "reactstrap";
+import { Button, ButtonGroup, UncontrolledCarousel, Row, Col } from "reactstrap";
 import avatar1 from "../../assets/utils/images/avatars/2.jpg";
 import image1 from "../../assets/images/slider-img1.jpg";
 import image2 from "../../assets/images/slider-img2.jpg";
@@ -13,6 +13,7 @@ import http from "../../redux/utils/http";
 import * as Types from "./../../redux/constants/actionType";
 import { useMemo } from "react";
 import { toastErrorText, toastSuccessText } from "../../helpers/toastify";
+import { AiFillHome, AiOutlineLink, AiOutlineShareAlt, AiOutlineGlobal, AiFillStar, AiOutlineTeam, AiFillDollarCircle, AiFillDashboard } from "react-icons/ai";
 
 const items = [
   {
@@ -84,6 +85,9 @@ const CourseDetail = () => {
     });
   }, [course]);
 
+  function urlshare() {
+    return 'https://www.facebook.com/sharer/sharer.php?u=' + window.location;
+  }
   return (
     <>
       <ThemeOptions />
@@ -108,6 +112,24 @@ const CourseDetail = () => {
                 <div className="mb-5">
               
                   <h1 className="mb-5"> <b>{course.courseTitle}</b> </h1>
+                  <div style={{color: '#ff6600'}}>{course.majobSubject}</div>
+                  <Row>
+                    <Col md={6}>
+                      <div ><AiFillDashboard />{course.level}&nbsp;&nbsp;&nbsp;<AiOutlineTeam />{course.numStudent}&nbsp;&nbsp;&nbsp;<AiFillDollarCircle />{course.feeVND}
+                        &nbsp;&nbsp;&nbsp;<AiFillStar /> {course.rating ? course.rating.toFixed(1) : 0}<br/>
+                        <AiFillHome />{course.location}<br/>
+                        <AiOutlineLink /><a href={course.URL} target="_blank">{course.URL}</a>
+                      </div>
+                    </Col>
+                    <Col md={6}>
+                      <div> <AiOutlineGlobal /> {course.language}<br/>
+                        <a href={urlshare()} target="_blank"><AiOutlineShareAlt />share</a>
+                      </div>
+                    </Col>
+                  </Row>
+
+                  
+
                   <div className="banner">
                     <img className="img-fluid rounded w-100 mb-4" src={'https://img.idesign.vn/2018/11/26/id-huong-dan-tao-bo-icon-phang-23.gif'} alt="Image" />
                     <ButtonGroup className="enroll-btn-group">
@@ -146,6 +168,7 @@ const CourseDetail = () => {
               </div>
               <div className="col-lg-4 mt-5 mt-lg-0">
                 {/* Author Bio */}
+                <h3>{course.hasOwnProperty('location') ? 'Offline' : 'Online'}</h3>
                 <div className="d-flex flex-column text-center bg-info rounded mb-5 py-5 px-4">
                   <img src={'https://png.pngtree.com/element_our/png_detail/20181226/trainingcourseonlinecomputerchat-line-icon--vector-isola-png_285274.jpg'} className="img-fluid rounded-circle mx-auto mb-3" style={{width: '100px'}} />
                   <h3 className="text-white mb-3"> {course.provider}</h3>

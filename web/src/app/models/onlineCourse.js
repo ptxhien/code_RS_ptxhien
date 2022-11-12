@@ -18,7 +18,7 @@ const OnlineCourseModel = function (Obj) {
   this.fee = Obj ? Obj.fee : undefined;
   this.feeVND = Obj ? Obj.feeVND : undefined;
   this.level = Obj ? Obj.level : undefined;
-  this.majorSubject = Obj ? Obj.majorSubject : undefined;
+  this.majobSubject = Obj ? Obj.majobSubject : undefined;
   this.language = Obj ? Obj.language : undefined;
   this.Tech_Skill = Obj ? Obj.Tech_Skill : undefined;
 };
