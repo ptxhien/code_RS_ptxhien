@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useLayoutEffect } from "react";
+import React, { Fragment, useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import http from "../../redux/utils/http";
 import * as Types from "./../../redux/constants/actionType";
@@ -21,9 +21,10 @@ import {
   DropdownItem,
   DropdownToggle,
   DropdownMenu,
+  FormGroup,
+  Label,
   UncontrolledButtonDropdown,
 } from "reactstrap";
-
 import ThemeOptions from "../../Layout/ThemeOptions/";
 import AppHeader from "../../Layout/AppHeader/";
 
@@ -35,6 +36,7 @@ export default function Dashboards() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.accountReducer);
   const invoicesReducer = useSelector((state) => state.invoicesReducer);
+  const [filter, setFilter] = useState('All');
 
   useEffect(() => {
     dispatch(getInvoices());
@@ -53,6 +55,15 @@ export default function Dashboards() {
       });
     });
   }
+  const getFilterInvoices = () => {
+    if (filter == 'All') {
+      return invoicesReducer.data;
+    } else if (filter == 'Completed') {
+      return invoicesReducer.data.filter((item) => !!item.Completed);
+    } else if (filter == 'Uncompleted') {
+      return invoicesReducer.data.filter((item) => !item.Completed);
+    }
+  };
 
   return (
     <>
@@ -63,7 +74,24 @@ export default function Dashboards() {
           <div className="app-main ">
             <div className="app-main__inner">
               <h2>My Course</h2>
-
+              <Row form>
+                <Col md={3}>
+                  <FormGroup>
+                    <Label for="exampleName">Filter</Label>
+                    <Input
+                      type="select"
+                      value={filter}
+                      onChange={(e) => {
+                        setFilter(e.target.value)
+                      }}
+                    >
+                      <option value={"All"}>All</option>
+                      <option value={"Completed"}>Completed</option>
+                      <option value={"Uncompleted"}>Uncompleted</option>
+                    </Input>
+                  </FormGroup>
+                </Col>
+              </Row>
               <table className="history-table">
                 <thead>
                   <tr>
@@ -77,7 +105,7 @@ export default function Dashboards() {
                   </tr>
                 </thead>
                 <tbody>
-                  {invoicesReducer.data.map((row) => (
+                  {getFilterInvoices().map((row) => (
                     <tr key={row.InvoiceNo}>
                       <td>{row.InvoiceNo}</td>
                       <td>{row.CourseID}</td>
