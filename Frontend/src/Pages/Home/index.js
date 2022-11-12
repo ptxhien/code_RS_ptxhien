@@ -47,7 +47,7 @@ const items = [
 ];
 
 const CarouselDefault = () => (
-  <UncontrolledCarousel style={{ height: "100px !important" }} items={items} />
+  <UncontrolledCarousel items={items} />
 );
 /*  */
 export default function HomePage() {
@@ -130,14 +130,18 @@ export default function HomePage() {
     <Fragment>
       <ThemeOptions />
       <AppHeader />
+      <div style={{marginLeft:"auto",marginRight:"auto", marginTop: 60, padding: "20px 0", height: 250, width: "60%",}}>
       <CarouselDefault></CarouselDefault>
+      </div>
 
       {/* < div className="app-main"> */}
       {/* <AppSidebar /> */}
       {/* <div className="app-main__outer"> */}
       <div className="app-main__inner">
         <Fragment>
+          <div style={{width: "80%", margin: "auto"}}>
           <RecommendationHandler />
+          </div>
           <div className="app-main__outer">
             <div className="app-main__inner mt-2 container-fluid">
               {coursesReducer.isLoading ? (

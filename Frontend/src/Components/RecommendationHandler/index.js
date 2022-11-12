@@ -1,5 +1,15 @@
 import React, { useRef, useEffect } from "react";
-import { Form, Button, Col, Row, FormGroup, Label, Input, Card, CardBody } from "reactstrap";
+import {
+  Form,
+  Button,
+  Col,
+  Row,
+  FormGroup,
+  Label,
+  Input,
+  Card,
+  CardBody,
+} from "reactstrap";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import ModalFaded from "../../Pages/Components/Modal/Examples/ModalFaded";
@@ -8,10 +18,10 @@ import { useHistory } from "react-router-dom";
 import { toastErrorText } from "../../helpers/toastify";
 import { recommendCourses } from "../../redux/actions/courses/courses";
 
-
-
 function RecommendationHandler() {
-  const { masterdataReducer, accountReducer, coursesReducer } = useSelector((state) => state);
+  const { masterdataReducer, accountReducer, coursesReducer } = useSelector(
+    (state) => state
+  );
   const { lsJob } = masterdataReducer;
 
   const history = useHistory();
@@ -25,17 +35,17 @@ function RecommendationHandler() {
   });
 
   useEffect(() => {
-    const onStorageEvent = ({key, oldValue, newValue}) => {
-      if (key === 'time_enroll') {
+    const onStorageEvent = ({ key, oldValue, newValue }) => {
+      if (key === "time_enroll") {
         if (coursesReducer.isRecommended) {
           submit();
         }
       }
-    }
-    window.addEventListener('storage', onStorageEvent);
+    };
+    window.addEventListener("storage", onStorageEvent);
     return () => {
-      window.removeEventListener('storage', onStorageEvent)
-    }
+      window.removeEventListener("storage", onStorageEvent);
+    };
   }, [coursesReducer]);
 
   const submit = () => {
@@ -50,30 +60,28 @@ function RecommendationHandler() {
       history.push("/login");
       return;
     }
-    // fire errs message 
+    // fire errs message
     if (errs.length) {
       errs.forEach((err) => {
         toastErrorText(err);
       });
-    } else { // call api to RS server
+    } else {
+      // call api to RS server
       localStorage.setItem("Form", form);
       dispatch(recommendCourses(occupation, form, month, email, typeFilter));
     }
-  }
-
+  };
 
   return (
-<Card>
+    <Card>
       <CardBody>
-        <Row form> 
-      
+        <Row form>
           <Col md={2}>
-            
             <FormGroup>
               <Label for="exampleName">Position Job</Label>
               <Select
                 components={makeAnimated()}
-                closeMenuOnSelect={false}
+                closeMenuOnSelect={true}
                 getOptionLabel={(option) => option.jobTitle}
                 getOptionValue={(option) => option.jobID}
                 options={lsJob}
@@ -149,27 +157,27 @@ function RecommendationHandler() {
             </FormGroup>
           </Col>
 
-          <Col md={2}>
+          {/* <Col md={2}>
             <FormGroup>
               <Label for="exampleName">Evaluation Recommendation Systems</Label>
-            
-              <Button variant="contained" color="success"
-              onClick={(e) => {window.open(
-                    'https://docs.google.com/forms/d/e/1FAIpQLSc_YfWh5VU5TRhu7bC0tluDmMB6xdB-YeXr5dlrGHT3KMqZYg/viewform',
-                    '_blank' // <- This is what makes it open in a new window.
+
+              <Button
+                variant="contained"
+                color="success"
+                onClick={(e) => {
+                  window.open(
+                    "https://docs.google.com/forms/d/e/1FAIpQLSc_YfWh5VU5TRhu7bC0tluDmMB6xdB-YeXr5dlrGHT3KMqZYg/viewform",
+                    "_blank" // <- This is what makes it open in a new window.
                   );
-                }}>
+                }}
+              >
                 Take the survey
               </Button>
-              
             </FormGroup>
-
-          </Col> 
-
+          </Col> */}
         </Row>
       </CardBody>
     </Card>
-
   );
 }
 

@@ -101,6 +101,15 @@ function RecommendationCourses({
     }
   }, [coursesReducer]);
 
+  const skills_acquired = useMemo(() => {
+    let obj = coursesReducer.skills_acquired || {};
+    let arr = Object.keys(obj).map((key) => ({
+      label: key,
+      value: Number(obj[key]),
+    }));
+    return arr.sort((a, b) => b.value - a.value);
+  }, [coursesReducer]);
+
   useEffect(() => {
     if (coursesReducer.isRecommended) {
       if (method === MethodEnum.ONLINE) {
@@ -567,7 +576,7 @@ function RecommendationCourses({
                               target="_blank"
                               to={{
                                 pathname: `course/${item.courseID}`,
-                                search: `?skillsAcquired=${coursesReducer.skills_acquired}`
+                                search: `?skillsAcquired=${coursesReducer.skills_acquired}`,
                               }}
                               className="btn-wide mb-2 btn-icon d-inline-block btn btn-outline-primary"
                             >
@@ -640,15 +649,26 @@ function RecommendationCourses({
           </CardBody>
 
           <CardBody>
-            <CardTitle className="text-danger">
-              SKILL REQUIRE FOR ...
-            </CardTitle>
+            <CardTitle className="text-danger">SKILL REQUIRE FOR ...</CardTitle>
             <Row>
               <Col md={12}>
                 {/* <Label className="font-weight-bold text-uppercase text-secondary mt-3">
                   Skills Acquired
                 </Label> */}
-                <div>{lstSkill_acquired()}</div>
+                <div>
+                  {skills_acquired.map((item, index) => (
+                    <span
+                      onClick={() => {
+                        
+                      }}
+                      className={`pointer btn btn-outline-primary m-1 p-${item.value / 3 > 3 ? "3" : item.value / 3 > 2 ? "2" : "1"}`}
+                      key={index}
+                    >
+                      {item.label}
+                      {item.value}
+                    </span>
+                  ))}
+                </div>
               </Col>
             </Row>
             {/* <Row>
@@ -677,8 +697,20 @@ function RecommendationCourses({
                     ))} */}
                   {coursesProvidedKkills()
                     .split(", ")
-                    .map((skill, index) => (
-                      <span
+                    .map((skill, index) => {
+                      // let isHaveAnyCourse = false
+                      // for (let i = 0; i < courseArrays.length; i++) {
+                      //   if (courseArrays[i].technologySkill) {
+                      //     let skills = courseArrays[i].technologySkill.split(", ")
+                      //     if (skills.includes(skill)) {
+                      //       isHaveAnyCourse = true
+                      //       break
+                      //     }
+                      //   }
+                        
+                      // } 
+                      
+                      return (<span
                         onClick={() => {
                           if (filterArrays.includes(skill)) {
                             setFilterArrays(
@@ -694,8 +726,8 @@ function RecommendationCourses({
                         key={index}
                       >
                         {skill}
-                      </span>
-                    ))}
+                      </span>)
+})}
                 </div>
               </Col>
             </Row>
@@ -709,13 +741,15 @@ function RecommendationCourses({
                   {lstSkillNotProvider()
                     .split(", ")
                     .map((skill, index) => (
-                      <a 
+                      <a
                         href=""
                         onClick={(e) => {
-                          e.preventDefault()
-                          toastErrorText("No exists courses is provided for this skill.")
+                          e.preventDefault();
+                          toastErrorText(
+                            "No exists courses is provided for this skill."
+                          );
                         }}
-                        className="btn btn-outline-primary m-1"
+                        className="btn btn-outline-secondary m-1"
                         key={index}
                       >
                         {skill}

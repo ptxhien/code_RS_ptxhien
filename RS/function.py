@@ -83,11 +83,11 @@ def FindMissingSkill(df_attribute_requirement):
     return missing_skill
 
 # 4. Find courses contains skills user missing
-def FindCourseFromMissingSkill(df, df_attribute_requirement):  
+def FindCourseFromMissingSkill(df, df_attribute_requirement):
     missing_skill = FindMissingSkill(df_attribute_requirement)
-    
+
     df_Course_Filter = pd.DataFrame()
-    
+
     if len(missing_skill) > 0:
         TEMP = pd.get_dummies(missing_skill, dtype=int)
         df_Course_Filter = df[['courseID','courseTitle','technologySkill']]
@@ -95,7 +95,7 @@ def FindCourseFromMissingSkill(df, df_attribute_requirement):
         df_Course_Filter = df_Course_Filter.astype(str)
 
         skill = df_Course_Filter.columns[3:].tolist()
-        
+
         for id, row in df_Course_Filter.iterrows():
             for k in range(len(skill)):
                 df_Course_Filter.at[id,skill[k]] = '0'

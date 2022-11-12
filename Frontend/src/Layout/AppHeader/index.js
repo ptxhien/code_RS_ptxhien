@@ -14,36 +14,85 @@ import HeaderRightDrawer from "./Components/HeaderRightDrawer";
 
 import HeaderDots from "./Components/HeaderDots";
 import { Retrieve } from "../../redux/actions/account/accountAction";
+import Select from "react-select";
 
 class Header extends React.Component {
-
   componentWillMount() {
     this.props.retrieve();
   }
 
   render() {
-    let {
-      headerBackgroundColor,
-      enableMobileMenuSmall,
-      enableHeaderShadow,
-    } = this.props;
+    let { headerBackgroundColor, enableMobileMenuSmall, enableHeaderShadow } =
+      this.props;
     return (
       <Fragment>
-        <CSSTransitionGroup component="div"
+        <CSSTransitionGroup
+          component="div"
           className={cx("app-header", headerBackgroundColor, {
             "header-shadow": enableHeaderShadow,
           })}
-          transitionName="HeaderAnimation" transitionAppear={true} transitionAppearTimeout={1500}
-          transitionEnter={false} transitionLeave={false}>
+          transitionName="HeaderAnimation"
+          transitionAppear={true}
+          transitionAppearTimeout={1500}
+          transitionEnter={false}
+          transitionLeave={false}
+        >
           <HeaderLogo />
-          <div className={cx("app-header__content", {
-            "header-mobile-open": enableMobileMenuSmall,
-          })}>
+          <div
+            className={cx("app-header__content", {
+              "header-mobile-open": enableMobileMenuSmall,
+            })}
+          >
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ width: 200 }}>
+                <Select options={[{ label: "Category", value: "" }]} />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                }}
+              >
+                <MenuItem
+                  onClick={() => {
+                    window.open(
+                      "https://docs.google.com/forms/d/e/1FAIpQLSc_YfWh5VU5TRhu7bC0tluDmMB6xdB-YeXr5dlrGHT3KMqZYg/viewform",
+                      "_blank" // <- This is what makes it open in a new window.
+                    );
+                  }}
+                  src="/images/three-star.svg"
+                  title="Take the survey"
+                />
+
+                <MenuItem
+                  onClick={() => {}}
+                  src="/images/monitor.svg"
+                  title="My Course"
+                />
+
+                <MenuItem
+                width="35"
+                  onClick={() => {}}
+                  src="/images/paper.svg"
+                  title="History"
+                />
+
+                <MenuItem width="37"  onClick={() => {}} src="/images/cart.svg" />
+              </div>
+            </div>
             {/* <div className="app-header-left">
               <SearchBox />
               <MegaMenu />
             </div> */}
-            <div className="app-header-right">
+            <div className="app-header-right" style={{width: 200}}>
               {/* <HeaderDots /> */}
               <UserBox />
             </div>
@@ -62,7 +111,19 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  retrieve: () => dispatch(Retrieve())
+  retrieve: () => dispatch(Retrieve()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
+function MenuItem(props) {
+  return (
+    <div
+      onClick={props.onClick}
+      style={{ cursor: "pointer", marginLeft: 10, marginRight: 10 }}
+    >
+      <img width={props.width} src={props.src} />
+      <span style={{ color: "white" }}>{props.title}</span>
+    </div>
+  );
+}
