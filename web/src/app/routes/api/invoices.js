@@ -6,6 +6,6 @@ const { apiVerify } = require("../../../utilities/middlewares/verify");
 
 router.get("/", apiVerify, InvoiceController.get);
 router.post("/", apiVerify, InvoiceController.post);
-
+router.post("/completed", apiVerify, InvoiceController.postCompleted);
 
 module.exports = router;

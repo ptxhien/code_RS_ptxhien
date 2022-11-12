@@ -1,5 +1,7 @@
 import React, { Fragment, useEffect, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import http from "../../redux/utils/http";
+import * as Types from "./../../redux/constants/actionType";
 
 import {
   Row,
@@ -38,6 +40,19 @@ export default function Dashboards() {
     dispatch(getInvoices());
   }, [])
 
+  const onCompleted =  (e, InvoiceNo, CourseID) => {
+    // e.target.disabled = true;
+    http.post("/invoices/completed", {
+      InvoiceNo: InvoiceNo,
+      CourseID: CourseID, 
+    }).then((result) => {
+      dispatch(getInvoices());
+      dispatch({
+        type: Types.AUTH_UPDATE,
+        payload: { user: result.user }
+      });
+    });
+  }
 
   return (
     <>
@@ -47,7 +62,7 @@ export default function Dashboards() {
           <AppHeader />
           <div className="app-main ">
             <div className="app-main__inner">
-              <h2>Purchase History</h2>
+              <h2>My Course</h2>
 
               <table className="history-table">
                 <thead>
@@ -58,17 +73,26 @@ export default function Dashboards() {
                     <th>Technology Skill </th>
                     <th>Price </th>
                     <th>Purchase Date </th>
+                    <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {invoicesReducer.data.map((row) => (
-                    <tr>
+                    <tr key={row.InvoiceNo}>
                       <td>{row.InvoiceNo}</td>
                       <td>{row.CourseID}</td>
                       <td>{row.course.courseTitle}</td>
                       <td>{row.course.technologySkill}</td>
                       <td>{row.ItemPrice}</td>
                       <td>{row.InvoiceDate}</td>
+                      <td><Button
+                            disabled={!!row.Completed}
+                            className="btn-wide mb-2 mr-2 btn-icon"
+                            outline
+                            color="primary"
+                            onClick={(e) => onCompleted(e, row.InvoiceNo, row.CourseID)}
+                          >Completed</Button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

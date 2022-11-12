@@ -12,6 +12,7 @@ import { useHistory, useParams, useLocation } from "react-router";
 import http from "../../redux/utils/http";
 import * as Types from "./../../redux/constants/actionType";
 import { useMemo } from "react";
+import { toastErrorText, toastSuccessText } from "../../helpers/toastify";
 
 const items = [
   {
@@ -74,13 +75,13 @@ const CourseDetail = () => {
       Quality: 1, 
       ItemPrice: course.feeVND,
     }).then((result, a) => {
-      dispatch({
-        type: Types.AUTH_UPDATE,
-        payload: { user: result.user }
-      });
       localStorage.setItem("time_enroll", Date.now());
+      history.push("/dashboard");
+    }).catch((err) => {
+      if (err.msg) {
+        toastErrorText(err.msg);
+      }
     });
-    history.push("/dashboard");
   }, [course]);
 
   return (

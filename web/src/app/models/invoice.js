@@ -67,8 +67,15 @@ InvoiceModel.findOne =  async function (fileds = "*" || ["*"], conditions = "1=1
 
 InvoiceModel.prototype.update = async function () {};
 
-
-InvoiceModel.update = async function (obj) {};
+InvoiceModel.update = async function (obj) {
+  try {
+    const [res1] = await db.update("Invoice", obj, `InvoiceNo='${obj.InvoiceNo}'`);
+    return res1;
+  } catch (err) {
+    console.error(err.message);
+    throw new Error("fail to update record!!");
+  }
+};
 
 
 module.exports = InvoiceModel;

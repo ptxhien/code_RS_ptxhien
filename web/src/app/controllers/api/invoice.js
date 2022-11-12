@@ -32,6 +32,32 @@ InvoiceController.prototype.post = async (req, res, next) => {
     var userDecoded = jwt.verify(req.get('auth'), "zFUVn{;Sd4!]#lN");
     let LearnerID = userDecoded.id;
     const { CourseID, Quality, ItemPrice } = req.body;
+    const finds = await InvoiceModel.find("*", `LearnerID="${LearnerID}" and CourseID="${CourseID}"`)
+    if (finds.length) {
+      res.status(402).json({msg: "Course bought"})
+    } else {
+      const newInvoice = new InvoiceModel({
+        LearnerID,
+        CourseID,
+        Quality,
+        ItemPrice,
+      });
+
+      const _ = await newInvoice.create();
+      res.status(200).json({
+        invoice: newInvoice,
+      });
+    }
+  } catch (err) {
+    res.status(500).json({msg: "Something wrong when create a new invoice. Please try again"})
+  }
+
+};
+InvoiceController.prototype.postCompleted = async (req, res, next) => {
+  try {
+    var userDecoded = jwt.verify(req.get('auth'), "zFUVn{;Sd4!]#lN");
+    let LearnerID = userDecoded.id;
+    const { InvoiceNo, CourseID } = req.body;
 
     let user = await LearnerModel.findOne("*", `learnerID='${LearnerID}'`);
     let technologySkills = user.technologySkill ? user.technologySkill.split(', ') : [];
@@ -49,19 +75,16 @@ InvoiceController.prototype.post = async (req, res, next) => {
       learnerID: user.learnerID,
       technologySkill: technologySkills.join(', ')
     };
-    const result = await LearnerModel.update(params);
-
-    user = await LearnerModel.findOne("*", `learnerID='${LearnerID}'`);
-    const newInvoice = new InvoiceModel({
-      LearnerID,
-      CourseID,
-      Quality,
-      ItemPrice,
+    await LearnerModel.update(params);
+    await InvoiceModel.update({
+      InvoiceNo: InvoiceNo,
+      Completed: 1
     });
 
-    const _ = await newInvoice.create();
+    invoice = await InvoiceModel.findOne("*", `InvoiceNo='${InvoiceNo}'`);
+    user = await LearnerModel.findOne("*", `learnerID='${LearnerID}'`);
     res.status(200).json({
-      invoice: newInvoice,
+      invoice: invoice,
       user: user
     });
   } catch (err) {
@@ -69,5 +92,4 @@ InvoiceController.prototype.post = async (req, res, next) => {
   }
 
 };
-
 module.exports = new InvoiceController();
