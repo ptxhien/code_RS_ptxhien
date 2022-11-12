@@ -77,7 +77,7 @@ export default function Dashboards() {
               <Row form>
                 <Col md={3}>
                   <FormGroup>
-                    <Label for="exampleName">Filter</Label>
+                    <Label for="exampleName">Filter Course</Label>
                     <Input
                       type="select"
                       value={filter}
