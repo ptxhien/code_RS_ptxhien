@@ -14,6 +14,7 @@ import * as Types from "./../../redux/constants/actionType";
 import { useMemo } from "react";
 import { toastErrorText, toastSuccessText } from "../../helpers/toastify";
 import { AiFillHome, AiOutlineLink, AiOutlineShareAlt, AiOutlineGlobal,AiOutlineClockCircle, AiFillStar, AiOutlineTeam, AiFillDollarCircle, AiFillDashboard } from "react-icons/ai";
+import { useCart } from "../../hooks/useCart";
 
 const items = [
   {
@@ -54,7 +55,8 @@ const CourseDetail = () => {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState(false);
-
+  const { addCourse } = useCart();
+  
   const getData = useCallback(async () => {
     setLoading(true);
     try {
@@ -121,7 +123,7 @@ const CourseDetail = () => {
                       <Button
                         className="btn-wide btn-icon"
                         color="success"
-                        onClick={enroll}
+                        onClick={() => addCourse(course)}
                       >
                         <i className="pe-7s-news-paper btn-icon-wrapper"></i>
                         Add to cart 

@@ -15,6 +15,8 @@ import HeaderRightDrawer from "./Components/HeaderRightDrawer";
 import HeaderDots from "./Components/HeaderDots";
 import { Retrieve } from "../../redux/actions/account/accountAction";
 import Select from "react-select";
+import { useCart } from "../../hooks/useCart";
+import { useHistory, useParams, useLocation } from "react-router";
 
 class Header extends React.Component {
   componentWillMount() {
@@ -77,12 +79,14 @@ class Header extends React.Component {
                   src="/images/monitor.svg"
                   title="My Course"
                 />
-
-                <MenuItem width="37"  onClick={() => {}} src="/images/cart.svg" />
+                <MenuItemCart />
               </div>
             </div>
-         
-            <div className="app-header-right" style={{width: 200}}>
+            {/* <div className="app-header-left">
+              <SearchBox />
+              <MegaMenu />
+            </div> */}
+            <div className="app-header-right" style={{ width: 200 }}>
               {/* <HeaderDots /> */}
               <UserBox />
             </div>
@@ -114,6 +118,42 @@ function MenuItem(props) {
     >
       <img width={props.width} src={props.src} />
       <span style={{ color: "white" }}>{props.title}</span>
+    </div>
+  );
+}
+
+function MenuItemCart() {
+  const { cart } = useCart();
+  const history = useHistory();
+  return (
+    <div
+      style={{
+        cursor: "pointer",
+        marginLeft: 10,
+        marginRight: 10,
+        position: "relative",
+      }}
+      onClick={() => history.push("/cart")}
+    >
+      <img width={37} src="/images/cart.svg" />
+      <div
+        style={{
+          position: "absolute",
+          padding: 3,
+          backgroundColor: "red",
+          color: "white",
+          borderRadius: "50%",
+          width: 25,
+          height: 25,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          top: -5,
+          right: -20,
+        }}
+      >
+        <span>{cart.length}</span>
+      </div>
     </div>
   );
 }
