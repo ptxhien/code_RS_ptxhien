@@ -40,7 +40,7 @@ def Find_Skill_Weight(occupation_id):
     for i in data:
         if i['JobID'] == occupation_id:
             d_skill = i['Weight_Technology']
-    d_skill = (dict(sorted(d_skill.items(), key = lambda x: x[1], reverse = True)))    
+    d_skill = (dict(sorted(d_skill.items(), key = lambda x: x[1], reverse = True)))
     return d_skill
 
 def Find_Title(occupation_id):
@@ -49,7 +49,7 @@ def Find_Title(occupation_id):
     for i in data:
         if i['JobID'] == occupation_id:
             return i['JobTitle']
-        
+
 # 3. Find Skill User Missing
 def FindMissingSkill_1(df_attribute_requirement):
     occupation = df_attribute_requirement.Occupation[0]

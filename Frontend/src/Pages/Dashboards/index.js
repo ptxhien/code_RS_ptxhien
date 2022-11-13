@@ -114,7 +114,12 @@ export default function Dashboards() {
                       <td>{row.CourseID}</td>
                       <td>{row.course.courseTitle}</td>
                       <td>{row.course.technologySkill}</td>
-                      <td>{row.ItemPrice}</td>
+                      {/* <td>{row.ItemPrice}</td> */}
+                      <td>{row.ItemPrice == 0
+                                ? "Free"
+                                : new Intl.NumberFormat("it-IT").format(
+                                  row.ItemPrice
+                                  ) + " VNĐ"}</td>
                       <td>{row.InvoiceDate}</td>
                       <td><Button
                             disabled={!!row.Completed}
