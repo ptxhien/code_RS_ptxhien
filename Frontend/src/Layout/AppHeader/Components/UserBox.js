@@ -129,7 +129,6 @@ class UserBox extends React.Component {
                           Your account
                         </NavItem>
                         <NavItem>
-                          <NavLink href="/#/dashboard" className="text-primary">History</NavLink>
                           {authToken ? <NavLink href="/#/update-profile" className="text-primary">Edit profile</NavLink> : ""}
                         </NavItem>
                       </Nav>

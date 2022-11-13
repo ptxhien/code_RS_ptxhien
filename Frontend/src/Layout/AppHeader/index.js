@@ -75,18 +75,10 @@ class Header extends React.Component {
                 />
 
                 <MenuItem
-                  onClick={() => {}}
+                  onClick={() => {window.location = '/#/dashboard'}}
                   src="/images/monitor.svg"
                   title="My Course"
                 />
-
-                <MenuItem
-                  width="35"
-                  onClick={() => {}}
-                  src="/images/paper.svg"
-                  title="History"
-                />
-
                 <MenuItemCart />
               </div>
             </div>
