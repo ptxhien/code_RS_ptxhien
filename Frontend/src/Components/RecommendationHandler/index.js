@@ -157,24 +157,6 @@ function RecommendationHandler() {
             </FormGroup>
           </Col>
 
-          {/* <Col md={2}>
-            <FormGroup>
-              <Label for="exampleName">Evaluation Recommendation Systems</Label>
-
-              <Button
-                variant="contained"
-                color="success"
-                onClick={(e) => {
-                  window.open(
-                    "https://docs.google.com/forms/d/e/1FAIpQLSc_YfWh5VU5TRhu7bC0tluDmMB6xdB-YeXr5dlrGHT3KMqZYg/viewform",
-                    "_blank" // <- This is what makes it open in a new window.
-                  );
-                }}
-              >
-                Take the survey
-              </Button>
-            </FormGroup>
-          </Col> */}
         </Row>
       </CardBody>
     </Card>
