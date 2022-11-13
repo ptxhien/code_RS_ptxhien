@@ -576,15 +576,13 @@ function RecommendationCourses({
                               target="_blank"
                               to={{
                                 pathname: `course/${item.courseID}`,
-                                search: `?skillsAcquired=${coursesReducer.skills_acquired}`,
+                                search: `?skillsAcquired=${Object.keys(coursesReducer.skills_acquired).join(", ")}`,
                               }}
                               className="btn-wide mb-2 btn-icon d-inline-block btn btn-outline-primary"
                             >
                               <i className="pe-7s-news-paper btn-icon-wrapper"></i>
                               Details
                             </Link>
-
-                            {/* <CourseDetail nam = 'hien'/> */}
                           </div>
                         </CardBody>
                       </Card>
@@ -659,7 +657,6 @@ function RecommendationCourses({
                   {skills_acquired.map((item, index) => (
                     <span
                       onClick={() => {
-                        
                       }}
                       className={`pointer btn btn-outline-primary m-1 p-${item.value / 3 > 3 ? "3" : item.value / 3 > 2 ? "2" : "1"}`}
                       key={index}
@@ -687,10 +684,6 @@ function RecommendationCourses({
             </CardTitle>
             <Row>
               <Col md={12}>
-                {/* <Label className="font-weight-bold text-uppercase text-secondary mt-3">
-                  Skills the course provides
-                </Label> */}
-
                 <div>
                   {/* {coursesProvidedKkills().split(", ").map((skill, index) => (
                       <a href="" onClick={(e) => e.preventDefault()} className="btn btn-outline-primary m-1" key={index}>{skill}</a>
@@ -707,9 +700,8 @@ function RecommendationCourses({
                       //       break
                       //     }
                       //   }
-                        
-                      // } 
-                      
+                      // }
+
                       return (<span
                         onClick={() => {
                           if (filterArrays.includes(skill)) {
@@ -727,15 +719,13 @@ function RecommendationCourses({
                       >
                         {skill}
                       </span>)
-})}
+            })}
                 </div>
               </Col>
             </Row>
             <Row>
               <Col md={12}>
-                {/* <Label className="font-weight-bold text-uppercase text-secondary mt-3">
-                  Skills the course unprovided
-                </Label> */}
+                
                 <div>
                   {/* {lstSkillNotProvider()} */}
                   {lstSkillNotProvider()

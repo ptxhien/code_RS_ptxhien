@@ -31,6 +31,8 @@ import AppHeader from "../../Layout/AppHeader/";
 import "./style.scss";
 import { Redirect } from "react-router";
 import { getInvoices } from "../../redux/actions/invoices";
+import { toastErrorText, toastSuccessText } from "../../helpers/toastify";
+
 
 export default function Dashboards() {
   const dispatch = useDispatch();
@@ -48,6 +50,7 @@ export default function Dashboards() {
       InvoiceNo: InvoiceNo,
       CourseID: CourseID, 
     }).then((result) => {
+      toastSuccessText("Completed Course!");
       dispatch(getInvoices());
       dispatch({
         type: Types.AUTH_UPDATE,
@@ -120,6 +123,7 @@ export default function Dashboards() {
                             color="primary"
                             onClick={(e) => onCompleted(e, row.InvoiceNo, row.CourseID)}
                           >Completed</Button>
+                          
                       </td>
                     </tr>
                   ))}
