@@ -8,7 +8,10 @@ const initialState = {
   online: {},
   offline: {},
   skills_acquired: "",
-  skills_to_learn: ""
+  skills_to_learn: "",
+  occupation: "",
+  typeFilter:""
+
 };
 
 const coursesReducer = (state = initialState, action) => {
@@ -30,7 +33,9 @@ const coursesReducer = (state = initialState, action) => {
         online: data.courses_online,
         offline: data.courses_offline, 
         skills_acquired: data.skills_acquired,
-        skills_to_learn: data.skills_to_learn,       
+        skills_to_learn: data.skills_to_learn, 
+        typeFilter: data.typeFilter,
+        occupation: data.occupation,
         data: [],
       };
     }

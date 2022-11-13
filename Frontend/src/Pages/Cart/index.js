@@ -32,7 +32,9 @@ export default function Cart() {
               onChange={(e) => selectAllItem(e.target.checked)}
             />
             <label style={{ marginLeft: 10 }} htmlFor="checkall">
-              ALL
+            <br/>
+              ALL COURSES
+              <br/>
             </label>
           </div>
           <Row style={{ display: "flex" }}>
@@ -50,7 +52,7 @@ export default function Cart() {
             <Col md={4}>
               <div style={{ backgroundColor: "lightblue", padding: 20,display: "flex", flexDirection: "column" }}>
                 <h3>Bill</h3>
-                <br />
+                <br/>
                 <div
                   style={{
                     paddingLeft: 20,
@@ -61,12 +63,20 @@ export default function Cart() {
                 >
                   <h5>TOTAL</h5>
                   <h5>
-                    {cart.reduce((acc, cur) => {
+                  
+                  {cart.reduce((acc, cur) => {
                       if (cur.isSelected) {
-                        return acc + cur.feeVND;
+                        return acc + cur.feeVND
                       }
                       return acc;
-                    }, 0)}
+                      }, 0)}
+
+
+                    {/* {row.ItemPrice == 0
+                                ? "Free"
+                                : new Intl.NumberFormat("it-IT").format(
+                                  row.ItemPrice
+                                  ) + " VNĐ"} */}
                   </h5>
                 </div>
                 <Button onClick={enroll} color="primary" className=" mb-2 mt-2 ml-auto mr-2 py-2 px-4 btn-icon">
@@ -103,12 +113,13 @@ function Course(props) {
           flex: "1",
         }}
       >
-        <h4>{props.courseTitle}</h4>
+        <h5>{props.courseTitle}</h5>
         <h6>{props.provider}</h6>
 
-        <h4 style={{ marginTop: "auto", marginLeft: "auto" }}>
-          {props.feeVND == 0 ? "FREE" : props.feeVND}
-        </h4>
+        <h5 style={{ marginTop: "auto", marginLeft: "auto" }}>
+          {props.feeVND == 0 ? "FREE" : Intl.NumberFormat("it-IT").format(props.feeVND) + " VNĐ"}
+
+        </h5>
       </div>
       <i
         onClick={() => props.deleteCourse(props.index)}

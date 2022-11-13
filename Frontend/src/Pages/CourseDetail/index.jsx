@@ -75,7 +75,7 @@ const CourseDetail = () => {
   const enroll = useCallback(async (e) => {
     e.target.disabled = true;
     await http.post("/invoices", {
-      CourseID: course.courseID, 
+      CourseID: course.courseID,
       Quality: 1, 
       ItemPrice: course.feeVND,
     }).then((result, a) => {

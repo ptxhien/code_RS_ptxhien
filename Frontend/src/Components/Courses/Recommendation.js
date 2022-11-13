@@ -157,12 +157,12 @@ function RecommendationCourses({
     setTimeout(() => setOpenGoogleForm(true), 20000);
   }, []);
 
-  function lstSkill_acquired() {
-    return coursesReducer.skills_acquired;
-  }
-  function lstSkill_to_learn() {
-    return coursesReducer.skills_to_learn;
-  }
+  // function lstSkill_acquired() {
+  //   return coursesReducer.skills_acquired;
+  // }
+  // function lstSkill_to_learn() {
+  //   return coursesReducer.skills_to_learn;
+  // }
 
   function coursesProvidedKkills() {
     let lstSkill_Provider = exceptions.find((el) => !!el.lstSkill_Provider);
@@ -290,6 +290,7 @@ function RecommendationCourses({
       },
     },
   };
+
 
   function showStatusMessage() {
     let note,
@@ -424,11 +425,11 @@ function RecommendationCourses({
     return "";
   }
 
-  function deleteCourse(skill) {
-    // let text ="";
-    console.log("heloo" + skill);
-    // return text;
-  }
+  // function deleteCourse(skill) {
+  //   // let text ="";
+  //   console.log("heloo" + skill);
+  //   // return text;
+  // }
 
   // function deleteCourse(skill) {
   //   console.log('heloo' + skill);
@@ -496,10 +497,14 @@ function RecommendationCourses({
           </Modal>
           <CardBody>
             {showStatusMessage()}
+            <h1>RS</h1>
+            <h4>You have {courses.length} courses </h4>
+
             <Row>
               {courses[activePage - 1] &&
                 courses[activePage - 1].map((item, index) => {
                   return (
+                    
                     <Col md="6" lg="4" key={index}>
                       <Card
                         data-tip
@@ -647,12 +652,9 @@ function RecommendationCourses({
           </CardBody>
 
           <CardBody>
-            <CardTitle className="text-danger">SKILL REQUIRE FOR </CardTitle>
+            <CardTitle className="text-danger">SKILL REQUIRE FOR {coursesReducer.occupation}</CardTitle>
             <Row>
               <Col md={12}>
-                {/* <Label className="font-weight-bold text-uppercase text-secondary mt-3">
-                  Skills Acquired
-                </Label> */}
                 <div>
                   {skills_acquired.map((item, index) => (
                     <span
@@ -668,19 +670,11 @@ function RecommendationCourses({
                 </div>
               </Col>
             </Row>
-            {/* <Row>
-              <Col md={12}>
-                <Label className="font-weight-bold text-uppercase text-secondary mt-3">
-                  Skills to learn
-                </Label>
-                <div>{lstSkill_to_learn()}</div>
-              </Col>
-            </Row> */}
           </CardBody>
 
           <CardBody>
             <CardTitle className="text-danger">
-              SKILL TO LEARN FOR ...
+              SKILL TO LEARN FOR {coursesReducer.occupation}
             </CardTitle>
             <Row>
               <Col md={12}>
@@ -725,7 +719,6 @@ function RecommendationCourses({
             </Row>
             <Row>
               <Col md={12}>
-                
                 <div>
                   {/* {lstSkillNotProvider()} */}
                   {lstSkillNotProvider()

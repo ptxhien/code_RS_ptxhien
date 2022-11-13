@@ -88,9 +88,9 @@ export default function Dashboards() {
                         setFilter(e.target.value)
                       }}
                     >
-                      <option value={"All"}>All</option>
-                      <option value={"Completed"}>Completed</option>
-                      <option value={"Uncompleted"}>Uncompleted</option>
+                      <option value={"All Courses"}>All</option>
+                      <option value={"Completed"}>Completed Course</option>
+                      <option value={"Uncompleted"}>Uncompleted Courses</option>
                     </Input>
                   </FormGroup>
                 </Col>
@@ -114,7 +114,6 @@ export default function Dashboards() {
                       <td>{row.CourseID}</td>
                       <td>{row.course.courseTitle}</td>
                       <td>{row.course.technologySkill}</td>
-                      {/* <td>{row.ItemPrice}</td> */}
                       <td>{row.ItemPrice == 0
                                 ? "Free"
                                 : new Intl.NumberFormat("it-IT").format(
