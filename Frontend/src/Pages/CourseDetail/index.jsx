@@ -176,7 +176,7 @@ const CourseDetail = () => {
                     <div>
                       <AiOutlineGlobal /> {course.language}&nbsp;&nbsp;&nbsp;
                       {course.studyTime && <div><AiOutlineClockCircle /> {course.studyTime}</div>}
-                      {course.location && <div><AiFillHome /> {course.location}</div>}<br/>
+                      {course.location && <div><AiFillHome /> {course.location}</div>}
                       <AiOutlineLink /><a href={course.URL} target="_blank">{course.URL}</a><br/>
                       <a href={urlshare()} target="_blank"><AiOutlineShareAlt />share</a>
                     </div>
