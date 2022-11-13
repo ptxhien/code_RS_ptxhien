@@ -81,10 +81,7 @@ class Header extends React.Component {
                 <MenuItem width="37"  onClick={() => {}} src="/images/cart.svg" />
               </div>
             </div>
-            {/* <div className="app-header-left">
-              <SearchBox />
-              <MegaMenu />
-            </div> */}
+         
             <div className="app-header-right" style={{width: 200}}>
               {/* <HeaderDots /> */}
               <UserBox />

@@ -48,6 +48,7 @@ const CourseDetail = () => {
     let data = query.get("skillsAcquired") || ""
     return data.split(", ")
   }, [query])
+
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
@@ -112,8 +113,6 @@ const CourseDetail = () => {
                 <div className="mb-5">
                   <h1 className="mb-5"> <b>{course.courseTitle}</b> </h1>
                   <div style={{color: '#ff6600'}}>{course.majobSubject}<br/>&nbsp;&nbsp;&nbsp;</div>
-                 
-
 
                   <div className="banner">
                     <img className="img-fluid rounded w-100 mb-4" src={'https://img.idesign.vn/2018/11/26/id-huong-dan-tao-bo-icon-phang-23.gif'} alt="Image" />
@@ -132,19 +131,16 @@ const CourseDetail = () => {
 
                   <h6 className="text-primary mb-3">What you'll learn</h6>
                   <p>{course.outcomeLearning}</p>
-                
                 </div>
 
                 <div className="mb-5">
                   <h3 className="text-uppercase mb-4" style={{letterSpacing: '5px'}}>1 Comments</h3>
-                
                   <div className="media mb-4">
                     <img src={avatar1} alt="Image" className="img-fluid rounded-circle mr-3 mt-1" style={{ width: '45px' }} />
                     <div className="media-body">
                       <h6>Phạm Thị Xuân Hiền <small><i>01 Jan 2022 at 12:00pm</i></small></h6>
                       <p>Good</p>
                       <button className="btn btn-sm btn-secondary">Reply</button>
-    
                     </div>
                   </div>
                 </div>
@@ -153,17 +149,16 @@ const CourseDetail = () => {
               <div className="col-lg-4 mt-5 mt-lg-0">
                 {/* Author Bio */}
                 <h3>{course.hasOwnProperty('location') ? 'OFFLINE' : 'ONLINE'} COURSE</h3>
-                
+
                 <div className="d-flex flex-column text-center bg-info rounded mb-5 py-5 px-4">
                   <img src={'https://png.pngtree.com/element_our/png_detail/20181226/trainingcourseonlinecomputerchat-line-icon--vector-isola-png_285274.jpg'} className="img-fluid rounded-circle mx-auto mb-3" style={{width: '100px'}} />
                   {/* <h3 className="text-white mb-3" > {course.provider}</h3> */}
                   <h3> {course.provider}</h3>
                 </div>
-                
+
                 <div className="mb-5">
                   <h3 className="text-uppercase mb-4" style={{letterSpacing: '2px'}}>
                   <b>INFORMATION COURSE</b></h3>
-                  
                   <div className="d-flex flex-column rounded mb-5 px-4">
                   <Row>
                     <AiFillDashboard />{course.level}&nbsp;&nbsp;&nbsp;
@@ -174,34 +169,31 @@ const CourseDetail = () => {
 
                   <Row>
                     <div>
-                      <AiOutlineGlobal /> {course.language}&nbsp;&nbsp;&nbsp;
+                      <AiOutlineGlobal /> {course.language}<br/>
                       {course.studyTime && <div><AiOutlineClockCircle /> {course.studyTime}</div>}
                       {course.location && <div><AiFillHome /> {course.location}</div>}
                       <AiOutlineLink /><a href={course.URL} target="_blank">{course.URL}</a><br/>
                       <a href={urlshare()} target="_blank"><AiOutlineShareAlt />share</a>
                     </div>
                   </Row>
-
-                
                   </div>
-
                 </div>
                 
                 {/* Tag Cloud */}
                 <div className="mb-5">
                   <h3 className="text-uppercase mb-4" style={{letterSpacing: '2px'}}>
                   <b>SKILLS COURSES</b></h3>
+
+
                   <div className="d-flex flex-wrap m-n1">
                     {course.technologySkill.split(", ").map((skill, index) => (
-                      <a href="" onClick={(e) => e.preventDefault()} className={`btn ${skillsAcquiredArray.includes(skill) ? "active-btn" : "btn-outline-primary"} m-1`} key={index}>{skill}</a>
+                      <a href="" onClick={(e) => {e.preventDefault(); console.log(Object.keys(skillsAcquiredArray))}} 
+                      className={`btn ${skillsAcquiredArray.includes(skill) ? "active-btn" : "btn-outline-primary"} m-1`} key={index}>{skill}</a>
                     ))}
-              
-                  </div>
-                
-                
-                </div>
 
-               
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
