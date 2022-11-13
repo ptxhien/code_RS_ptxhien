@@ -19,6 +19,9 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def RS():
     # 1. lay thong tin learner chon tren fontend 
     occupation = request.args.get("occupation").strip()
+    #  occupation = df_attribute_requirement.Occupation[0]
+    occupation_title = function.Find_Title(occupation)
+    
     form = request.args.get("form")
     month = request.args.get("month")
     email = request.args.get("email")
@@ -55,6 +58,8 @@ def RS():
             else:
                 dict_f_ngoaile1.append({"Job_offer": str_lst_job_sim})
                 dict_f = {
+                    'occupation':occupation_title,
+                            'typeFilter': typeFilter,
                     'skills_acquired': str_skills_acquired,
                     'skills_to_learn': str_skills_to_learn, 
                     'courses_offline': {
@@ -75,6 +80,8 @@ def RS():
                         "ExceptionDetail": []}}}
         else:
                 dict_f = {
+                    'occupation':occupation_title,
+                            'typeFilter': typeFilter,
                     'skills_acquired': str_skills_acquired,
                     'skills_to_learn': str_skills_to_learn, 
                     'courses_offline': {

@@ -647,7 +647,7 @@ function RecommendationCourses({
           </CardBody>
 
           <CardBody>
-            <CardTitle className="text-danger">SKILL REQUIRE FOR ...</CardTitle>
+            <CardTitle className="text-danger">SKILL REQUIRE FOR </CardTitle>
             <Row>
               <Col md={12}>
                 {/* <Label className="font-weight-bold text-uppercase text-secondary mt-3">
