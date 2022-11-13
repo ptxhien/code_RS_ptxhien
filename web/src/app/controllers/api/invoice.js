@@ -34,7 +34,8 @@ InvoiceController.prototype.post = async (req, res, next) => {
     const { CourseID, Quality, ItemPrice } = req.body;
     const finds = await InvoiceModel.find("*", `LearnerID="${LearnerID}" and CourseID="${CourseID}"`)
     if (finds.length) {
-      res.status(402).json({msg: "Course bought"})
+      res.status(200).json({msg: ""});
+      // res.status(402).json({msg: "Course bought" + finds[0].CourseID});
     } else {
       const newInvoice = new InvoiceModel({
         LearnerID,
@@ -91,5 +92,21 @@ InvoiceController.prototype.postCompleted = async (req, res, next) => {
     res.status(500).json({msg: "Something wrong when create a new invoice. Please try again"})
   }
 
+};
+
+InvoiceController.prototype.checkExist = async (req, res, next) => {
+  try {
+    var userDecoded = jwt.verify(req.get('auth'), "zFUVn{;Sd4!]#lN");
+    let LearnerID = userDecoded.id;
+    const { CourseID, Quality, ItemPrice } = req.body;
+    const finds = await InvoiceModel.find("*", `LearnerID="${LearnerID}" and CourseID="${CourseID}"`)
+    if (finds.length) {
+      res.status(402).json({msg: "Course bought"});
+    } else {
+      res.status(200).json({msg: ""});
+    }
+  } catch (err) {
+    res.status(500).json({msg: "Something wrong when create a new invoice. Please try again"})
+  }
 };
 module.exports = new InvoiceController();

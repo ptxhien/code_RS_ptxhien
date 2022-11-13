@@ -139,7 +139,7 @@ const CourseDetail = () => {
                       <Button
                         className="btn-wide btn-icon"
                         color="success"
-                        onClick={addCourse}
+                        onClick={() => addCourse(course)}
                       >
                         <i className="pe-7s-news-paper btn-icon-wrapper"></i>
                         Add to cart 

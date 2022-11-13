@@ -1,7 +1,8 @@
 import React, { useEffect, useContext, createContext } from "react";
-import http from "../redux/utils/http";
 import { useLocalStorage } from "./useLocalStorage";
 import { useHistory } from "react-router";
+import http from "../redux/utils/http";
+import { toastErrorText, toastSuccessText } from "../helpers/toastify";
 
 const cartContext = createContext();
 
@@ -19,7 +20,21 @@ function useProvideCart() {
   const history = useHistory();
   useEffect(() => {}, []);
   const addCourse = (course) => {
-    setCart([...cart, course]);
+    let findItem = cart.find((item) => item.courseID == course.courseID);
+    if (findItem) {
+        toastErrorText('Course bought');
+    } else {
+      http.post("/invoices/check-exist", {
+        CourseID: course.courseID,
+      }).then((result, a) => {
+        // localStorage.setItem("time_enroll", Date.now());
+        setCart([...cart, course]);
+      }).catch((err) => {
+        if (err.msg) {
+          toastErrorText(err.msg);
+        }
+      });
+    }
   };
   const deleteCourse = (index) => {
     setCart(cart.filter((_, idx) => index != idx));

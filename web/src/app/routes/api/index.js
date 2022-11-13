@@ -9,6 +9,7 @@ const freetime = require("./freetime");
 const invoices = require("./invoices");
 const rating = require("./rating");
 const major = require("./major");
+const carts = require("./carts");
 
 
 router.use("/courses", courses);
@@ -20,5 +21,6 @@ router.use("/freetime", freetime);
 router.use("/invoices", invoices);
 router.use("/rating", rating);
 router.use("/major", major);
+router.use("/carts", carts);
 
 module.exports = router;
