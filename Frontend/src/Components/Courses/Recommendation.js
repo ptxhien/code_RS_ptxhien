@@ -499,7 +499,7 @@ function RecommendationCourses({
             {showStatusMessage()}
             <h1>RS</h1>
             <h4>You have {courses.length} courses </h4>
-
+            ({coursesReducer.typeFilter ? coursesReducer.typeFilter : 'process'})
             <Row>
               {courses[activePage - 1] &&
                 courses[activePage - 1].map((item, index) => {

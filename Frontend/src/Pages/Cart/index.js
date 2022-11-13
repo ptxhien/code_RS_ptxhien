@@ -62,21 +62,14 @@ export default function Cart() {
                   }}
                 >
                   <h5>TOTAL</h5>
+
                   <h5>
-                  
                   {cart.reduce((acc, cur) => {
                       if (cur.isSelected) {
                         return acc + cur.feeVND
                       }
                       return acc;
                       }, 0)}
-
-
-                    {/* {row.ItemPrice == 0
-                                ? "Free"
-                                : new Intl.NumberFormat("it-IT").format(
-                                  row.ItemPrice
-                                  ) + " VNĐ"} */}
                   </h5>
                 </div>
                 <Button onClick={enroll} color="primary" className=" mb-2 mt-2 ml-auto mr-2 py-2 px-4 btn-icon">
