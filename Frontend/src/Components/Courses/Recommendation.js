@@ -315,7 +315,7 @@ function RecommendationCourses({
 
         note = ` ${
           coursesReducer.typeFilter
-        } found ${countCourses()} courses based on your ${
+        } ${countCourses()} courses based on your ${
           noteArr.length > 1
             ? noteArr.slice(0, -1).join(", ") + " and " + noteArr.slice(-1)
             : noteArr[0]
@@ -506,7 +506,9 @@ function RecommendationCourses({
           </Modal>
           <CardBody>
             <h5>
-              <b>Result Recommendation Systems for {coursesReducer.occupation}</b>
+              <b>
+                Result Recommendation Systems for {coursesReducer.occupation}
+              </b>
             </h5>
 
             {showStatusMessage()}
@@ -622,7 +624,11 @@ function RecommendationCourses({
       <Col md={3}>
         <Card>
           <CardBody>
-            <CardTitle className="text-danger">Learning method</CardTitle>
+            <CardTitle>
+              <h5>
+                <b> Learning method</b>
+              </h5>
+            </CardTitle>
             <Row>
               <Col md={12}>
                 <FormGroup className="ml-4">
@@ -664,8 +670,15 @@ function RecommendationCourses({
           </CardBody>
 
           <CardBody>
-            <CardTitle className="text-danger">
-              SKILL REQUIRE FOR {coursesReducer.occupation}
+            <CardTitle>
+              <h5>
+                <b>
+                  SKILLS REQUIRED FOR{" "}
+                  <span style={{ color: "#9f0500" }}>
+                    {coursesReducer.occupation}
+                  </span>
+                </b>
+              </h5>
             </CardTitle>
             <Row>
               <Col md={12}>
@@ -690,11 +703,24 @@ function RecommendationCourses({
           </CardBody>
 
           <CardBody>
-            <CardTitle className="text-danger">
-              SKILL TO LEARN FOR {coursesReducer.occupation}
+            <CardTitle>
+              <h5>
+                <b>
+                  SKILLS TO LEARN FOR{" "}
+                  <span style={{ color: "#9f0500" }}>
+                    {coursesReducer.occupation}{" "}
+                  </span>
+                </b>
+              </h5>
             </CardTitle>
             <Row>
               <Col md={12}>
+                <div>
+                  <h8>
+                    Filter Courses By Skills
+                    <br />
+                  </h8>
+                </div>
                 <div>
                   {/* {coursesProvidedKkills().split(", ").map((skill, index) => (
                       <a href="" onClick={(e) => e.preventDefault()} className="btn btn-outline-primary m-1" key={index}>{skill}</a>

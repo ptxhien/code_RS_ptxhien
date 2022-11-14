@@ -618,5 +618,5 @@ def FindCoursebasedStudyTime(df, t_learner):
 
 def typeFilter_Name(typeFilter):
     if typeFilter == 'top':
-        return "Top 10 courses"
-    return "Learning Path"
+        return ""
+    return "Learning Path consists of "

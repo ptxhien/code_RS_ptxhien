@@ -79,8 +79,6 @@ function RecommendationHandler() {
           <Col md={2}>
             <FormGroup>
             <Label for="exampleName" ><div style={{ color: "#545cd8" }}>Position Job (*)</div></Label>
-             
-                  
               <Select
                 components={makeAnimated()}
                 closeMenuOnSelect={true}
