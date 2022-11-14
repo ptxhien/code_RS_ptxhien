@@ -616,8 +616,7 @@ def FindCoursebasedStudyTime(df, t_learner):
     df_lst_df1 = pd.DataFrame(lst_df1)
     return df_lst_df1
 
-
 def typeFilter_Name(typeFilter):
     if typeFilter == 'top':
-        return "10 best courses"
+        return "Top 10 courses"
     return "Learning Path"

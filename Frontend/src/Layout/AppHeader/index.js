@@ -54,7 +54,7 @@ class Header extends React.Component {
               }}
             >
               <div style={{ width: 200 }}>
-                <Select options={[{ label: "Category", value: "" }]} />
+                {/* <Select options={[{ label: "Category", value: "" }]} /> */}
               </div>
               <div
                 style={{
@@ -71,7 +71,7 @@ class Header extends React.Component {
                     );
                   }}
                   src="/images/three-star.svg"
-                  title="Take the survey"
+                  title="Take survey"
                 />
 
                 <MenuItem

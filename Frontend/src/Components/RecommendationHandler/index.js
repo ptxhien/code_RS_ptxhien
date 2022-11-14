@@ -78,7 +78,9 @@ function RecommendationHandler() {
         <Row form>
           <Col md={2}>
             <FormGroup>
-              <Label for="exampleName">Position Job (*)</Label>
+            <Label for="exampleName" ><div style={{ color: "#545cd8" }}>Position Job (*)</div></Label>
+             
+                  
               <Select
                 components={makeAnimated()}
                 closeMenuOnSelect={true}
@@ -138,7 +140,7 @@ function RecommendationHandler() {
 
           <Col md={2}>
             <FormGroup>
-              <Label for="exampleName">Kind of recommender (*)</Label>
+            <Label for="exampleName" ><div style={{ color: "#545cd8" }}>Kind of recommender (*)</div></Label>
               <Input
                 type="select"
                 onChange={(e) => {
