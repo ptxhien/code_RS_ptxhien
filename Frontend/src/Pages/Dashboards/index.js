@@ -51,6 +51,7 @@ export default function Dashboards() {
       CourseID: CourseID, 
     }).then((result) => {
       toastSuccessText("Completed Course!");
+      localStorage.setItem("time_enroll", Date.now());
       dispatch(getInvoices());
       dispatch({
         type: Types.AUTH_UPDATE,
@@ -105,6 +106,7 @@ export default function Dashboards() {
                     <th>Price </th>
                     <th>Purchase Date </th>
                     <th>Status</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -119,6 +121,7 @@ export default function Dashboards() {
                                 : new Intl.NumberFormat("it-IT").format(
                                   row.ItemPrice) + " VNĐ"}</td>
                       <td>{row.InvoiceDate}</td>
+                      <td>{!!row.Completed ? 'Completed' : 'Uncompleted'}</td>
                       <td><Button
                             disabled={!!row.Completed}
                             className="btn-wide mb-2 mr-2 btn-icon"
