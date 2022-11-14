@@ -22,8 +22,21 @@ export default function Cart() {
             padding: 100,
           }}
         >
-          <h1>CART</h1>
-          <h4>You have {cart.length} courses in cart</h4>
+          <h1>
+            <div style={{ color: "#000000" }}>
+              <b>CART</b>
+              <br />
+            </div>
+          </h1>
+
+          {/* <h4>You have {cart.length} courses in cart</h4> */}
+          <h6>
+            <div style={{ color: "#0062B1" }}>
+              <b>You have {cart.length} courses in cart</b>
+              <br />
+              &nbsp;&nbsp;&nbsp;
+            </div>
+          </h6>
           <div>
             <input
               id="checkall"
@@ -32,9 +45,9 @@ export default function Cart() {
               onChange={(e) => selectAllItem(e.target.checked)}
             />
             <label style={{ marginLeft: 10 }} htmlFor="checkall">
-            <br/>
+              <br />
               ALL COURSES
-              <br/>
+              <br />
             </label>
           </div>
           <Row style={{ display: "flex" }}>
@@ -50,9 +63,23 @@ export default function Cart() {
               ))}
             </Col>
             <Col md={4}>
-              <div style={{ backgroundColor: "lightblue", padding: 20,display: "flex", flexDirection: "column" }}>
-                <h3>CASH RECEIPT</h3>
-                <br/>
+              <div
+                style={{
+                  backgroundColor: "lightblue",
+                  padding: 20,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <h4>
+                  <div style={{ color: "#0062B1" }}>
+                    <b>CASH RECEIPT</b>
+                    <br />
+                    &nbsp;&nbsp;&nbsp;
+                  </div>
+                </h4>
+
+                <br />
                 <div
                   style={{
                     paddingLeft: 20,
@@ -62,19 +89,27 @@ export default function Cart() {
                   }}
                 >
                   <h5>TOTAL</h5>
-
                   <h5>
-                  Intl.NumberFormat('it-IT').format(item.feeVND) + " VNĐ"
-                  {cart.reduce((acc, cur) => {
-                      if (cur.isSelected) {
-                        return  acc + cur.feeVND;
-                      }
-                      return  acc;
-                      }, 0)}
-
+                    <div style={{ color: "#B80000" }}>
+                      <b>
+                        {Intl.NumberFormat("it-IT").format(
+                          cart.reduce((acc, cur) => {
+                            if (cur.isSelected) {
+                              return acc + cur.feeVND;
+                            }
+                            return acc;
+                          }, 0)
+                        ) + " VNĐ"}
+                      </b>
+                    </div>
                   </h5>
+                  <h5></h5>
                 </div>
-                <Button onClick={enroll} color="primary" className=" mb-2 mt-2 ml-auto mr-2 py-2 px-4 btn-icon">
+                <Button
+                  onClick={enroll}
+                  color="primary"
+                  className=" mb-2 mt-2 ml-auto mr-2 py-2 px-4 btn-icon"
+                >
                   PAY
                 </Button>
               </div>
@@ -108,12 +143,28 @@ function Course(props) {
           flex: "1",
         }}
       >
-        <h5>{props.courseTitle}</h5>
-        <h6>{props.provider}</h6>
+        {/* <h5>{props.courseTitle}</h5> */}
+        <h5>
+          <div style={{ color: "#194D33" }}>
+            <b>{props.courseTitle}</b>
+            <br />
+            &nbsp;&nbsp;&nbsp;
+          </div>
+        </h5>
+        <h6>
+          <div style={{ color: "#009688" }}>
+            <b>{props.provider}</b>
+            <br />
+            &nbsp;&nbsp;&nbsp;
+          </div>
+        </h6>
 
-        <h5 style={{ marginTop: "auto", marginLeft: "auto" }}>
-          {props.feeVND == 0 ? "FREE" : Intl.NumberFormat("it-IT").format(props.feeVND) + " VNĐ"}
+        {/* <h6>{props.provider}</h6> */}
 
+        <h5 style={{ marginTop: "auto", marginLeft: "auto", color: "#D33115" }}>
+          {props.feeVND == 0
+            ? "FREE"
+            : Intl.NumberFormat("it-IT").format(props.feeVND) + " VNĐ"}
         </h5>
       </div>
       <i
