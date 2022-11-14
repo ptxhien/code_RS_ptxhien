@@ -226,7 +226,7 @@ function RecommendationCourses({
       },
     },
     Form: {
-      noteText: "Study Method",
+      noteText: "Study method",
       subNoteText: (bothException) => {
         return null;
       },

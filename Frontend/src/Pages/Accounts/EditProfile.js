@@ -382,9 +382,6 @@ export default function EditProfile() {
                     </Col>
                 </FormGroup>
                 <FormGroup row>
-                    {/* <Label for="exampleSelectMulti" sm={4}>
-                        What skills do you know?
-                    </Label> */}
                     <Label for="exampleSelectMulti" sm={4}><span className="text-danger">*</span>What skills do you know?</Label>
 
                     <Col sm={7}>
@@ -452,8 +449,9 @@ export default function EditProfile() {
                         <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
                         <Button color="secondary" className="btn-shadow float-left btn-wide btn-pill" outline
                           onClick={addFreeTime}>
-                          Add
+                          Add freetime
                         </Button>
+                        <br/><br/>
                     </Col>
                     <Col sm={4}>
                     </Col>
@@ -467,7 +465,6 @@ export default function EditProfile() {
                                     </button>
                                 </ListGroupItem>)
                             )}
-                          
                         </ListGroup>
                     </Col>
                 </FormGroup>

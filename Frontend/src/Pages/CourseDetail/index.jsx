@@ -114,7 +114,7 @@ const CourseDetail = () => {
               <div className="col-lg-8">
                 <div className="mb-5">
                   <h1 className="mb-5"> <b>{course.courseTitle}</b> </h1>
-                  <div style={{color: '#ff6600'}}>{course.majobSubject}<br/>&nbsp;&nbsp;&nbsp;</div>
+                  <h5><div style={{color: '#B80000'}}><b>{course.majobSubject}</b><br/>&nbsp;&nbsp;&nbsp;</div></h5>
 
                   <div className="banner">
                     <img className="img-fluid rounded w-100 mb-4" src={'https://img.idesign.vn/2018/11/26/id-huong-dan-tao-bo-icon-phang-23.gif'} alt="Image" />
@@ -131,7 +131,8 @@ const CourseDetail = () => {
                     </ButtonGroup>
                   </div>
 
-                  <h6 className="text-primary mb-3">What you'll learn</h6>
+                  <h6> <div style={{color: '#B80000'}}><b>WHAT YOU WILL LEARN</b><br/>&nbsp;&nbsp;&nbsp;</div></h6>
+                  
                   <p>{course.outcomeLearning}</p>
                 </div>
 
@@ -150,7 +151,8 @@ const CourseDetail = () => {
               </div>
               <div className="col-lg-4 mt-5 mt-lg-0">
                 {/* Author Bio */}
-                <h3>{course.hasOwnProperty('location') ? 'OFFLINE' : 'ONLINE'} COURSE</h3>
+              
+                <h4><div style={{color: '#0062B1'}}><b>{course.hasOwnProperty('location') ? 'OFFLINE' : 'ONLINE'} COURSE</b><br/>&nbsp;&nbsp;&nbsp;</div></h4>
 
                 <div className="d-flex flex-column text-center bg-info rounded mb-5 py-5 px-4">
                   <img src={'https://png.pngtree.com/element_our/png_detail/20181226/trainingcourseonlinecomputerchat-line-icon--vector-isola-png_285274.jpg'} className="img-fluid rounded-circle mx-auto mb-3" style={{width: '100px'}} />
@@ -159,8 +161,7 @@ const CourseDetail = () => {
                 </div>
 
                 <div className="mb-5">
-                  <h3 className="text-uppercase mb-4" style={{letterSpacing: '2px'}}>
-                  <b>INFORMATION COURSE</b></h3>
+                <h4><div style={{color: '#0062B1'}}><b>INFORMATION COURSE</b><br/>&nbsp;&nbsp;&nbsp;</div></h4>
                   <div className="d-flex flex-column rounded mb-5 px-4">
                   <Row>
                     <AiFillDashboard />{course.level}&nbsp;&nbsp;&nbsp;
@@ -175,7 +176,7 @@ const CourseDetail = () => {
                       {course.studyTime && <div><AiOutlineClockCircle /> {course.studyTime}</div>}
                       {course.location && <div><AiFillHome /> {course.location}</div>}
                       <AiOutlineLink /><a href={course.URL} target="_blank">{course.URL}</a><br/>
-                      <a href={urlshare()} target="_blank"><AiOutlineShareAlt />share</a>
+                      <a href={urlshare()} target="_blank"><AiOutlineShareAlt />Share Facebook</a>
                     </div>
                   </Row>
                   </div>
@@ -183,10 +184,8 @@ const CourseDetail = () => {
                 
                 {/* Tag Cloud */}
                 <div className="mb-5">
-                  <h3 className="text-uppercase mb-4" style={{letterSpacing: '2px'}}>
-                  <b>SKILLS COURSES</b></h3>
-
-
+           
+                  <h4><div style={{color: '#0062B1'}}><b>SKILLS COURSES</b><br/>&nbsp;&nbsp;&nbsp;</div></h4>
                   <div className="d-flex flex-wrap m-n1">
                     {course.technologySkill.split(", ").map((skill, index) => (
                       <a href="" onClick={(e) => {e.preventDefault(); console.log(Object.keys(skillsAcquiredArray))}} 

@@ -51,7 +51,7 @@ export default function Cart() {
             </Col>
             <Col md={4}>
               <div style={{ backgroundColor: "lightblue", padding: 20,display: "flex", flexDirection: "column" }}>
-                <h3>Bill</h3>
+                <h3>CASH RECEIPT</h3>
                 <br/>
                 <div
                   style={{
@@ -64,12 +64,14 @@ export default function Cart() {
                   <h5>TOTAL</h5>
 
                   <h5>
+                  Intl.NumberFormat('it-IT').format(item.feeVND) + " VNĐ"
                   {cart.reduce((acc, cur) => {
                       if (cur.isSelected) {
-                        return acc + cur.feeVND
+                        return  acc + cur.feeVND;
                       }
-                      return acc;
+                      return  acc;
                       }, 0)}
+
                   </h5>
                 </div>
                 <Button onClick={enroll} color="primary" className=" mb-2 mt-2 ml-auto mr-2 py-2 px-4 btn-icon">

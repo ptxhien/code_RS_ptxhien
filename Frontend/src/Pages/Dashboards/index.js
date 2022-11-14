@@ -117,8 +117,7 @@ export default function Dashboards() {
                       <td>{row.ItemPrice == 0
                                 ? "Free"
                                 : new Intl.NumberFormat("it-IT").format(
-                                  row.ItemPrice
-                                  ) + " VNĐ"}</td>
+                                  row.ItemPrice) + " VNĐ"}</td>
                       <td>{row.InvoiceDate}</td>
                       <td><Button
                             disabled={!!row.Completed}
@@ -127,7 +126,6 @@ export default function Dashboards() {
                             color="primary"
                             onClick={(e) => onCompleted(e, row.InvoiceNo, row.CourseID)}
                           >Completed</Button>
-                          
                       </td>
                     </tr>
                   ))}

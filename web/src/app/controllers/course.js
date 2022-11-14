@@ -131,9 +131,6 @@ CourseController.prototype.recommend = async (req, res, next) => {
 
   const rsRes = await axios.get(RS_API + "/recommendation" + qs);
   const data = rsRes.data.df_rule_ngoaile[0].course_lan_remain;
-  // const skills_acquired = rsRes.data.skills_acquired;
-  // const skills_to_learn = rsRes.data.skills_to_learn;
-  // console.log(rsRes.data.skills_acquired)
   const skillsProvided = rsRes.data.df_rule_ngoaile[0].lstSkill_Provider_ngoaile;
   const skillsNotProvided = Object.keys(rsRes.data.df_rule_ngoaile[0].lstSkill_notProvider_ngoaile);
   const sortedProvidedSkills = sortObjectToArray(skillsNotProvided);
