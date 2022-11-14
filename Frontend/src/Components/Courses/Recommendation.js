@@ -375,6 +375,50 @@ function RecommendationCourses({
           </Row>
         );
       case 400:
+        note =
+          (!courseOfflineArrays || !courseOfflineArrays[0]) &&
+          (!courseOnlineArrays || courseOnlineArrays[0])
+            ? // `Không có khoá học ${method === MethodEnum.ONLINE ? "Online" : "Offline"} phù hợp với tiêu chí của bạn.` :
+              `No ${
+                method === MethodEnum.ONLINE ? "Online" : "Offline"
+              } courses.`
+            : "The system is updating the courses related to the required skills.";
+        subNote = "5 jobs related to the one you're looking for: ";
+        if (bothException && bothException[0] && bothException[0].Job_offer) {
+          subNoteList = (
+            bothException &&
+            bothException[0] &&
+            bothException[0].Job_offer
+          ).split(", ");
+        }
+        return (
+          <Row style={{ padding: "10px 20px" }}>
+            <span
+              style={{
+                fontSize: "1rem",
+                fontWeight: "bold",
+                display: "block",
+                width: "100%",
+              }}
+            >
+              {note}
+            </span>
+            {subNoteList && subNoteList.length > 0 && (
+              <>
+                <span
+                  style={{ fontSize: "1rem", display: "block", width: "100%" }}
+                >
+                  {subNote}
+                </span>
+                <ul style={{ width: "100%" }}>
+                  {subNoteList.map((e, i) => (
+                    <li key={i}>{e}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </Row>
+        );
       case 401:
       case 402:
       case 403:
