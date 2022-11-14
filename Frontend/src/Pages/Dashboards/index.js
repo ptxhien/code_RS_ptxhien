@@ -88,7 +88,7 @@ export default function Dashboards() {
                         setFilter(e.target.value)
                       }}
                     >
-                      <option value={"All Courses"}>All</option>
+                      <option value={"All"}>All Courses</option>
                       <option value={"Completed"}>Completed Course</option>
                       <option value={"Uncompleted"}>Uncompleted Courses</option>
                     </Input>
