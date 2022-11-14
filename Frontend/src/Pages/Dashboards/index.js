@@ -60,7 +60,7 @@ export default function Dashboards() {
   }
   const getFilterInvoices = () => {
     if (filter == 'All') {
-      return invoicesReducer.data;
+      return invoicesReducer.data || [];
     } else if (filter == 'Completed') {
       return invoicesReducer.data.filter((item) => !!item.Completed);
     } else if (filter == 'Uncompleted') {
