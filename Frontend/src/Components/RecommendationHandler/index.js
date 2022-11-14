@@ -78,7 +78,7 @@ function RecommendationHandler() {
         <Row form>
           <Col md={2}>
             <FormGroup>
-              <Label for="exampleName">Position Job</Label>
+              <Label for="exampleName">Position Job (*)</Label>
               <Select
                 components={makeAnimated()}
                 closeMenuOnSelect={true}
@@ -112,7 +112,7 @@ function RecommendationHandler() {
 
           <Col md={2}>
             <FormGroup>
-              <Label for="exampleName">Maximum study period</Label>
+              <Label for="exampleName"> Study Time</Label>
               <Input
                 type="select"
                 onChange={(e) => {
@@ -138,7 +138,7 @@ function RecommendationHandler() {
 
           <Col md={2}>
             <FormGroup>
-              <Label for="exampleName">Kind of recommendation systems</Label>
+              <Label for="exampleName">Kind of recommender (*)</Label>
               <Input
                 type="select"
                 onChange={(e) => {
