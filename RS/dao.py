@@ -133,7 +133,7 @@ def User_Preq_Attributes(email, occupation, form, month, typeFilter):
         df_Learner, df_requirement_Learner, how='left', on='learnerID')
 
     if month != '':
-        second = df_attribute_requirement['duration'] * 259200
+        second = df_attribute_requirement['duration'] * 30 * 24 * 3600
     else:
         second = 0
     df_attribute_requirement['durationSecond'] = second

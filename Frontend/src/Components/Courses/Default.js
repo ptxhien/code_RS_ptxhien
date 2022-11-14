@@ -34,7 +34,7 @@ function DefaultCourses({ courseArrays, activePage, itemsCountPerPage, handlePag
                         className="card-shadow-primary border mb-3 p-0"
                         outline
                         color="primary"
-                        style={{ borderRadius: 8 }}
+                        style={{ borderRadius: 12 }}
                       >
                         <CardBody title={item.courseTitle}>
                           <CardTitle

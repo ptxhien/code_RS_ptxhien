@@ -380,15 +380,15 @@ function RecommendationCourses({
           (!courseOnlineArrays || courseOnlineArrays[0])
             ? // `Không có khoá học ${method === MethodEnum.ONLINE ? "Online" : "Offline"} phù hợp với tiêu chí của bạn.` :
               `No ${
-                method === MethodEnum.ONLINE ? "Online" : "Offline"
+                method === MethodEnum.ONLINE ? "online" : "offline"
               } courses.`
             : "The system is updating the courses related to the required skills.";
         subNote = "5 jobs related to the one you're looking for: ";
-        if (bothException && bothException[0] && bothException[0].Job_offer) {
+        if (bothException && bothException[0] && bothException[0].job_offer) {
           subNoteList = (
             bothException &&
             bothException[0] &&
-            bothException[0].Job_offer
+            bothException[0].job_offer
           ).split(", ");
         }
         return (
@@ -427,15 +427,15 @@ function RecommendationCourses({
           (!courseOnlineArrays || courseOnlineArrays[0])
             ? // `Không có khoá học ${method === MethodEnum.ONLINE ? "Online" : "Offline"} phù hợp với tiêu chí của bạn.` :
               `No ${
-                method === MethodEnum.ONLINE ? "Online" : "Offline"
+                method === MethodEnum.ONLINE ? "online" : "offline"
               } courses.`
             : "The system is updating the courses related to the required skills.";
         subNote = "5 jobs related to the one you're looking for: ";
-        if (bothException && bothException[0] && bothException[0].Job_offer) {
+        if (bothException && bothException[0] && bothException[0].job_offer) {
           subNoteList = (
             bothException &&
             bothException[0] &&
-            bothException[0].Job_offer
+            bothException[0].job_offer
           ).split(", ");
         }
         return (
@@ -554,8 +554,7 @@ function RecommendationCourses({
                 Result Recommendation Systems for {coursesReducer.occupation}
               </b>
             </h5>
-
-            {showStatusMessage()}
+            <h5><div style={{color: '#0062B1'}}>{showStatusMessage()}&nbsp;</div></h5>
 
             <Row>
               {courses[activePage - 1] &&

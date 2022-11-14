@@ -1,16 +1,16 @@
 .exception-popup {
   box-shadow: none;
   .modal-content {
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
     .exception {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       &-title {
         color: #126196;
         font-weight: bold;
       }
       &-body {
-        padding: 12px;
+        padding: 10px;
         .languages {
           word-wrap: break-word;
         }
