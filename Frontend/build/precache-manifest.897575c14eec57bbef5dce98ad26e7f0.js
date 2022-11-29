@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5171f6695cafaae16850fafe4ed66a4a",
+    "revision": "ba5bb4bed644139edfcf2d5fd78da1b7",
     "url": "/architectui-react-pro/index.html"
   },
   {
@@ -8,16 +8,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/architectui-react-pro/static/css/2.dfc5656b.chunk.css"
   },
   {
-    "revision": "f9bc45adae799877f536",
-    "url": "/architectui-react-pro/static/css/main.e7723e45.chunk.css"
+    "revision": "0b1d1b8d05b5dd0c9fab",
+    "url": "/architectui-react-pro/static/css/main.a93592e1.chunk.css"
   },
   {
     "revision": "2dc9c732680b2c13e8db",
     "url": "/architectui-react-pro/static/js/2.8427d326.chunk.js"
   },
   {
-    "revision": "f9bc45adae799877f536",
-    "url": "/architectui-react-pro/static/js/main.c43063e3.chunk.js"
+    "revision": "0b1d1b8d05b5dd0c9fab",
+    "url": "/architectui-react-pro/static/js/main.b1e5a0ad.chunk.js"
   },
   {
     "revision": "d8383c4c13a4f9b16557",
