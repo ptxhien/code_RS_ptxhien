@@ -41,13 +41,14 @@ def BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, conditi
         if len(rule_On_lan) > 0:
             rule_On_lan = rule_On_lan.loc[(rule_On_lan.level == 'Beginner') | (
                 rule_On_lan.level == 'ALL Levels')]
+            rule_On_lan = function.similar_bert(rule_On_lan, occupation)
             if len(rule_On_lan) > 0:
                 if typeFilter.lower() == "top":
-                    rule_On_lan = function.Course_Weight_Top(
+                    rule_On_lan = function.Course_Weight_Top_BERT(
                         rule_On_lan, "online")
                     result = rule_On_lan
                 else:
-                    rule_On_lan = function.Course_Weight(
+                    rule_On_lan = function.Course_Weight_BERT(
                         rule_On_lan, occupation, "online")
                     result = rule_On_lan
             else:
@@ -63,13 +64,17 @@ def BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, conditi
             if len(rule_On_remain) > 0:
                 rule_On_remain = rule_On_remain.loc[(rule_On_remain.level == 'Beginner') | (
                     rule_On_remain.level == 'ALL Levels')]
+
+                rule_On_remain = function.similar_bert(
+                    rule_On_remain, occupation)
+
                 if len(rule_On_remain) > 0:
                     if typeFilter.lower() == "top":
-                        rule_On_remain = function.Course_Weight_Top(
+                        rule_On_remain = function.Course_Weight_Top_BERT(
                             rule_On_remain, "online")
                         result_ngoaile = rule_On_remain
                     else:
-                        rule_On_remain = function.Course_Weight(
+                        rule_On_remain = function.Course_Weight_BERT(
                             rule_On_remain, occupation, "online")
                         result_ngoaile = rule_On_remain
                     flat_language = -1
@@ -262,11 +267,13 @@ def Test_Location_FreeTime_JobNow(result, lat1, lon1, Learner_Job_Now, Learner_F
 def Test_Weight_Duration_Fee(result, occupation, condition_duration, feeMax, typeFilter):
     dict_f_ngoaile = []
 
+    result = function.similar_bert(result, occupation)
+
     if typeFilter.lower() == "top":
-        result = function.Course_Weight_Top(result, "offline")
+        result = function.Course_Weight_Top_BERT(result, "offline")
 
     else:
-        result = function.Course_Weight(result, occupation, "offline")
+        result = function.Course_Weight_BERT(result, occupation, "offline")
 
     if len(result) > 0:
         if typeFilter.lower() != "top":
@@ -445,13 +452,16 @@ def BuildRule_Offline(df_Off, missing_skill, lan_know, lat1, lon1, occupation, L
         if len(rule_Off_lan) > 0:
             rule_Off_lan = rule_Off_lan.loc[(rule_Off_lan.level == 'Beginner') | (
                 rule_Off_lan.level == 'ALL Levels')]
+
+            rule_Off_lan = function.similar_bert(rule_Off_lan, occupation)
+
             if len(rule_Off_lan) > 0:
                 if typeFilter.lower() == "top":
-                    rule_Off_lan = function.Course_Weight_Top(
+                    rule_Off_lan = function.Course_Weight_Top_BERT(
                         rule_Off_lan, "offline")
                     result = rule_Off_lan
                 else:
-                    rule_Off_lan = function.Course_Weight(
+                    rule_Off_lan = function.Course_Weight_BERT(
                         rule_Off_lan, occupation, "offline")
                     result = rule_Off_lan
             else:
@@ -465,13 +475,15 @@ def BuildRule_Offline(df_Off, missing_skill, lan_know, lat1, lon1, occupation, L
             if len(rule_Off_remain) > 0:
                 rule_Off_remain = rule_Off_remain.loc[(rule_Off_remain.level == 'Beginner') | (
                     rule_Off_remain.level == 'ALL Levels')]
+                rule_Off_remain = function.similar_bert(
+                    rule_Off_remain, occupation)
                 if len(rule_Off_remain) > 0:
                     if typeFilter.lower() == "top":
-                        rule_Off_remain = function.Course_Weight_Top(
+                        rule_Off_remain = function.Course_Weight_Top_BERT(
                             rule_Off_remain, "offline")
                         result = rule_Off_remain
                     else:
-                        rule_Off_remain = function.Course_Weight(
+                        rule_Off_remain = function.Course_Weight_BERT(
                             rule_Off_remain, occupation, "offline")
                         result = rule_Off_remain
                     flat_language = -1

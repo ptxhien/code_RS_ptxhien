@@ -515,11 +515,11 @@ function RecommendationCourses({
                   choosen one.
                 </div>
                 <div className="exception-body">
-                  <div>1. Data Science</div>
-                  <div>2. Data Science</div>
-                  <div>3. Data Science</div>
-                  <div>4. Data Science</div>
-                  <div>5. Data Science</div>
+                  <div>Data Science</div>
+                  <div>Data Science</div>
+                  <div>Data Science</div>
+                  <div>Data Science</div>
+                  <div>Data Science</div>
                 </div>
               </div>
 
@@ -554,7 +554,11 @@ function RecommendationCourses({
                 Result Recommendation Systems for {coursesReducer.occupation}
               </b>
             </h5>
-            <h5><div style={{color: '#0062B1'}}>{showStatusMessage()}&nbsp;</div></h5>
+            <h5>
+              <div style={{ color: "#0062B1" }}>
+                {showStatusMessage()}&nbsp;
+              </div>
+            </h5>
 
             <Row>
               {courses[activePage - 1] &&
