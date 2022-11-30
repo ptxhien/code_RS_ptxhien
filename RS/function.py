@@ -10,9 +10,7 @@ from math import cos, asin, sqrt
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
-# bert = SentenceTransformer('bert-base-nli-mean-tokens')
-bert = SentenceTransformer("all-mpnet-base-v2")
-# -*- coding: utf-8 -*-
+
 
 # 1. Find courses studied
 
@@ -271,6 +269,8 @@ def take_CourseOffline(df_attribute_requirement):
 
 def similar_bert(df_courses_On, occupation_id):
     # get embedding all courses
+    bert = SentenceTransformer("all-mpnet-base-v2")
+
     df_courses_On['out'] = df_courses_On['outcomeLearning'] + ' '+ df_courses_On['majobSubject']
     sentence_embeddings_df = bert.encode(df_courses_On['out'].tolist())
     # get embedding job

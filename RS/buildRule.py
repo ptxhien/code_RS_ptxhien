@@ -101,6 +101,7 @@ def BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, conditi
                               "location": "",
                               "level": str(r[14]),
                               'distance': "",
+                              'Weight':str(r[25]),
                               "is_online": "true"})
 
         kq_result_ngoaile = []
@@ -122,6 +123,7 @@ def BuildRule_Online(df_On, missing_skill, lan_know, occupation, feeMax, conditi
                                       "location": "",
                                       "level": str(r[14]),
                                       'distance': "",
+                                      'Weight':str(r[25]),
                                       "is_online": "true"})
 
         # TH1: dont courses language and level
@@ -341,6 +343,7 @@ def Off_Lan(result, missing_skill, lan_know, occupation, feeMax, condition_durat
                               "location": str(r[11]),
                               "level": str(r[19]),
                               "distance": str(r[26]),
+                              'Weight':str(r[25]),
                               "is_online": "false"})
 
         result, dict_f_ngoaile_W = Test_Weight_Duration_Fee(
@@ -404,6 +407,7 @@ def Off_NotLan(result, missing_skill, lan_no_know, occupation, feeMax, condition
                               "location": str(r[11]),
                               "level": str(r[19]),
                               "distance": str(r[26]),
+                              'Weight':str(r[25]),
                               "is_online": "false"})
 
         str_lan_no_know = ", ".join(lan_no_know)

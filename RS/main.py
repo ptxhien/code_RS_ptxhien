@@ -1,12 +1,12 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request
+# jsonify, render_template
 from flask_cors import CORS, cross_origin
 import buildRule
 import dao
 import function
 import knowledgeDomain
 import pandas as pd
-import json
-import io
+
 # -*- coding: utf-8 -*-
 
 # start flask server backend
